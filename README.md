@@ -13,18 +13,13 @@ Nosso projeto tem como objetivo desenvolver um sistema eficiente para o gerencia
 ## 🛠 Tecnologias Utilizadas:
 
 ### 🌐 Front-end
-- React.js + Vite (para uma interface rápida e dinâmica)
-- Tailwind CSS (para um design moderno e responsivo)
-- Axios (para comunicação com a API)
+
 
 ### 🔙 Back-end
-- Flask (Framework leve e eficiente em Python)
-- Flask-RESTful (para construção da API)
-- JWT (para autenticação segura)
+
 
 ### 🗄 Banco de Dados
-- PostgreSQL (para armazenamento eficiente dos dados)
-- SQLAlchemy (ORM para facilitar a interação com o banco)
+
 
 ## 📅 Planejamento:
 O projeto será desenvolvido em fases:
