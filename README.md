@@ -27,7 +27,7 @@ O projeto será desenvolvido em fases:
 2. **Criação do Front-end e integração com a API**
 3. **Implementação das funcionalidades principais**
 4. **Testes, ajustes e otimizações**
-5. **Deploy e documentação final**
+5. **Documentação final**
 
 ## Projeto de Laboratório de Engenharia de Software - 5° período do Centro Universitário de Maceió (UNIMA)
 ### - Equipe:
