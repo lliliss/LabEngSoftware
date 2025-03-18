@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos</title>
+    <title>Produtos | PharmaSafe</title>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <link rel="stylesheet" href="css/produtos.css">
+    
 
 </head>
 <body>
-    <h1>Produtos</h1>
     <div class="sidebar">
         <h2 class="logo"> <i class="fa-solid fa-prescription-bottle-medical"></i>PharmaSafe</h2>
-
         <ul>
             <li><a href="home.html">Home</a></li>
             <li><a href="produtos.html">Produtos</a></li>
@@ -23,5 +23,34 @@
         </ul>
     </div>
     
+    <div class="geral">
+        <h1>Produtos</h1>
+        <div class="areaDePesquisa">
+            <input type="text" id="buscar" placeholder="Buscar produto...">
+            <button class="botaoBuscar">Buscar</button>
+            <button class="botaoNovoProduto">Novo Produto</button>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>Quantidade</th>
+                    <th>Validade</th>
+                    <th>Fornecedores</th>
+                    <th>Número de Série</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-corpo">
+                
+        </table>
+
+        <ul class="pagination" id="pagination">
+           
+        </ul>
+    </div>
+
+<script src="js/produtos.js"></script>
 </body>
 </html>
