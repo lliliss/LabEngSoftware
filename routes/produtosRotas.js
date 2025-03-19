@@ -1,3 +1,5 @@
+import {v4 as uuidv4} from 'uuid'
+
 const express = require("express")
 const router = express.Router()
 let produtos = require("../data/produtos")
@@ -16,14 +18,18 @@ router.post("/", (req, res) => {
     const {nome, categoria, quantidade, validade, fornecedor} =  req.body
 
     if (!nome || !categoria || !quantidade || !validade || !fornecedor) {
-        return res.status(404).json({message: "Preencha todos os campos!"})
+        return res.status(400).json({message: "Preencha todos os campos!"})
+    }
+
+    if (isNaN(quantidade) || quantidade < 0) {
+        return res.status(400).json({message: "Coloque números válidos."})
     }
 
     const novoProduto = {
-        id: produtos.length+1,
+        id: uuidv4(),
         nome,
         categoria,
-        quantidade,
+        quantidade: Number(quantidade),
         validade,
         fornecedor
     }
