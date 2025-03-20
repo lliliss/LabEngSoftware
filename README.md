@@ -13,13 +13,13 @@ Nosso projeto tem como objetivo desenvolver um sistema eficiente para o gerencia
 ## 🛠 Tecnologias Utilizadas:
 
 ### 🌐 Front-end
-
+- JavaScript | HTML | CSS
 
 ### 🔙 Back-end
-- JavaScript/TypeScript (Node.js + Express)
+- JavaScript/TypeScript (Node.js + Express.js)
 
 ### 🗄 Banco de Dados
-
+- PostgreSQL
 
 ## 📅 Planejamento:
 O projeto será desenvolvido em fases:
