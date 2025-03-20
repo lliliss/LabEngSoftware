@@ -16,7 +16,7 @@ Nosso projeto tem como objetivo desenvolver um sistema eficiente para o gerencia
 - JavaScript | HTML | CSS
 
 ### 🔙 Back-end
-- JavaScript/TypeScript (Node.js + Express.js)
+- Node.js | Express.js
 
 ### 🗄 Banco de Dados
 - PostgreSQL
