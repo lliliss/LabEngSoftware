@@ -15,9 +15,9 @@ router.get("/:id", (req, res) => {
 })
 
 router.post("/", (req, res) => {
-    const {nome, categoria, quantidade, validade, fornecedor} =  req.body
+    const {nome, categoria, quantidade, validade, fornecedor, numeSerie} =  req.body
 
-    if (!nome || !categoria || !quantidade || !validade || !fornecedor) {
+    if (!nome || !categoria || !quantidade || !validade || !fornecedor || !numeSerie) {
         return res.status(400).json({message: "Preencha todos os campos!"})
     }
 
@@ -31,7 +31,8 @@ router.post("/", (req, res) => {
         categoria,
         quantidade: Number(quantidade),
         validade,
-        fornecedor
+        fornecedor,
+        numeSerie: Number
     }
 
     produtos.push(novoProduto)
@@ -39,7 +40,7 @@ router.post("/", (req, res) => {
 })
 
 router.put("/:id", (req, res) => {
-    const {nome, categoria, quantiade, validade, fornecedor} = req.body
+    const {nome, categoria, quantiade, validade, fornecedor, numeSerie} = req.body
     const produto = produtos.find(p => p.id === parseInt(req.params.id))
 
     if (!produto) return res.status(404).json({message: "Produto não encontrado."})
@@ -49,6 +50,7 @@ router.put("/:id", (req, res) => {
     produto.quantidade = quantidade || produto.quantidade
     produto.validade = validade || produto.validade
     produto.fornecedor = fornecedor || produto.fornecedor
+    produto.numeSerie = numeSerie || produto.numeSerie
 
     res.json(produto)
 })
