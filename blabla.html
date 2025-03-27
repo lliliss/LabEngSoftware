@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+        }
+        .box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align: left;
+            width: 400px;
+        }
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .options label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+        .date-range {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .date-range label {
+            display: flex;
+            flex-direction: column;
+            font-size: 14px;
+        }
+        input[type="date"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Relatórios</h1>
+        <p>Esse relatório só está disponível apenas em PDF</p>
+        <div class="box">
+            <div class="options">
+                <label><input type="checkbox"> Fornecedores</label>
+                <label><input type="checkbox"> Entrada de Produtos</label>
+                <label><input type="checkbox"> Saída de Produtos</label>
+                <label><input type="checkbox"> Estoque baixo</label>
+                <label><input type="checkbox"> Produtos com validade próxima</label>
+            </div>
+            <div class="date-range">
+                <label>Data Inicial:
+                    <input type="date" id="data-inicial">
+                </label>
+                <label>Data Final:
+                    <input type="date" id="data-final">
+                </label>
+            </div>
+            <button id="gerar">Gerar</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

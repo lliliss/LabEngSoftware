@@ -1,0 +1,62 @@
+
+p{
+    margin-left: 380px;
+}
+h1{
+    margin-left: 380px;
+    font-size: 50px;
+    margin-top: 80px;
+    color: black;
+}
+
+.container{
+    margin-left: 400px; 
+    margin-top: -300px;
+    text-align:  start;
+
+}
+.inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 400px;
+    row-gap: 100px;
+    white-space: nowrap;
+ 
+ }
+
+ .inputs label {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    font: bold; 
+    
+    
+}
+
+.date{
+    display: flex ;
+    align-items: center;
+    gap: 50px;
+    text-align: start;
+    margin-top: 100px;
+    margin-right: -640px;
+}
+.date input{
+    background-color:#CDD7DF;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+}
+.date label{
+   text-align: start;
+   white-space: nowrap;
+}
+button{
+    background-color: #28A745;
+    border-radius: 8px;
+    border: none;
+    color: aliceblue;
+    padding: 12px;
+    cursor: pointer;
+}

@@ -6,11 +6,12 @@
     <title>Relatorios</title>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+    <link rel="stylesheet" href="css/relatorios.css">
 
 </head>
 <body>
     <h1>Relatorios</h1>
+    <p>Esse relatório só está disponível apenas em PDF</p>
     <div class="sidebar">
         <h2 class="logo"> <i class="fa-solid fa-prescription-bottle-medical"></i>PharmaSafe</h2>
         <ul>
@@ -20,7 +21,32 @@
             <li><a href="relatorios.html">Relatórios</a></li>
             <li><a href="notificacoes.html">Notificações</a></li>
         </ul>
-    </div>
+        <div class="bord">
+        <div class="container">
+            <div class="inputs">
+            <label><input type="checkbox" > Fornecedores</label>
+            <label><input type="checkbox"> Entrada de Produtos</label>
+            <label><input type="checkbox"> Saída de Produtos</label>
+            <label><input type="checkbox"> Estoque baixo</label>
+            <label><input type="checkbox"> Produtos com validade próxima</label>
+        </div>
+            <div class="date">
+            <label>Data Inicial:
+                <input type="date" id="data-inicial">
+            </label>
+            <label>Data Final:
+                <input type="date" id="data-final">
+            </label>
+            <button >gerar</button>
+ 
+        </div>
+        
+        </div>
+
+        </div>
+      
+       
+   
     
 </body>
 </html>
