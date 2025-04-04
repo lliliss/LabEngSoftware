@@ -5,8 +5,8 @@ Nosso projeto tem como objetivo desenvolver um sistema eficiente para o gerencia
 
 ## 🚀 Funcionalidades:
 - 📦 **Controle de Estoque**: Cadastro, atualização e remoção de medicamentos.
-- 🔍 **Consulta Rápida**: Busca avançada por nome, categoria ou data de validade.
-- ⏰ **Notificações Inteligentes**: Alertas para medicamentos próximos da data de vencimento ou estoque baixo.
+- 🔍 **Consulta**: Busca por nome ou categoria.
+- ⏰ **Notificações**: Alertas para medicamentos próximos da data de vencimento ou baixo estoque.
 - 🔐 **Controle de Acessos**: Diferentes níveis de permissão para funcionários e administradores.
 - 📑 **Histórico de Movimentações**: Registros detalhados de todas as operações realizadas no sistema.
 
