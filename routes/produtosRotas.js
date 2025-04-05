@@ -1,5 +1,4 @@
-import {v4 as uuidv4} from 'uuid'
-
+const { v4: uuidv4} = require('uuid')
 const express = require("express")
 const router = express.Router()
 let produtos = require("../data/produtos")
@@ -32,7 +31,7 @@ router.post("/", (req, res) => {
         quantidade: Number(quantidade),
         validade,
         fornecedor,
-        numeSerie: Number
+        numeSerie: Number(numeSerie)
     }
 
     produtos.push(novoProduto)
