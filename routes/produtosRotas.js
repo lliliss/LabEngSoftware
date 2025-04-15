@@ -1,66 +1,100 @@
-const { v4: uuidv4} = require('uuid')
-const express = require("express")
-const router = express.Router()
-let produtos = require("../data/produtos")
+const express = require("express");
+const router = express.Router();
+const pool = require("../db");
 
-router.get("/", (req, res) => {
-    res.json(produtos)
-})
+router.get("/", async (req, res) => { // Lista todos os produtos
+  try {
+    const resultado = await pool.query("SELECT * FROM produtos");
+    res.json(resultado.rows);
+  } catch (err) {
+    console.error("Erro ao buscar produtos:", err);
+    res.status(500).json({ message: "Erro no servidor" });
+  }
+});
 
-router.get("/:id", (req, res) => {
-    const produto = produtos.find(p => p.id === parseInt(req.params.id))
-    if (!produto) return res.status(404).json ({message: "Produto sem estoque!"})
-    res.json(produto)
-})
+router.get("/:id", async (req, res) => { // Busca o produto por ID
+  const id = req.params.id;
+  try {
+    const resultado = await pool.query(
+      "SELECT * FROM produtos WHERE id_produto = $1",
+      [id]
+    );
 
-router.post("/", (req, res) => {
-    const {nome, categoria, quantidade, validade, fornecedor, numeSerie} =  req.body
-
-    if (!nome || !categoria || !quantidade || !validade || !fornecedor || !numeSerie) {
-        return res.status(400).json({message: "Preencha todos os campos!"})
+    if (resultado.rows.length === 0) {
+      return res.status(404).json({ message: "Produto não encontrado." });
     }
 
-    if (isNaN(quantidade) || quantidade < 0) {
-        return res.status(400).json({message: "Coloque números válidos."})
+    res.json(resultado.rows[0]);
+  } catch (err) {
+    console.error("Erro ao buscar produto:", err);
+    res.status(500).json({ message: "Erro no servidor" });
+  }
+});
+
+router.post("/", async (req, res) => { // Adiciona um novo produto
+  const { nome, descricao, categoria } = req.body;
+
+  if (!nome || !descricao || !categoria) {
+    return res.status(400).json({ message: "Preencha todos os campos!" });
+  }
+
+  try {
+    const resultado = await pool.query(
+      "INSERT INTO produtos (nome, descricao, categoria) VALUES ($1, $2, $3) RETURNING *",
+      [nome, descricao, categoria]
+    );
+
+    res.status(201).json(resultado.rows[0]);
+  } catch (err) {
+    console.error("Erro ao adicionar produto:", err);
+    res.status(500).json({ message: "Erro no servidor" });
+  }
+});
+
+router.put("/:id", async (req, res) => { // Atualiza o produto
+  const id = req.params.id;
+  const { nome, descricao, categoria } = req.body;
+
+  try {
+    const resultado = await pool.query(
+      `UPDATE produtos 
+       SET nome = COALESCE($1, nome),
+           descricao = COALESCE($2, descricao),
+           categoria = COALESCE($3, categoria)
+       WHERE id_produto = $4
+       RETURNING *`,
+      [nome, descricao, categoria, id]
+    );
+
+    if (resultado.rows.length === 0) {
+      return res.status(404).json({ message: "Produto não encontrado." });
     }
 
-    const novoProduto = {
-        id: uuidv4(),
-        nome,
-        categoria,
-        quantidade: Number(quantidade),
-        validade,
-        fornecedor,
-        numeSerie: Number(numeSerie)
+    res.json({ message: "Produto atualizado com sucesso.", produto: resultado.rows[0] });
+  } catch (err) {
+    console.error("Erro ao atualizar produto:", err);
+    res.status(500).json({ message: "Erro no servidor" });
+  }
+});
+
+router.delete("/:id", async (req, res) => { // Remove o produto
+  const id = req.params.id;
+
+  try {
+    const resultado = await pool.query(
+      "DELETE FROM produtos WHERE id_produto = $1 RETURNING *",
+      [id]
+    );
+
+    if (resultado.rows.length === 0) {
+      return res.status(404).json({ message: "Produto não encontrado." });
     }
 
-    produtos.push(novoProduto)
-    res.status(201).json(novoProduto)
-})
+    res.json({ message: "Produto removido com sucesso." });
+  } catch (err) {
+    console.error("Erro ao remover produto:", err);
+    res.status(500).json({ message: "Erro no servidor" });
+  }
+});
 
-router.put("/:id", (req, res) => {
-    const {nome, categoria, quantiade, validade, fornecedor, numeSerie} = req.body
-    const produto = produtos.find(p => p.id === parseInt(req.params.id))
-
-    if (!produto) return res.status(404).json({message: "Produto não encontrado."})
-
-    produto.nome = nome || produto.nome
-    produto.categoria = categoria || produto.categoria
-    produto.quantidade = quantidade || produto.quantidade
-    produto.validade = validade || produto.validade
-    produto.fornecedor = fornecedor || produto.fornecedor
-    produto.numeSerie = numeSerie || produto.numeSerie
-
-    res.json(produto)
-})
-
-router.delete("/:id", (req, res) => {
-    const index = produtos.findIndex(p => p.id === parseInt(req.params.id))
-
-    if (index === -1) return res.status(404).json({message: "Produto não encontrado."})
-
-    produtos.splice(index, 1)
-    res.status(204).send()
-})
-
-module.exports = router
+module.exports = router;

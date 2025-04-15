@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos | PharmaSafe</title>
-    <link rel="stylesheet" href="./produtos.css">
+    <title>Fornecedores | PharmaSafe</title>
+    <link rel="stylesheet" href="./fornecedores.css">
     <link rel="stylesheet" href="../css/barra.css">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
+    
 </head>
 <body>
     <button class="menu" id="menuButton"><i class="fi fi-rr-menu-burger"></i></button>
@@ -37,38 +39,32 @@
             <button><span class="material-symbols-outlined"id="usuarioIcon">account_circle</span></button>
         </nav>
 
-        <h1>Produtos</h1>
+        <h1>Fornecedores</h1>
 
         <div class="centro">
             <div class="areaDePesquisa">
-                <input type="text" id="buscarProduto" placeholder="Buscar produto...">
+                <input type="text" id="buscarFornecedor" placeholder="Buscar fornecedor...">
                 <button class="botaoBuscar" id="buscar">Buscar</button>
-                <button class="botaoNovoProduto" id="novoProduto"><i class="fi fi-br-plus"></i>Novo Produto</button>
+                <button class="botaoNovoFornecedor" id="novoFornecedor"><i class="fi fi-br-plus"></i>Novo Fornecedor</button>
             </div>
-
-            <div class="tabela-container">
+            <div style="display: flex; align-items: flex-start; gap: 10px;">
                 <table>
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            <th>Categoria</th>
+                            <th>CNPJ</th>
+                            <th>Contato</th>
+                            <th>Produto</th>
                             <th>Quantidade</th>
-                            <th>Validade</th>
-                            <th>Fornecedores</th>
-                            <th>Número de Série</th>
                         </tr>
                     </thead>
                     <tbody id="tbody"></tbody>
                 </table>
-            </div>
-            <button class="editarProduto" >
-                <i class="fa fa-edit"></i>
-            </button>
-            <ul class="pagination" id="pagination">
-            </ul>
-        </div>
+           
+            
+        </div> <ul class="pagination" id="pagination"></ul>
     </div>
 
-    <script src="produtos.js"></script>
+    <script src="fornecedores.js"></script>
 </body>
 </html>
