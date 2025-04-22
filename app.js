@@ -6,6 +6,8 @@ const relatoriosRotas = require("./routes/relatoriosRotas")
 const path = require("path")
 const app = express()
 const pool = require('./db')
+require('dotenv').config();
+
 
 app.use(express.static(path.join(__dirname, "public")))
 
