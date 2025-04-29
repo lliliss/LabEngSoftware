@@ -1,38 +1,44 @@
-const Users = [
-    { nome: "user", email: "teste@gmail.com", acesso: "12/03/25"},
-    { nome: "user", email: "teste@gmail.com" ,acesso: "15/03/25" },
-    { nome: "user", email: "teste@gmail.com" ,acesso: "20/06/25"},
-    { nome: "user", email: "teste@gmail.com" ,acesso: "20/06/25"},
+const entrada = [
+    { produto: "Paracetamol 500mg", data:"08/03/2025", hora: "09:00", fornecedor: "MedLife", quantidade: "2", estoque: "150" },
+    { produto: "Amoxicilina 500mg", data: "08/03/2025", hora: "09:00", fornecedor: "PharmaCorp", quantidade: "5", estoque: "150" },
+    { produto: "Dipirona 1g", data: "08/03/2025", hora: "09:00", fornecedor: "Generics", quantidade: "3", estoque: "130" },
+    { produto: "Ibuprofeno 600mg", data: "08/03/2025", hora: "09:00", fornecedor: "PharmaLife", quantidade: "3", estoque: "130" },
+    { produto: "Omeprazol 20mg", data: "08/03/2025", hora: "09:00", fornecedor: "SaúdeMax", quantidade: "4", estoque: "130" },
+    { produto: "Losartana 50mg", data: "08/03/2025", hora: "09:00", fornecedor: "CardioHealth", quantidade: "2", estoque: "90" },
+    { produto: "Metformina 850mg", data: "08/03/2025", hora: "09:00", fornecedor: "EndocrinoPlus", quantidade: "3", estoque: "50" },
+    { produto: "Atorvastatina 10mg", data: "08/03/2025", hora: "09:00", fornecedor: "LipidControl", quantidade: "2", estoque: "20" },
+    { produto: "Ranitidina 150mg", data: "08/03/2025", hora: "09:00", fornecedor: "SaúdeMax", quantidade: "5", estoque: "10" },
+    { produto: "Clonazepam 2mg", data: "08/03/2025", hora: "09:00", fornecedor: "NeuroPharm", quantidade: "5", estoque: "20" }
+];
 
-  
-]
 const itensPorPagina = 5;
 let paginaAtual = 1;
-let listaAtual = [...Users];
+let listaAtual = [...entrada];
 
-function mostrarProdutos(pagina) {
+function mostrarEntrada(pagina) {
     const inicio = (pagina - 1) * itensPorPagina;
     const fim = inicio + itensPorPagina;
-    const produtosPagina = listaAtual.slice(inicio, fim);
+    const entradaPagina = listaAtual.slice(inicio, fim);
     const tbody = document.getElementById("tbody");
     tbody.innerHTML = "";
 
-    produtosPagina.forEach(produto => {
+    entradaPagina.forEach(entrada => {
         const tr = document.createElement("tr");
-    
+
         tr.innerHTML = `
-            <td>${produto.nome}</td>
-            <td>${produto.email}</td>
-            <td>${produto.acesso}</td>
-      
+            <td>${entrada.produto}</td>
+            <td>${entrada.data}</td>
+            <td>${entrada.hora}</td>
+            <td>${entrada.fornecedor}</td>
+            <td>${entrada.quantidade}</td>
+            <td>${entrada.estoque}</td>
         `;
-        
-    
         tbody.appendChild(tr);
     });
 
     criarPaginacao();
 }
+
 function criarPaginacao() {
     const totalPaginas = Math.ceil(listaAtual.length / itensPorPagina);
     const paginacao = document.getElementById("pagination");
@@ -80,55 +86,47 @@ function criarPaginacao() {
 }
 
 function buscarProdutos() {
-    const termoPesquisa = document.getElementById("buscarProduto").value.toLowerCase().trim();
-    
+    const termoPesquisa = document.getElementById("buscarEntrada").value.toLowerCase().trim();
+
     if (termoPesquisa === "") {
-        listaAtual = [...produtos]; 
+        listaAtual = [...entrada];
     } else {
-        listaAtual = produtos.filter(produto =>
-            produto.nome.toLowerCase().includes(termoPesquisa) ||
-            produto.categoria.toLowerCase().includes(termoPesquisa) ||
-            produto.fornecedor.toLowerCase().includes(termoPesquisa)
+        listaAtual = entrada.filter(item =>
+            item.produto.toLowerCase().includes(termoPesquisa)
         );
     }
-    
+
     paginaAtual = 1;
     atualizarTabela();
 }
 
-
-document.getElementById("buscar").addEventListener("click", buscarProdutos);
-
-document.getElementById("buscarProduto").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        buscarProdutos();
-    }
-});
-
-
-document.getElementById("buscarProduto").addEventListener("input", function() {
-    if (this.value.trim() === "") {
-        listaAtual = [...produtos];
-        atualizarTabela();
-    }
-});
-
 function atualizarTabela() {
-    mostrarProdutos(paginaAtual);
+    mostrarEntrada(paginaAtual);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     atualizarTabela();
 });
 
-document.getElementById("novoUsuario").addEventListener("click", function() {
-    window.open("novoUsuario.html", "_self");
+document.getElementById("buscar").addEventListener("click", buscarProdutos);
+
+document.getElementById("buscarEntrada").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        buscarProdutos();
+    }
+});
+
+document.getElementById("buscarEntrada").addEventListener("input", function() {
+    if (this.value.trim() === "") {
+        listaAtual = [...entrada];
+        atualizarTabela();
+    }
 });
 
 document.getElementById("notificacoesIcon").addEventListener("click", function() {
-    window.open("../notificaçoes/notificações.html", "_self");
+    window.open("../notificacoes/notificacoes.html", "_self");
 });
 
 document.getElementById("usuarioIcon").addEventListener("click", function() {
-    window.open("../usuarios/usuarios.html", "_self");
+    window.open("../usuarioIcon/usuarioIcon.html", "_self");
 });

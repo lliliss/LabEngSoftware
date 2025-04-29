@@ -53,17 +53,6 @@ h1 {
     cursor: pointer;
     font-size: 15px;
 }
-
-.botaoNovoProduto {
-    background-color: #FF9800;
-    color: white;
-    transition: opacity 0.3s ease-in-out; 
-}
-
-.botaoNovoProduto:hover {
-    opacity: 0.8; 
-}
-
 .botaoBuscar {
     background-color: #42A5F5;
     color: white;
@@ -114,11 +103,6 @@ table td, table th {
     background-color: #ddd;
 }
 
-.botaoNovoProduto i {
-    margin-right: 3px; 
-    vertical-align: middle; 
-}
-
 .navbar {
     position: fixed;
     top: 0;
@@ -158,9 +142,6 @@ table td, table th {
     display: none;
 }
 
-
-
-
 @media screen and (max-width: 768px) {
     .sidebar {
         transform: translateX(-100%);
@@ -198,7 +179,6 @@ table td, table th {
         max-width: 400px;
     }
 
-    .botaoNovoProduto,
     .botaoBuscar {
         width: 90%;
         max-width: 400px;
@@ -242,7 +222,6 @@ table td, table th {
     }
 
     .areaDePesquisa input,
-    .botaoNovoProduto,
     .botaoBuscar {
         width: 100%;
     }

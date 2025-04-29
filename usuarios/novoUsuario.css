@@ -47,6 +47,7 @@ h1 {
     justify-content: center;
     align-items: center;
     margin-top: 20px; 
+    margin-right: 400px;
 }
 
 .campo {
@@ -86,6 +87,7 @@ h1 {
     width: 80px;
     transition: all 0.3s ease-in-out;
     font-size: 14px;
+
 }
 
 .botoes {
@@ -109,27 +111,10 @@ h1 {
     margin-left: auto; 
 }
  
-.botaoExcluir{
-    background-color: #DC3545;
-    color: #fff;
-    justify-content:flex-start;
-}
-.botoes {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    width: 100%;
-    grid-column: span 2; 
-    margin-top: 20px;
-}
-
-.botoes .grupo-esquerda {
-    display: flex;
-    gap: 10px; 
-}
 
 .formulario button:hover {
     opacity: 0.8; 
+    
 }
 
 .navbar {
@@ -170,9 +155,6 @@ h1 {
 }
 
 
-.mensagem.erro {
-    background-color: #DC3545; 
-}
 
 @keyframes fadeInOut {
     0% { opacity: 0; transform: translateY(-10px); }

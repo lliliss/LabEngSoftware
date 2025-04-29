@@ -131,7 +131,7 @@ document.getElementById("novoFornecedor").addEventListener("click", function() {
 
 
 document.getElementById("notificacoesIcon").addEventListener("click", function () {
-    window.open("../notificaçoes/notificações.html", "_self");
+    window.open("../notificacoes/notificacoes.html", "_self");
 });
 
 document.getElementById("usuarioIcon").addEventListener("click", function () {

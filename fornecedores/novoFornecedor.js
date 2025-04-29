@@ -21,4 +21,3 @@ function exibirMensagem(texto, cor) {
 document.getElementById("salvar").addEventListener("click", function() {
     exibirMensagem("Produto salvo com sucesso!", "#4CAF50"); 
 });
-

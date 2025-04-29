@@ -1,30 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entrada de Produtos | PharmaSafe</title>
+    <link rel="stylesheet" href="./entrada.css">
     <link rel="stylesheet" href="../css/barra.css">
-    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
 </head>
 <body>
+    <button class="menu" id="menuButton"><i class="fi fi-rr-menu-burger"></i></button>
+
+    
     <div class="sidebar">
-        <h2 class="logo"><img class="iconComprimido" src="../imgs/comprimido (1).png" alt="icon"> PharmaSafe</h2>
+        <h2 class="logo"><img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe</h2>
         <ul>
             <li><a href="../index.html"><span class="material-symbols-outlined">space_dashboard</span>Dashboard</a></li>
             <li><a href="../produtos/produtos.html"><i class="fi fi-rr-dice-d6"></i> Produtos</a></li>
-            <li><a href="../estoque/entrada/estoque.html"><i class="fi fi-rr-box"></i>Estoque<i class="fi fi-rr-angle-down" id="abrirOpçoes"></i></a></li>
+            <li class="estoque">
+                <a href="#" id="estoque">
+                  <i class="fi fi-rr-box"></i>Estoque
+                  <i class="fi fi-rr-angle-down" id="abrirOpcoes"></i>
+                </a>
+                <ul class="submenu" id="submenuEstoque">
+                    <li><a href="../estoque/entrada.html"><img src="../imgs/pacote (1).png" alt="" class="iconEntrada"> Entrada de Produto</a></li>
+                    <li><a href="../estoque/saida.html"><img src="../imgs/carrinho (1).png" alt="" class="iconSaida"> Saída de Produto</a></li>
+                </ul>
+              </li>
             <li><a href="../relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
             <li><a href="../fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
-            <li><a href="../notificaçoes/notificações.html"><span class="material-symbols-outlined">notifications</span> Notificações</li>
+            <li><a href="../notificacoes/notificacoes.html"><span class="material-symbols-outlined">notifications</span> Notificações</li>
             <li><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
             <div class="saida">
-                <li class="logout"><a href=""><i class="fi fi-rr-sign-in-alt"></i> Sair</a></li>
+                <li class="logout"><a href="../login/login.html"><i class="fi fi-rr-sign-in-alt"></i> Sair</a></li>
             </div>
             
         </ul>
     </div>
+
+    <div class="geral">
+        <nav class="navbar">
+            <button><span class="material-symbols-outlined" id="notificacoesIcon">notifications</span></button>
+            <button><span class="material-symbols-outlined"id="usuarioIcon">account_circle</span></button>
+        </nav>
+
+        <h1>Entrada de Produtos</h1>
+
+        <div class="centro">
+            <div class="areaDePesquisa">
+                <input type="text" id="buscarEntrada" placeholder="Buscar produto...">
+                <button class="botaoBuscar" id="buscar">Buscar</button>
+            </div>
+
+            <div class="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Fornecedor</th>
+                            <th>Quantidade</th>
+                            <th>Estoque</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+            <ul class="pagination" id="pagination">
+            </ul>
+        </div>
+    </div>
+
+    <script src="entrada.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 </html>
