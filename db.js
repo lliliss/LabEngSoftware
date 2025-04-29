@@ -5,46 +5,55 @@ const client = new Client({
   connectionString: process.env.DATABASE_URL || 'sua_string_de_conexão'
 });
 
-// Exemplo de query
 async function testDB() {
   const res = await client.query('SELECT NOW()');
   console.log('Hora atual no banco:', res.rows[0]);
 }
 
-testDB().catch(err => console.error('Erro:', err));
+const usuariosjson = [
+  {
+    nome: "João Silva",
+    cpf: "111.111.111-11",
+    cargo: "Administrador",
+    email: "joao@unima.com"
+  },
+  {
+    nome: "Ana Souza",
+    cpf: "222.222.222-22",
+    cargo: "Funcionário",
+    email: "ana@unima.com"
+  },
+  {
+    nome: "Carlos Pereira",
+    cpf: "333.333.333-33",
+    cargo: "Funcionário",
+    email: "carlos@unima.com"
+  }
+];
 
-
-async function run() {
+async function inserirUsuarios() {
   try {
     await client.connect();
-    console.log("Conectado com sucesso!");
+    console.log("Conectado ao banco de dados.");
 
-    // Inserir usuário
-    const resUsuario = await client.query(
-      `INSERT INTO usuarios (nome, email, senha, tipo_usuario) 
-       VALUES ($1, $2, $3, $4) 
-       RETURNING id_usuario`,
-      ['João da Silva', 'joao.teste@example.com', 'senha123', 'Funcionario']
-    );
+    for (const usuario of usuariosjson) {
+      const { nome, cpf, cargo, email } = usuario;
 
-    const usuarioId = resUsuario.rows[0].id_usuario;
-    console.log('Usuário inserido com ID:', usuarioId);
+      const res = await client.query(
+        `INSERT INTO usuarios (nome, cpf, cargo, email)
+         VALUES ($1, $2, $3, $4)
+         RETURNING id_usuario`,
+        [nome, cpf, cargo, email]
+      );
 
-    // Inserir funcionário
-    const resFuncionario = await client.query(
-      `INSERT INTO funcionarios (usuario_id, cargo, salario) 
-       VALUES ($1, $2, $3) 
-       RETURNING *`,
-      [usuarioId, 'Atendente', 2500.00]
-    );
-
-    console.log('Funcionário inserido com sucesso:', resFuncionario.rows[0]);
-
+      console.log(`Usuário inserido: ${nome} (ID: ${res.rows[0].id_usuario})`);
+    }
   } catch (err) {
-    console.error('Erro ao inserir:', err);
+    console.error("Erro ao inserir usuários:", err);
   } finally {
     await client.end();
+    console.log("Conexão encerrada.");
   }
 }
 
-run();
+inserirUsuarios();
