@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notificações | PharmaSafe</title>
+    <title>Informações | PharmaSafe</title>
     <link rel="stylesheet" href="../css/barra.css">
+    <link rel="stylesheet" href="../usuarioIcon/usuarioIcon.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
 </head>
@@ -29,11 +31,54 @@
             <li><a href="../notificacoes/notificacoes.html"><span class="material-symbols-outlined">notifications</span> Notificações</li>
             <li><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
             <div class="saida">
-                <li class="logout"><a href="../login/login.html"><i class="fi fi-rr-sign-in-alt"></i> Sair</a></li>
+                <li class="logout"><a href="../login2/logins.html"><i class="fi fi-rr-sign-in-alt"></i> Sair</a></li>
             </div>
-            
         </ul>
     </div>
+        
+    <div class="geral">
+        <div class="abas">
+          <button class="botaoInfo" onclick="mostrarAba('dadosConta')">Informações da Conta</button>
+          <button class="botaoSenha" onclick="mostrarAba('alterarSenha')">Alterar Senha</button>
+        </div>
+      
+        <div class="conteudoInfo" id="dadosConta">
+          <h1>Informações da Conta</h1>
+          <form onsubmit="atualizarInformacoes(event)">
+            <label for="campo-nome">Nome</label>
+            <input type="text" id="campo-nome" name="nome" value="João Silva" required />
+      
+            <label for="campo-email">Email</label>
+            <input type="email" id="campo-email" name="email" value="joao@email.com" required />
+      
+            <label for="campo-telefone">Telefone</label>
+            <input type="tel" id="campo-telefone" name="telefone" value="(82) 98713-7788" required />
+      
+            <button type="submit">Salvar Informações</button>
+            <p id="mensagemInformacoes" class="mensagemFormulario"></p>
+          </form>
+        </div>
+      
+        <div class="conteudoSenha" id="alterarSenha">
+          <h1>Alterar Senha</h1>
+          <form onsubmit="alterarSenha(event)">
+            <label for="senhaAtual">Senha Atual</label>
+            <input type="password" id="senhaAtual" required />
+      
+            <label for="novaSenha">Nova Senha</label>
+            <input type="password" id="novaSenha" required />
+      
+            <label for="confirmarSenha">Confirmar Nova Senha</label>
+            <input type="password" id="confirmarSenha" required />
+      
+            <button type="submit">Atualizar Senha</button>
+            <p id="mensagemSenha" class="mensagemFormulario"></p>
+          </form>
+        </div>
+      </div>
+      
+
     <script src="../js/script.js"></script>
+    <script src="../usuarioIcon/usuarioIcon.js"></script>
 </body>
 </html>
