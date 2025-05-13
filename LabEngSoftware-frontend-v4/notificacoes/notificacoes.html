@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edição de Produtos | PharmaSafe</title>
+    <link rel="stylesheet" href="../css/barra.css">
+    <link rel="stylesheet" href="./notificacoes.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
+</head>
+<body>
+    
+    <div class="sidebar">
+        <h2 class="logo"><img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe</h2>
+        <ul>
+            <li><a href="../index.html"><span class="material-symbols-outlined">space_dashboard</span>Dashboard</a></li>
+            <li><a href="../produtos/produtos.html"><i class="fi fi-rr-dice-d6"></i> Produtos</a></li>
+            <li class="estoque">
+                <a href="#" id="estoque">
+                  <i class="fi fi-rr-box"></i>Estoque
+                  <i class="fi fi-rr-angle-down" id="abrirOpcoes"></i>
+                </a>
+                <ul class="submenu" id="submenuEstoque">
+                    <li><a href="../estoque/entrada.html"><img src="../imgs/pacote (1).png" alt="" class="iconEntrada"> Entrada de Produto</a></li>
+                    <li><a href="../estoque/saida.html"><img src="../imgs/carrinho (1).png" alt="" class="iconSaida"> Saída de Produto</a></li>
+                </ul>
+              </li>
+            <li><a href="../relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
+            <li><a href="../fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
+            <li><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
+            <div class="saida">
+                <li class="logout"><a href="../login2/logins.html"><i class="fi fi-rr-sign-in-alt"></i> Sair</a></li>
+            </div>
+            
+        </ul>
+    </div>
+    
+    
+    <div class="geral">
+        <nav class="navbar"  style="margin-left: 95rem;">
+            <button><span class="material-symbols-outlined" id="notificacoesIcon">notifications</span></button>
+            <div id="modalNotificacoes" class="modal-notificacoes" style="display:none; position:absolute; right:10px; top:60px; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:8px; min-width:220px; z-index:1000;">
+  <div style="padding:16px; ">
+    <h4 style="margin-top:0;">Notificações</h4>
+    <ul id="listaNotificacoes" style="list-style:none; padding:0; margin:0;">
+      <li>Exemplo de notificação 1</li>
+      <li>Exemplo de notificação 2</li>
+    </ul>
+    <a style="text-decoration: none; color: #387CDF; margin-left: 60px;" href="../notificacoes/notificacoes.html">ver mais</a>
+  </div>
+</div>
+            <button><span class="material-symbols-outlined"id="usuarioIcon">account_circle</span></button>
+        </nav>
+       <div class="main-content">
+    <header class="notificacoes-header">
+        <h1>Notificações</h1>
+      
+    </header>
+
+    <section class="section">
+        <h2>Estoque baixo</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Amoxicilina</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>Dipirona</td>
+                        <td>5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2>Produtos com Vencimento Próximo</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Data de Vencimento</th>
+                        <th>Quantidade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Dipirona</td>
+                        <td>15/03/2025</td>
+                        <td>5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+ 
+    <script src="../js/script.js"></script>
+    <script src="../js/notificacao.js"></script>
+</body>
+</html>

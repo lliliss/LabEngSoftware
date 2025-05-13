@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <h2 class="logo"> <i class="fa-solid fa-prescription-bottle-medical"></i>PharmaSafe</h2>
+    <div class="Container">
+
+        <h1>Login</h1>
+        <div class="form">
+            <form id="loginForm"> 
+                <p>Usuário</p>
+                <span class="error " id="msgError"></span>
+                <input class="user" type="text" id="user" placeholder="Digite seu usuário">
+                <span class="error" id="userError"></span>
+                
+                <p>Senha</p>
+                <input class="password" type="password" id="password" placeholder="Digite sua senha">
+                <span class="error" id="passwordError"></span>
+                
+                <div class="button">
+                    <button  type="submit" class="btn">Login</button>
+                  
+                </div>
+                <p class="p-conta">Não tem possui uma conta?</p>
+                <div class="link">  <a href="/register.html">Registrar</a></div>
+              
+            </form>
+        </div>
+    </div>
+
+<script src="js/ValidacaoLogin.js"></script>
+
+  
+</body>
+</html>
