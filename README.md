@@ -33,7 +33,6 @@ O projeto será desenvolvido em fases:
 ### - Equipe:
 - Alice Ferreira (Responsável pelo back-end).
 - Anderson Gabriel Duarte (Responsável pelo front-end).
-- Fabiano Nasiazeno (Responsável pelo banco de dados).
 - Pedro Santos (Responsável pelo banco de dados).
 - Thayná Carnaúba (Responsável pelo front-end).
 ### - Professor:
