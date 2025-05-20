@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fornecedores | PharmaSafe</title>
+    <link rel="stylesheet" href="./fornecedores.css">
+    <link rel="stylesheet" href="../css/barra.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
+    
+</head>
+<body>
+    <button class="menu" id="menuButton"><i class="fi fi-rr-menu-burger"></i></button>
+
+    
+    <div class="sidebar">
+        <h2 class="logo"><img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe</h2>
+        <ul>
+            <li><a href="../index.html"><span class="material-symbols-outlined">space_dashboard</span>Dashboard</a></li>
+            <li><a href="../produtos/produtos.html"><i class="fi fi-rr-dice-d6"></i> Produtos</a></li>
+            <li class="estoque">
+                <a href="#" id="estoque">
+                  <i class="fi fi-rr-box"></i>Estoque
+                  <i class="fi fi-rr-angle-down" id="abrirOpcoes"></i>
+                </a>
+                <ul class="submenu" id="submenuEstoque">
+                    <li><a href="../estoque/entrada.html"><img src="../imgs/pacote (1).png" alt="" class="iconEntrada"> Entrada de Produto</a></li>
+                    <li><a href="../estoque/saida.html"><img src="../imgs/carrinho (1).png" alt="" class="iconSaida"> Saída de Produto</a></li>
+                </ul>
+              </li>
+            <li><a href="../relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
+            <li><a href="../fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
+            <li><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
+            <div class="saida">
+                <li class="logout"><a href="../login2/logins.html"><i class="fi fi-rr-sign-in-alt"></i> Sair</a></li>
+            </div>
+            
+        </ul>
+    </div>
+
+    <div class="geral">
+        <nav class="navbar">
+            <button><span class="material-symbols-outlined" id="notificacoesIcon">notifications</span></button>
+                <div id="modalNotificacoes" class="modal-notificacoes" style="display:none; position:absolute; right:10px; top:60px; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:8px; min-width:220px; z-index:1000;">
+  <div style="padding:16px;">
+    <h4 style="margin-top:0;">Notificações</h4>
+    <ul id="listaNotificacoes" style="list-style:none; padding:0; margin:0;">
+      <li>Exemplo de notificação 1</li>
+      <li>Exemplo de notificação 2</li>
+    </ul>
+    <a style="text-decoration: none; color: #387CDF; margin-left: 60px;" href="../notificacoes/notificacoes.html">ver mais</a>
+  </div>
+</div>
+            <button><span class="material-symbols-outlined"id="usuarioIcon">account_circle</span></button>
+        </nav>
+
+        <h1>Fornecedores</h1>
+
+        <div class="centro">
+            <div class="areaDePesquisa">
+                <input type="text" id="buscarFornecedor" placeholder="Buscar fornecedor...">
+                <button class="botaoBuscar" id="buscar">Buscar</button>
+                <button class="botaoNovoFornecedor" id="novoFornecedor"><i class="fi fi-br-plus"></i>Novo Fornecedor</button>
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>CNPJ</th>
+                            <th>Contato</th>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+           
+            
+        </div> <ul class="pagination" id="pagination"></ul>
+    </div>
+
+    <script src="fornecedores.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/notificacao.js"></script>
+</body>
+</html>
