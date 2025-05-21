@@ -1,0 +1,90 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    color: #333;
+  }
+  
+  .DashboardConteudo {
+    margin-left: 250px;
+    padding: 30px;
+    min-height: 100vh;
+  }
+  
+  .CardsSuperiores {
+    display: flex;
+    gap: 100px;
+    flex-wrap: wrap;
+    margin-bottom: 160px;
+    justify-content: center;
+  }
+  
+  .CardInfo {
+    width: 266px;
+    height: 136px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    border: 1px solid #c0c0c0;
+    font-size: 18px;
+  }
+  
+  .CardInfo span.material-symbols-outlined {
+    font-size: 28px;
+    color: #387CDF;
+  }
+  
+  .CardInfo p {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .CardInfo h3 {
+    font-size: 20px;
+    color: #000;
+  }
+  
+  .SecaoDados {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 35px;
+  }
+  
+  .DadoBox {
+    background-color: #fff;
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .DadoBoxTopo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .DadoBox p {
+    font-size: 14px;
+    color: #333;
+    margin: 6px 0;
+  }
+  
+  .DadoBox p strong {
+    font-size: 18px;
+    color: #000;
+  }
+  
