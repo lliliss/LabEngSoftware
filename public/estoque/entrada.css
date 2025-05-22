@@ -22,12 +22,6 @@ body {
     align-items: flex-start; 
     padding: 20px;
 }
-.editar-btn{
-    border: none;
-    background: none;
-    color: blue;
-    cursor: pointer;
-}
 
 h1 {
     margin-top: 30px; 
@@ -52,28 +46,15 @@ h1 {
     background-color: #e3ebf3;
 }
 
-.areaDePesquisa button {
+.botaoBuscar {
+    background-color: #42A5F5;
+    color: white;
+    transition: opacity 0.3s ease-in-out;
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 15px;
-}
-
-.botaoNovoProduto {
-    background-color: #FF9800;
-    color: white;
-    transition: opacity 0.3s ease-in-out; 
-}
-
-.botaoNovoProduto:hover {
-    opacity: 0.8; 
-}
-
-.botaoBuscar {
-    background-color: #42A5F5;
-    color: white;
-    transition: opacity 0.3s ease-in-out;
 }
 
 .botaoBuscar:hover {
@@ -118,11 +99,6 @@ table td, table th {
 
 .pagination li:hover {
     background-color: #ddd;
-}
-
-.botaoNovoProduto i {
-    margin-right: 3px; 
-    vertical-align: middle; 
 }
 
 .navbar {
@@ -201,7 +177,6 @@ table td, table th {
         max-width: 400px;
     }
 
-    .botaoNovoProduto,
     .botaoBuscar {
         width: 90%;
         max-width: 400px;
@@ -245,7 +220,6 @@ table td, table th {
     }
 
     .areaDePesquisa input,
-    .botaoNovoProduto,
     .botaoBuscar {
         width: 100%;
     }

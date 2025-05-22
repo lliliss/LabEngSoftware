@@ -1,39 +1,106 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PharmaSafe</title>
-    <link rel="stylesheet" href="./css/barra.css">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
-    
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PharmaSafe</title>
+  <link rel="stylesheet" href="./css/barra.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
 </head>
 <body>
-    <h1>Dashboard</h1>
-
-  
-
-    <div class="sidebar">
-        <h2 class="logo"><img class="iconComprimido" src="./imgs/comprimido (1).png" alt="icon"> PharmaSafe</h2>
-        <ul>
-            <li><a href="index.html"><span class="material-symbols-outlined">space_dashboard</span>Dashboard</a></li>
-            <li><a href="./produtos/produtos.html"><i class="fi fi-rr-dice-d6"></i> Produtos</a></li>
-            <li><a href="./estoque/entrada/estoque.html"><i class="fi fi-rr-box"></i>Estoque<i class="fi fi-rr-angle-down" id="abrirOpçoes"></i></a></li>
-            <li><a href="./relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
-            <li><a href="./fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
-            <li><a href="./notificaçoes/notificações.html"><span class="material-symbols-outlined">notifications</span> Notificações</li>
-            <li><a href="./usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
-            <div class="saida">
-                <li class="logout"><a href=""><i class="fi fi-rr-sign-in-alt"></i> Sair</a></li>
-            </div>
-            
+  <div class="sidebar">
+    <h2 class="logo">
+      <img class="iconComprimido" src="./imgs/comprimido (5).png" alt="icon"> PharmaSafe
+    </h2>
+    <ul>
+      <li><a href="index.html"><span class="material-symbols-outlined">space_dashboard</span>Dashboard</a></li>
+      <li><a href="./produtos/produtos.html"><i class="fi fi-rr-dice-d6"></i> Produtos</a></li>
+      <li class="estoque">
+        <a href="#" id="estoque">
+          <i class="fi fi-rr-box"></i>Estoque
+          <i class="fi fi-rr-angle-down" id="abrirOpcoes"></i>
+        </a>
+        <ul class="submenu" id="submenuEstoque">
+          <li><a href="./estoque/entrada.html"><img src="./imgs/pacote (1).png" alt="" class="iconEntrada"> Entrada de Produto</a></li>
+          <li><a href="./estoque/saida.html"><img src="./imgs/carrinho (1).png" alt="" class="iconSaida"> Saída de Produto</a></li>
         </ul>
-    </div>
+      </li>
+      <li><a href="./relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
+      <li><a href="./fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
+      <li><a href="./notificaçoes/notificações.html"><span class="material-symbols-outlined">notifications</span> Notificações</a></li>
+      <li><a href="./usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
+      <div class="saida">
+        <li class="logout"><a href="./login2/logins.html"><i class="fi fi-rr-sign-in-alt"></i> Sair</a></li>
+      </div>
+    </ul>
+  </div>
 
+  <main class="DashboardConteudo">
+    <section class="CardsSuperiores">
+      <div class="CardInfo">
+        <span class="material-symbols-outlined">badge</span>
+        <div>
+          <p>Usuários</p>
+          <h3>120</h3>
+        </div>
+      </div>
+      <div class="CardInfo">
+        <span class="material-symbols-outlined">warning</span>
+        <div>
+          <p>Alertas</p>
+          <h3>01</h3>
+        </div>
+      </div>
+      <div class="CardInfo">
+        <span class="material-symbols-outlined">inventory_2</span>
+        <div>
+          <p>Estoque</p>
+          <h3>500</h3>
+        </div>
+      </div>
+    </section>
 
+    <section class="SecaoDados">
+      <div class="DadoBox">
+        <div class="DadoBoxTopo">
+          <h4>Entrada de Produtos</h4>
+          <span>Atualizado Hoje às 20h</span>
+        </div>
+        <p><strong>200</strong> Total de Produtos Chegados</p>
+        <p><strong>20</strong> Fornecedores</p>
+      </div>
+
+      <div class="DadoBox">
+        <div class="DadoBoxTopo">
+          <h4>Saída de Produtos</h4>
+          <span>Atualizado Hoje às 20h</span>
+        </div>
+        <p><strong>1500</strong> Total de Produtos Retirados</p>
+        <p><strong>50</strong> Quantidade por dia</p>
+      </div>
+
+      <div class="DadoBox">
+        <div class="DadoBoxTopo">
+          <h4>Fornecedores</h4>
+          <span>Atualizado Hoje às 20h</span>
+        </div>
+        <p><strong>300</strong> Total de fornecedores</p>
+        <p><strong>10</strong> Consultado por dia</p>
+      </div>
+
+      <div class="DadoBox">
+        <div class="DadoBoxTopo">
+          <h4>Produtos</h4>
+          <span>Atualizado Hoje às 20h</span>
+        </div>
+        <p><strong>2000</strong> Total de Produtos</p>
+        <p><strong>1700</strong> Produtos movimentados</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="./js/script.js"></script>
 </body>
 </html>
-

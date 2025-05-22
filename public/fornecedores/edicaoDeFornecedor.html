@@ -5,24 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edição de Fornecedores | PharmaSafe</title>
     <link rel="stylesheet" href="../css/barra.css">
-    <link rel="stylesheet" href="./edicaoDeFornecedor.js">
+    <link rel="stylesheet" href="./edicaoDeFornecedor.css">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
 </head>
 <body>
     
     <div class="sidebar">
-        <h2 class="logo"><img class="iconComprimido" src="../imgs/comprimido (1).png" alt="icon"> PharmaSafe</h2>
+        <h2 class="logo"><img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe</h2>
         <ul>
             <li><a href="../index.html"><span class="material-symbols-outlined">space_dashboard</span>Dashboard</a></li>
             <li><a href="../produtos/produtos.html"><i class="fi fi-rr-dice-d6"></i> Produtos</a></li>
-            <li><a href="../estoque/entrada/estoque.html"><i class="fi fi-rr-box"></i>Estoque<i class="fi fi-rr-angle-down" id="abrirOpçoes"></i></a></li>
+            <li class="estoque">
+                <a href="#" id="estoque">
+                  <i class="fi fi-rr-box"></i>Estoque
+                  <i class="fi fi-rr-angle-down" id="abrirOpcoes"></i>
+                </a>
+                <ul class="submenu" id="submenuEstoque">
+                    <li><a href="../estoque/entrada.html"><img src="../imgs/pacote (1).png" alt="" class="iconEntrada"> Entrada de Produto</a></li>
+                    <li><a href="../estoque/saida.html"><img src="../imgs/carrinho (1).png" alt="" class="iconSaida"> Saída de Produto</a></li>
+                </ul>
+              </li>
             <li><a href="../relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
             <li><a href="../fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
-            <li><a href="../notificaçoes/notificações.html"><span class="material-symbols-outlined">notifications</span> Notificações</li>
             <li><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
             <div class="saida">
-                <li class="logout"><a href=""><i class="fi fi-rr-sign-in-alt"></i> Sair</a></li>
+                <li class="logout"><a href="../login2/logins.html"><i class="fi fi-rr-sign-in-alt"></i> Sair</a></li>
             </div>
             
         </ul>
@@ -35,8 +43,6 @@
             <button><span class="material-symbols-outlined"id="usuarioIcon">account_circle</span></button>
         </nav>
         <h1>Edição de Fornecedores</h1>
-        <div class="formulario">
-            <h1>Cadastro de Fornecedores</h1>
             <div class="formulario">
                 <div class="campo">
                     <label for="nome">Nome:</label>
@@ -66,8 +72,8 @@
                 <button class="botaoSalvar" id="salvar">Salvar</button>
                  <span id="mensagem" class="mensagem"></span>
             </div>
-        </div>
     </div>    
     <script src="edicaoDeFornecedor.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 </html>

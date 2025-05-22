@@ -97,6 +97,12 @@ table td, table th {
     margin: 0; 
     margin-top: 30px; 
 }
+.botao-editar{
+    border: none;
+    background: none;
+    color: blue;
+    cursor: pointer;
+}
 
 .pagination li {
     padding: 10px 15px;
@@ -252,4 +258,3 @@ table td, table th {
         padding: 5px;
     }
 }
-

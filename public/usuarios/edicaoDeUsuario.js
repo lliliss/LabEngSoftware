@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (botaoVoltar) {
         botaoVoltar.addEventListener("click", function() {
-            window.location.href = "fornecedores.html"; 
+            window.location.href = "usuarios.html"; 
         });
     }
 });
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     if (botaoVoltar) {
         botaoVoltar.addEventListener("click", function() {
-            window.location.href = "fornecedores.html"; 
+            window.location.href = "usuarios.html"; 
         });
     }
 });
@@ -46,7 +46,6 @@ function mensagemExcluir(texto, cor) {
         mensagem.style.display = "none";  
     }, 3000);
 }
-
 
 
 document.getElementById("excluir").addEventListener("click", function() {

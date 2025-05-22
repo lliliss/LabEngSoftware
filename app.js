@@ -1,31 +1,20 @@
-const express = require("express")
-const cors = require("cors")
-const fornecedoresRotas = require("./routes/fornecedoresRotas")
-const produtosRotas = require("./routes/produtosRotas")
-const relatoriosRotas = require("./routes/relatoriosRotas")
-const path = require("path")
+const express = require('express')
+const cors = require('cors')
+const path = require('path')
 const app = express()
-const pool = require('./db')
-const usuariosRoutes = require('./routes/usuariosRotas')
-require('dotenv').config()
 
-
-app.use(express.static(path.join(__dirname, "public")))
+const produtosRotas = require('./routes/produtosRotas')
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static(path.join(__dirname, 'public')))
 
-app.use("/api/produtos", produtosRotas)
-app.use("/api/fornecedores", fornecedoresRotas)
-app.use("/api/relatorios", relatoriosRotas)
-app.use('/api/usuarios', usuariosRotas)
+app.use('/api/produtos', produtosRotas); // prefixo da rota
 
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"))
+app.listen(process.env.PORT || 3000, () => {
+  console.log('Servidor rodando na porta 3000')
 })
 
-const PORT = process.env.PORT || 5000
-
-app.listen(PORT, () => {
-    console.log(`Rodando o servidor na porta ${PORT}`)
+app.listen(5000, () => {
+  console.log("Servidor rodando na porta 5000")
 })
