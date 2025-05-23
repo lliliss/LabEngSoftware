@@ -1,31 +1,37 @@
 const express = require('express')
 const router = express.Router()
-const db = require('../db')
+const pool = require('../db')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
-router.get('/', async (req, res) => {
-  const result = await db.query('SELECT * FROM usuarios ORDER BY nome')
-  res.json(result.rows)
+router.post('/login', async (req, res) => {
+  const {email, senha} = req.body
+
+  if (!email || !senha) {
+    return res.status(400).json({erro: 'Email e senha são obrigatórios.'})
+  }
+
+  try {
+    const resultado = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email])
+
+    if (resultado.rows.length === 0) {
+      return res.status(401).json({erro: 'Usuário não encontrado.'})
+    }
+
+    const usuario = resultado.rows[0]
+    const senhaCorreta = await bcrypt.compare(senha, usuario.senha)
+
+    if (!senhaCorreta) {
+      return res.status(401).json({erro: 'Senha incorreta.'})
+    }
+
+    const token = jwt.sign({id: usuario.id, email: usuario.email }, process.env.JWT_SECRET, {expiresIn: '2h'})
+
+    res.json({mensagem: 'Login realizado com sucesso.', token})
+  } catch (erro) {
+    console.error(erro)
+    res.status(500).json({erro: 'Erro no servidor ao autenticar.'})
+  }
 })
-
-router.get('/buscar', async (req, res) => {
-  const nome = req.query.nome || ''
-  const result = await db.query(
-    'SELECT * FROM usuarios WHERE nome ILIKE $1',
-    [`%${nome}%`]
-  )
-  res.json(result.rows)
-})
-
-router.post('/', async (req, res) => {
-  const { nome, email, senha, tipo_usuario } = req.body
-  const result = await db.query(
-    `INSERT INTO usuarios (nome, email, senha, tipo_usuario)
-     VALUES ($1, $2, $3, $4)
-     RETURNING *`,
-    [nome, email, senha, tipo_usuario]
-  )
-  res.status(201).json(result.rows[0])
-})
-
 
 module.exports = router
