@@ -16,7 +16,6 @@ router.post('/enviar', async (req, res) => {
 module.exports = router;*/
 const express = require('express');
 const router = express.Router();
-const pool = require('../db/conexao');
 const inserirProduto = require('../db/inserirProduto');
 
 router.post('/enviar', async (req, res) => {
