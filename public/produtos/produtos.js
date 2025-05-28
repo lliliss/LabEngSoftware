@@ -1,4 +1,4 @@
-const produtos = [
+/*const produtos = [
       { nome: "Paracetamol 500mg", categoria: "Analgésico", quantidade: 150, validade: "12/03/25", fornecedor: "MedLife", serie: "RX-3847-25" },
       { nome: "Amoxicilina 500mg", categoria: "Antibiótico", quantidade: 50, validade: "15/03/25", fornecedor: "PharmaCorp", serie: "RX-6291-25" },
       { nome: "Dipirona 1g", categoria: "Analgésico", quantidade: 200, validade: "20/06/25", fornecedor: "Generics", serie: "RX-7845-25" },
@@ -122,4 +122,130 @@ const produtos = [
     });
     document.getElementById("usuarioIcon").addEventListener("click", () => {
       window.open("../usuarioIcon/usuarioIcon.html", "_self");
-    });
+    });*/
+
+const itensPorPagina = 5;
+let paginaAtual = 1;
+let listaAtual = [];
+
+async function carregarProdutos() {
+  try {
+    const resposta = await fetch("http://localhost:5000/api/produtosmostrar/mostrar");
+    if (!resposta.ok) throw new Error("Erro ao carregar produtos");
+    const dados = await resposta.json();
+    listaAtual = dados;
+    atualizarTabela();
+  } catch (erro) {
+    console.error("Erro ao buscar produtos:", erro);
+  }
+}
+
+function mostrarProdutos(pagina) {
+  const inicio = (pagina - 1) * itensPorPagina;
+  const fim = inicio + itensPorPagina;
+  const produtosPagina = listaAtual.slice(inicio, fim);
+  const tbody = document.getElementById("tbody");
+  tbody.innerHTML = "";
+
+  produtosPagina.forEach(produto => {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${produto.nome}</td>
+      <td>${produto.categoria}</td>
+      <td>${produto.quantidade}</td>
+      <td>${produto.validade}</td>
+      <td>${produto.fornecedor}</td>
+      <td>${produto.serie}</td>
+      <td><button class="botao-editar" onclick="editarProduto('${produto.nome}')">✏️</button></td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  criarPaginacao();
+}
+
+function criarPaginacao() {
+  const totalPaginas = Math.ceil(listaAtual.length / itensPorPagina);
+  const paginacao = document.getElementById("pagination");
+  paginacao.innerHTML = "";
+
+  if (totalPaginas > 1) {
+    const anterior = document.createElement("li");
+    anterior.textContent = "Anterior";
+    anterior.classList.add("paginacao-item");
+    anterior.onclick = () => {
+      if (paginaAtual > 1) {
+        paginaAtual--;
+        atualizarTabela();
+      }
+    };
+    if (paginaAtual === 1) anterior.classList.add("disabled");
+    paginacao.appendChild(anterior);
+  }
+
+  for (let i = 1; i <= totalPaginas; i++) {
+    const botao = document.createElement("li");
+    botao.textContent = i;
+    botao.classList.add("paginacao-item");
+    if (paginaAtual === i) botao.classList.add("active");
+    botao.onclick = () => {
+      paginaAtual = i;
+      atualizarTabela();
+    };
+    paginacao.appendChild(botao);
+  }
+
+  if (totalPaginas > 1) {
+    const proxima = document.createElement("li");
+    proxima.textContent = "Próxima";
+    proxima.classList.add("paginacao-item");
+    proxima.onclick = () => {
+      if (paginaAtual < totalPaginas) {
+        paginaAtual++;
+        atualizarTabela();
+      }
+    };
+    if (paginaAtual === totalPaginas) proxima.classList.add("disabled");
+    paginacao.appendChild(proxima);
+  }
+}
+
+function buscarProdutos() {
+  const termo = document.getElementById("buscarProduto").value.toLowerCase().trim();
+  if (termo === "") {
+    carregarProdutos(); // Recarrega todos os produtos do banco
+  } else {
+    listaAtual = listaAtual.filter(p =>
+      p.nome.toLowerCase().includes(termo) ||
+      p.categoria.toLowerCase().includes(termo) ||
+      p.fornecedor.toLowerCase().includes(termo)
+    );
+    paginaAtual = 1;
+    atualizarTabela();
+  }
+}
+
+function atualizarTabela() {
+  mostrarProdutos(paginaAtual);
+}
+
+function editarProduto(nome) {
+  const nomeEncoded = encodeURIComponent(nome);
+  window.location.href = `edicaodeproduto.html?produto=${nomeEncoded}`;
+}
+
+document.addEventListener("DOMContentLoaded", carregarProdutos);
+document.getElementById("buscar").addEventListener("click", buscarProdutos);
+document.getElementById("buscarProduto").addEventListener("keypress", e => {
+  if (e.key === "Enter") buscarProdutos();
+});
+document.getElementById("buscarProduto").addEventListener("input", function () {
+  if (this.value.trim() === "") carregarProdutos();
+});
+document.getElementById("novoProduto").addEventListener("click", () => {
+  window.open("novoProduto.html", "_self");
+});
+document.getElementById("usuarioIcon").addEventListener("click", () => {
+  window.open("../usuarioIcon/usuarioIcon.html", "_self");
+});

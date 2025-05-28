@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const nome = document.getElementById('nome').value;
     const email = document.getElementById('categoria').value;
     const cpf = document.getElementById('quantidade').value;
-    const cargo = document.getElementById('validade').value;
+    const tipoUsuario = document.getElementById('tipoUsuario').value;
 
-    const usuario = { nome, email, cpf, cargo };
+    const usuario = { nome, email, cpf, tipoUsuario };
 
     try {
       const resposta = await fetch('http://localhost:5000/api/usuarios/enviar', {
