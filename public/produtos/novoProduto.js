@@ -30,11 +30,16 @@ document.getElementById('salvar').addEventListener('click', function (e) {
   const dados = {
     nome: document.getElementById('nome').value,
     categoria: document.getElementById('categoria').value,
-    quantidade: document.getElementById('quantidade').value,
+    quantidade: parseInt(document.getElementById('quantidade').value),
     validade: document.getElementById('validade').value,
     fornecedores: document.getElementById('fornecedores').value,
     numeroDeSerie: document.getElementById('numeroDeSerie').value,
   };
+
+  if (!dados.nome || isNaN(dados.quantidade) || !dados.validade) {
+    document.getElementById('mensagem').innerText = 'Preencha os campos obrigatórios!';
+    return;
+  }
 
   fetch("http://localhost:5000/api/produtos/enviar", {
     method: 'POST',
