@@ -4,7 +4,7 @@ const pool = require('./conexao');
 async function buscarProdutos() {
   try {
     const query = `
-      SELECT p.nome, p.categoria, e.quantidade, l.data_validade AS validade, p.fornecedor, l.numero_serie AS serie
+      SELECT p.id_produto, p.nome, p.categoria, e.quantidade, l.data_validade AS validade, p.fornecedor, l.numero_serie AS serie
       FROM produtos p
       JOIN lotes l ON p.id_produto = l.produto_id
       JOIN estoque e ON e.lote_id = l.id_lote AND e.produto_id = p.id_produto;
