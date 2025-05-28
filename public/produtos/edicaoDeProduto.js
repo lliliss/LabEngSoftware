@@ -33,11 +33,55 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Botão salvar
-  document.getElementById("salvar").addEventListener("click", function () {
-    mensagemSalvo("Produto salvo com sucesso!", "#4CAF50");
-    // Aqui você pode atualizar o localStorage ou enviar pro backend
-  });
+document.getElementById("salvar").addEventListener("click", async function () {
+  const produtoOriginal = JSON.parse(localStorage.getItem("produtoParaEdicao"));
+  if (!produtoOriginal) {
+    alert("Nenhum produto carregado para edição.");
+    return;
+  }
+
+  function formatarData(dataISO) {
+  const partes = dataISO.split("-");
+  return `${partes[2]}/${partes[1]}/${partes[0]}`; // de yyyy-mm-dd para dd/mm/yyyy
+}
+
+
+  const produtoAtualizado = {
+  nome: document.getElementById("nome").value.trim(),
+  categoria: document.getElementById("categoria").value.trim(),
+  fornecedores: document.getElementById("fornecedores").value.trim(),
+  lote: {
+    id_lote: produto.id_lote,
+    quantidade: parseInt(document.getElementById("quantidade").value.trim()),
+    dataValidade: document.getElementById("validade").value.trim(),  // formato ISO yyyy-mm-dd
+    numeroSerie: document.getElementById("numeroDeSerie").value.trim()
+  }
+};
+
+  try {
+    const resposta = await fetch(`http://localhost:5000/api/produtos/editar/${produtoOriginal.id_produto}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(produtoAtualizado)
+    });
+
+    if (resposta.ok) {
+      alert("Produto atualizado com sucesso!");
+      localStorage.removeItem("produtoParaEdicao");
+      window.location.href = "produtos.html"; // volta para listagem
+    } else {
+      const erro = await resposta.json();
+      alert("Erro ao atualizar: " + (erro.mensagem || resposta.statusText));
+    }
+  } catch (erro) {
+    console.error("Erro ao enviar atualização:", erro);
+    alert("Erro ao enviar atualização.");
+  }
+});
+
+
 
   // Botão excluir
   document.getElementById("excluir").addEventListener("click", async function () {
