@@ -119,52 +119,6 @@ function editarUsuario(nome) {
   window.location.href = "edicaodeusuario.html";
 }
 
-
-/*document.addEventListener("DOMContentLoaded", () => {
-    atualizarTabela();
-});
-
-document.getElementById("novoUsuario").addEventListener("click", function() {
-    window.open("novoUsuario.html", "_self");
-});
-
-
-
-document.getElementById("usuarioIcon").addEventListener("click", function() {
-    window.open("../usuarios/usuarios.html", "_self");
-});
-
-document.getElementById("buscar").addEventListener("click", buscarUsuarios);
-
-document.getElementById("buscarUsuario").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        buscarUsuarios();
-    }
-});
-
-
-document.getElementById("buscarUsuario").addEventListener("input", function () {
-  if (this.value.trim() === "") carregarUsuarios();
-  });
-
-
-document.addEventListener("DOMContentLoaded", carregarUsuarios);
-document.getElementById("buscar").addEventListener("click", buscarProdutos);
-document.getElementById("buscarUsuario").addEventListener("keypress", e => {
-  if (e.key === "Enter") buscarProdutos();
-});
-document.getElementById("buscarProduto").addEventListener("input", function () {
-  if (this.value.trim() === "") carregarUsuarios();
-});
-document.getElementById("novoUsuario").addEventListener("click", () => {
-  window.open("novoUsuario.html", "_self");
-});
-document.getElementById("usuarioIcon").addEventListener("click", () => {
-  window.open("../usuarioIcon/usuarioIcon.html", "_self");
-});
-*/
-
-
 document.addEventListener("DOMContentLoaded", carregarUsuarios);
 document.getElementById("buscar").addEventListener("click", buscarUsuarios);
 document.getElementById("buscarUsuario").addEventListener("keypress", e => {
