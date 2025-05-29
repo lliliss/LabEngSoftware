@@ -31,7 +31,7 @@ app.use("/api/produtos", editarProdutoRoute);
 app.use("/api/usuariosmostrar", mostrarUsuariosRouter);
 app.use("/api/usuarios", editarUsuarioRoute);
 app.use('/api/deleteusuarios', deleteUsuarioRouter);
-app.use("/api/fornecedores", editarProdutoRoute);
+app.use("/api/fornecedores", editarFornecedorRoute);
 app.use('/api/fornecedoresmostrar', mostrarFornecedoresRouter);
 
 // Use a porta do ambiente OU 5000

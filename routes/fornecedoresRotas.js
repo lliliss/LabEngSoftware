@@ -7,7 +7,7 @@ router.post('/enviar', async (req, res) => {
     const novoFornecedor = await inserirFornecedor(req.body);
     res.status(201).json({ message: 'Fornecedor inserido com sucesso!', id: novoFornecedor.id_fornecedor });
   } catch (err) {
-    res.status(500).json({ error: 'Erro ao inserir produto' });
+    res.status(500).json({ error: 'Erro ao inserir fornecedor' });
   }
 });
 

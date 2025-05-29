@@ -1,18 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
   const fornecedor = JSON.parse(localStorage.getItem("fornecedorParaEdicao"));
 
-  console.log("Fornecedor carregado do localStorage:", fornecedor);
 
   if (!fornecedor || !fornecedor.id_fornecedor) {
     alert("Nenhum fornecedor válido selecionado.");
     window.location.href = "fornecedores.html";
     return;
   }
-
-  // Preenche os campos do formulário
-  console.log("Valor de nome:", fornecedor.nome);
-  console.log("Valor de CNPJ:", fornecedor.cnpj);
-  console.log("Valor de email:", fornecedor.email);
 
   document.getElementById("nome").value = fornecedor.nome || "";
   document.getElementById("cnpj").value = fornecedor.cnpj || "";
@@ -40,9 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
       cnpj: document.getElementById("cnpj").value.trim()
     };
 
-    console.log("Fornecedor atualizado a ser enviado:", fornecedorAtualizado);
 
     try {
+        console.log(`${fornecedorOriginal.id_fornecedor}`)
       const resposta = await fetch(`http://localhost:5000/api/fornecedores/editar/${fornecedorOriginal.id_fornecedor}`, {
         method: "PUT",
         headers: {

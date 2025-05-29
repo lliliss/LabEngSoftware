@@ -8,12 +8,12 @@ async function editarFornecedor(dados) {
     cnpj
   } = dados;
 
-  const queryProdutos = `
+  const queryFornecedores = `
     UPDATE fornecedores
     SET nome = $1, email = $2, cnpj = $3
     WHERE id_fornecedor = $4
   `;
-  await pool.query(queryProdutos, [nome, email, cnpj, id_fornecedor]);
+  await pool.query(queryFornecedores, [nome, email, cnpj, id_fornecedor]);
 }
 
 
