@@ -6,6 +6,7 @@ const app = express();
 
 const fornecedoresRouter = require("./routes/fornecedoresRotas");
 const editarFornecedorRoute = require("./routes/editarFornecedorRoute");
+const mostrarFornecedoresRouter = require('./routes/mostrarFornecedoresRoute');
 
 const produtosRotas = require('./routes/produtosRotas');
 const mostrarProdutosRouter = require('./routes/mostrarProdutosRotas');
@@ -31,6 +32,7 @@ app.use("/api/usuariosmostrar", mostrarUsuariosRouter);
 app.use("/api/usuarios", editarUsuarioRoute);
 app.use('/api/deleteusuarios', deleteUsuarioRouter);
 app.use("/api/fornecedores", editarProdutoRoute);
+app.use('/api/fornecedoresmostrar', mostrarFornecedoresRouter);
 
 // Use a porta do ambiente OU 5000
 const PORT = process.env.PORT || 5000;
