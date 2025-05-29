@@ -1,16 +1,21 @@
-const Users = [
-    { nome: "user", email: "teste@gmail.com", acesso: "12/03/25"},
-    { nome: "user", email: "teste@gmail.com" ,acesso: "15/03/25" },
-    { nome: "user", email: "teste@gmail.com" ,acesso: "20/06/25"},
-    { nome: "user", email: "teste@gmail.com" ,acesso: "20/06/25"},
 
-  
-]
 const itensPorPagina = 5;
 let paginaAtual = 1;
-let listaAtual = [...Users];
+let listaAtual = [];
 
-function mostrarProdutos(pagina) {
+async function carregarUsuarios() {
+  try {
+    const resposta = await fetch("http://localhost:5000/api/usuariosmostrar/mostrar");
+    if (!resposta.ok) throw new Error("Erro ao carregar usuários");
+    const dados = await resposta.json();
+    listaAtual = dados;
+    atualizarTabela();
+  } catch (erro) {
+    console.error("Erro ao buscar usuários:", erro);
+  }
+}
+
+function mostrarUsuarios(pagina) {
     const inicio = (pagina - 1) * itensPorPagina;
     const fim = inicio + itensPorPagina;
     const produtosPagina = listaAtual.slice(inicio, fim);
@@ -23,12 +28,10 @@ function mostrarProdutos(pagina) {
         tr.innerHTML = `
             <td>${produto.nome}</td>
             <td>${produto.email}</td>
-            <td>${produto.acesso}</td>
+            <td>${produto.tipo_usuario}</td>
             <td><button class="editar-btn" onclick="editarUsuario('${produto.nome}')">✏️</button></td>
 
         `;
-        
-    
         tbody.appendChild(tr);
     });
 
@@ -80,49 +83,44 @@ function criarPaginacao() {
     }
 }
 
-function buscarProdutos() {
-    const termoPesquisa = document.getElementById("buscarProduto").value.toLowerCase().trim();
+function buscarUsuarios() {
+    const termoPesquisa = document.getElementById("buscarUsuario").value.toLowerCase().trim();
     
     if (termoPesquisa === "") {
-        listaAtual = [...produtos]; 
+        carregarUsuarios(); 
     } else {
-        listaAtual = produtos.filter(produto =>
-            produto.nome.toLowerCase().includes(termoPesquisa) ||
-            produto.categoria.toLowerCase().includes(termoPesquisa) ||
-            produto.fornecedor.toLowerCase().includes(termoPesquisa)
+        listaAtual = listaAtual.filter(usuario =>
+            usuario.nome.toLowerCase().includes(termoPesquisa) ||
+            usuario.tipo_usuario.toLowerCase().includes(termoPesquisa)
         );
-    }
-    
-    paginaAtual = 1;
-    atualizarTabela();
-}
-
-
-document.getElementById("buscar").addEventListener("click", buscarProdutos);
-
-document.getElementById("buscarProduto").addEventListener("keypress", function(event) {
-    if (event.key === "Enter") {
-        buscarProdutos();
-    }
-});
-
-
-document.getElementById("buscarProduto").addEventListener("input", function() {
-    if (this.value.trim() === "") {
-        listaAtual = [...produtos];
+        paginaAtual = 1;
         atualizarTabela();
     }
-});
-
+}
+    
 function atualizarTabela() {
-    mostrarProdutos(paginaAtual);
+    mostrarUsuarios(paginaAtual);
 }
 
-    function editarUsuario(nome) {
-      const nomeEncoded = encodeURIComponent(nome);
-      window.location.href = `edicaodeusuario.html?produto=${nomeEncoded}`;
-    }
-document.addEventListener("DOMContentLoaded", () => {
+
+function editarUsuario(nome) {
+  // Busca o usuario pelo nome na listaAtual
+  const usuario = listaAtual.find(p => p.nome === nome);
+  if (!usuario) {
+    alert("Usuário não encontrado para edição.");
+    return;
+  }
+
+
+  // Salva o produto completo no localStorage
+  localStorage.setItem("usuarioParaEdicao", JSON.stringify(usuario));
+
+  // Redireciona para a página de edição (sem query string)
+  window.location.href = "edicaodeusuario.html";
+}
+
+
+/*document.addEventListener("DOMContentLoaded", () => {
     atualizarTabela();
 });
 
@@ -134,4 +132,50 @@ document.getElementById("novoUsuario").addEventListener("click", function() {
 
 document.getElementById("usuarioIcon").addEventListener("click", function() {
     window.open("../usuarios/usuarios.html", "_self");
+});
+
+document.getElementById("buscar").addEventListener("click", buscarUsuarios);
+
+document.getElementById("buscarUsuario").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        buscarUsuarios();
+    }
+});
+
+
+document.getElementById("buscarUsuario").addEventListener("input", function () {
+  if (this.value.trim() === "") carregarUsuarios();
+  });
+
+
+document.addEventListener("DOMContentLoaded", carregarUsuarios);
+document.getElementById("buscar").addEventListener("click", buscarProdutos);
+document.getElementById("buscarUsuario").addEventListener("keypress", e => {
+  if (e.key === "Enter") buscarProdutos();
+});
+document.getElementById("buscarProduto").addEventListener("input", function () {
+  if (this.value.trim() === "") carregarUsuarios();
+});
+document.getElementById("novoUsuario").addEventListener("click", () => {
+  window.open("novoUsuario.html", "_self");
+});
+document.getElementById("usuarioIcon").addEventListener("click", () => {
+  window.open("../usuarioIcon/usuarioIcon.html", "_self");
+});
+*/
+
+
+document.addEventListener("DOMContentLoaded", carregarUsuarios);
+document.getElementById("buscar").addEventListener("click", buscarUsuarios);
+document.getElementById("buscarUsuario").addEventListener("keypress", e => {
+  if (e.key === "Enter") buscarUsuarios();
+});
+document.getElementById("buscarUsuario").addEventListener("input", function () {
+  if (this.value.trim() === "") carregarUsuarios();
+});
+document.getElementById("novoUsuario").addEventListener("click", () => {
+  window.open("novoUsuario.html", "_self");
+});
+document.getElementById("usuarioIcon").addEventListener("click", () => {
+  window.open("../usuarioIcon/usuarioIcon.html", "_self");
 });
