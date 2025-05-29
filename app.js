@@ -19,6 +19,8 @@ const mostrarUsuariosRouter = require('./routes/mostrarUsuariosRoute');
 const editarUsuarioRoute = require("./routes/editarUsuarioRoute");
 const deleteUsuarioRouter = require('./routes/deleteUsuarioRoute');
 
+const dashboardRoutes = require('./routes/dashboardRoute');
+
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
@@ -35,6 +37,7 @@ app.use('/api/deleteusuarios', deleteUsuarioRouter);
 app.use("/api/fornecedores", editarFornecedorRoute);
 app.use('/api/fornecedoresmostrar', mostrarFornecedoresRouter);
 app.use('/api/deletefornecedores', deleteFornecedorRouter);
+app.use('/api', dashboardRoutes);
 
 // Use a porta do ambiente OU 5000
 const PORT = process.env.PORT || 5000;
