@@ -73,14 +73,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (confirm("Tem certeza que deseja excluir este fornecedor?")) {
       try {
-        const response = await fetch(`http://localhost:5000/api/deletefornecedor/${idFornecedor}`, {
+        const response = await fetch(`http://localhost:5000/api/deletefornecedores/${idFornecedor}`, {
           method: 'DELETE'
         });
 
         if (response.ok) {
           alert("Fornecedor excluído com sucesso.");
           localStorage.removeItem("fornecedorParaEdicao");
-          window.location.href = "fornecedor.html"; // Redireciona para a tela principal
+          window.location.href = "fornecedores.html"; // Redireciona para a tela principal
         } else {
           const errorData = await response.json();
           alert("Erro ao excluir fornecedor: " + (errorData.message || response.statusText));
