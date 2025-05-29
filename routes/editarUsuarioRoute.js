@@ -9,14 +9,14 @@ router.put("/editar/:id_usuario", async (req, res) => {
     const {
       nome,
       email,
-      cargo,
+      tipo_usuario,
     } = req.body;
 
     await editarUsuario({
       id_usuario,
       nome,
       email,
-      tipo_usuario: cargo,
+      tipo_usuario,
     });
 
     res.status(200).json({ mensagem: "Usuário atualizado com sucesso!" });
