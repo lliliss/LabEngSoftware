@@ -1,13 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const PDFDocument = require('pdfkit')
-const pool = require('../db')
+// const pool = require('../db') 
 
 router.post('/gerar', async (req, res) => {
   const { tipos, dataInicial, dataFinal } = req.body
 
   if (!tipos || !Array.isArray(tipos) || tipos.length === 0 || !dataInicial || !dataFinal) {
-    return res.status(400).json({error: 'Dados incompletos ou inválidos para gerar relatório.'})
+    return res.status(400).json({ error: 'Dados incompletos ou inválidos para gerar relatório.' })
   }
 
   const doc = new PDFDocument()
@@ -17,29 +17,37 @@ router.post('/gerar', async (req, res) => {
   res.setHeader('Content-type', 'application/pdf')
   doc.pipe(res)
 
-
-  doc.fontSize(20).text("Relatório - PharmaSafe", {align: 'center'})
+  doc.fontSize(20).text("Relatório - PharmaSafe", { align: 'center' })
   doc.moveDown()
   doc.fontSize(12).text(`Período: ${dataInicial} até ${dataFinal}`)
   doc.moveDown()
 
-  try {
+  try { // para os dados temporários antes de ir pra o banco
+    const dadosMock = {
+      produtos: [
+        { nome: 'Dipirona', quantidade: 100, data_entrada: '2025-05-01' },
+        { nome: 'Paracetamol', quantidade: 200, data_entrada: '2025-05-10' },
+      ],
+      fornecedores: [
+        { nome: 'Farmaco Indústria', cnpj: '12.345.678/0001-99', criado_em: '2025-04-15' },
+        { nome: 'BioSaúde Ltda.', cnpj: '98.765.432/0001-11', criado_em: '2025-05-05' },
+      ]
+    }
+
     if (tipos.includes("Produtos")) {
-      const produtos = await pool.query(
-        `SELECT nome, quantidade, data_entrada FROM produtos
-         WHERE data_entrada BETWEEN $1 AND $2`,
-        [dataInicial, dataFinal]
+      const produtosFiltrados = dadosMock.produtos.filter(p =>
+        p.data_entrada >= dataInicial && p.data_entrada <= dataFinal
       )
 
       doc.fontSize(16).text("📦 Produtos", { underline: true })
       doc.moveDown()
 
-      if (produtos.rows.length === 0) {
+      if (produtosFiltrados.length === 0) {
         doc.fontSize(12).text("Nenhum produto encontrado no período.")
       } else {
-        produtos.rows.forEach(prod => {
+        produtosFiltrados.forEach(prod => {
           doc.fontSize(14).text(`✔ ${prod.nome}`)
-          doc.fontSize(10).text(`Qtd: ${prod.quantidade} - Entrada: ${prod.data_entrada.toISOString().split('T')[0]}`, {indent: 20})
+          doc.fontSize(10).text(`Qtd: ${prod.quantidade} - Entrada: ${prod.data_entrada}`, { indent: 20 })
           doc.moveDown()
         })
       }
@@ -48,33 +56,31 @@ router.post('/gerar', async (req, res) => {
     }
 
     if (tipos.includes("Fornecedores")) {
-      const fornecedores = await pool.query(
-        `SELECT nome, cnpj, criado_em FROM fornecedores
-         WHERE criado_em BETWEEN $1 AND $2`,
-        [dataInicial, dataFinal]
+      const fornecedoresFiltrados = dadosMock.fornecedores.filter(f =>
+        f.criado_em >= dataInicial && f.criado_em <= dataFinal
       )
 
-      doc.fontSize(16).text("🏭 Fornecedores", {underline: true})
+      doc.fontSize(16).text("🏭 Fornecedores", { underline: true })
       doc.moveDown()
 
-      if (fornecedores.rows.length === 0) {
+      if (fornecedoresFiltrados.length === 0) {
         doc.fontSize(12).text("Nenhum fornecedor encontrado no período.")
       } else {
-        fornecedores.rows.forEach(f => {
+        fornecedoresFiltrados.forEach(f => {
           doc.fontSize(14).text(`✔ ${f.nome}`)
-          doc.fontSize(10).text(`CNPJ: ${f.cnpj} - Cadastro: ${f.criado_em.toISOString().split('T')[0]}`, {indent: 20})
+          doc.fontSize(10).text(`CNPJ: ${f.cnpj} - Cadastro: ${f.criado_em}`, { indent: 20 })
           doc.moveDown()
         })
       }
 
-      doc.moveDown();
+      doc.moveDown()
     }
 
     doc.end()
   } catch (err) {
     console.error("Erro ao gerar PDF:", err)
-    res.status(500).json({error: "Erro ao gerar relatório."})
+    res.status(500).json({ error: "Erro ao gerar relatório." })
   }
 })
 
-module.exports = router;
+module.exports = router
