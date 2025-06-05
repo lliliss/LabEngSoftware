@@ -54,22 +54,21 @@
     <div class="bord">
         <div class="container">
             <div class="inputs">
-            <label><input type="checkbox" > Fornecedores</label>
-            <label><input type="checkbox"> Entrada de Produtos</label>
-            <label><input type="checkbox"> Saída de Produtos</label>
-            <label><input type="checkbox"> Estoque baixo</label>
-            <label><input type="checkbox"> Produtos com validade próxima</label>
-        </div>
-            <div class="date">
-            <label>Data Inicial:
-                <input type="date" id="data-inicial">
-            </label>
-            <label>Data Final:
-                <input type="date" id="data-final">
-            </label>
-            <button >gerar</button>
- 
-             </div>
+                <label><input type="checkbox" name="tipo" value="Fornecedores"> Fornecedores</label>
+                <label><input type="checkbox" name="tipo" value="Produtos"> Entrada de Produtos</label>
+                <label><input type="checkbox" value="Validade"> Produtos com validade próxima</label>
+                <!-- Pode adicionar mais no futuro -->
+                </div>
+                <div class="date">
+                <label>Data Inicial:
+                    <input type="date" id="data-inicial">
+                </label>
+                <label>Data Final:
+                    <input type="date" id="data-final">
+                </label>
+                <button id="btn-gerar">Gerar PDF</button>
+            </div>
+
         
         </div>
 
@@ -78,6 +77,8 @@
        
         <script src="../js/script.js"></script>
         <script src="../js/notificacao.js"></script>
+        <script src="relatorios.js"></script>
+
     
 </body>
 </html>

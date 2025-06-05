@@ -8,7 +8,7 @@ async function inserirFornecedor(dados) {
   }
 
   const resultado = await pool.query(
-    "INSERT INTO fornecedores (nome, cnpj, email) VALUES ($1, $2, $3) RETURNING *",
+    "INSERT INTO fornecedores (nome, cnpj, email, created_at) VALUES ($1, $2, $3, now()) RETURNING *",
     [nome, cnpj, email]
   );
 
