@@ -1,37 +1,60 @@
-/*const express = require('express')
-const router = express.Router()
-const pool = require('../conexao');
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const pool = require('../db/conexao');
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const authMiddleware = require('../middlewares/authMiddleware');
+const inserirUsuario = require('../db/inserirUsuario');
 
-router.post('/login', async (req, res) => {
-  const {email, senha} = req.body
 
-  if (!email || !senha) {
-    return res.status(400).json({erro: 'Email e senha são obrigatórios.'})
-  }
-
+// Rota de cadastro inicial (sem autenticação)
+router.post('/cadastro-inicial', async (req, res) => {
   try {
-    const resultado = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email])
-
-    if (resultado.rows.length === 0) {
-      return res.status(401).json({erro: 'Usuário não encontrado.'})
+    // Verifica se já existe algum usuário
+    const { rows } = await pool.query('SELECT COUNT(*) FROM usuarios');
+    const quantidadeUsuarios = parseInt(rows[0].count);
+    
+    if (quantidadeUsuarios > 0) {
+      return res.status(403).json({ 
+        erro: 'Cadastro inicial já foi realizado. Use a rota normal de cadastro.' 
+      });
     }
 
-    const usuario = resultado.rows[0]
-    const senhaCorreta = await bcrypt.compare(senha, usuario.senha)
-
-    if (!senhaCorreta) {
-      return res.status(401).json({erro: 'Senha incorreta.'})
-    }
-
-    const token = jwt.sign({id: usuario.id, email: usuario.email }, process.env.JWT_SECRET, {expiresIn: '2h'})
-
-    res.json({mensagem: 'Login realizado com sucesso.', token})
-  } catch (erro) {
-    console.error(erro)
-    res.status(500).json({erro: 'Erro no servidor ao autenticar.'})
+    // Força o tipo admin para o primeiro usuário
+    req.body.tipoUsuario = 'admin';
+    
+    const usuario = await inserirUsuario(req.body);
+    res.status(201).json({ 
+      message: 'Usuário admin cadastrado com sucesso!',
+      usuario: {
+        id: usuario.id_usuario,
+        nome: usuario.nome,
+        email: usuario.email,
+        tipo: usuario.tipo_usuario
+      }
+    });
+  } catch (error) {
+    console.error('Erro no cadastro inicial:', error);
+    res.status(400).json({ error: error.message });
   }
-})
+});
+// Proteja a rota com o middleware de autenticação
+router.post('/enviar', authMiddleware, async (req, res) => {
+  try {
+    const usuario = await inserirUsuario(req.body);
+    res.status(201).json({ 
+      message: 'Usuário cadastrado com sucesso!',
+      usuario: {
+        id: usuario.id_usuario,
+        nome: usuario.nome,
+        email: usuario.email,
+        tipo: usuario.tipo_usuario
+      }
+    });
+  } catch (error) {
+    console.error('Erro ao cadastrar usuário:', error);
+    res.status(400).json({ error: error.message });
+  }
+});
 
-module.exports = router*/
+module.exports = router;

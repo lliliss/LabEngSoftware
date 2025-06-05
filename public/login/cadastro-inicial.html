@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro Inicial</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro do Primeiro Administrador</h1>
+        <form id="cadastroInicialForm">
+            <input type="text" id="nome" placeholder="Nome completo" required>
+            <input type="email" id="email" placeholder="E-mail" required>
+            <input type="text" id="cpf" placeholder="CPF" required>
+            <input type="password" id="senha" placeholder="Senha (mínimo 6 caracteres)" required>
+            <input type="password" id="confirmarSenha" placeholder="Confirmar Senha" required>
+            <button type="submit">Cadastrar Administrador</button>
+        </form>
+        <div id="mensagem"></div>
+    </div>
+    <script src="../shared/js/auth.js"></script>
+    <script src="cadastro-inicial.js"></script>
+</body>
+</html>
