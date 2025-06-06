@@ -25,6 +25,7 @@ const dashboardRoutes = require('./routes/dashboardRoute');
 
 const loginRouter = require('./routes/loginRoute')
 const authMiddleware = require('./middlewares/authMiddleware')
+const adminMiddleware = require('./middlewares/adminMiddleware');
 const verificarAdmin = require('./db/verificarAdmin');
 
 const relatoriosRoutes = require('./routes/relatoriosRoute');
@@ -47,25 +48,29 @@ app.use(cors({
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/produtos', produtosRotas);
-app.use("/api/fornecedores", fornecedoresRouter);
-app.use('/api/usuarios', usuariosRouter);
-app.use('/api/produtosmostrar', mostrarProdutosRouter);
-app.use('/api/deleteprodutos', deleteProdutoRouter);
-app.use("/api/produtos", editarProdutoRoute);
-app.use("/api/usuariosmostrar", mostrarUsuariosRouter);
-app.use("/api/usuarios", editarUsuarioRoute);
-app.use('/api/deleteusuarios', deleteUsuarioRouter);
-app.use("/api/fornecedores", editarFornecedorRoute);
-app.use('/api/fornecedoresmostrar', mostrarFornecedoresRouter);
-app.use('/api/deletefornecedores', deleteFornecedorRouter);
-app.use('/api/dashboard', authMiddleware, dashboardRoutes);
-
-app.use('/api/relatorios', relatoriosRoutes);
-
+//Rotas públicas
 app.use('/api', loginRouter)
 
+//Rotas autenticadas comuns
+app.use('/api/produtos', authMiddleware, produtosRotas);
+app.use('/api/produtosmostrar', authMiddleware, mostrarProdutosRouter);
+app.use('/api/deleteprodutos', authMiddleware, deleteProdutoRouter);
+app.use("/api/produtos", authMiddleware, editarProdutoRoute);
 
+app.use("/api/fornecedores", authMiddleware, fornecedoresRouter);
+app.use("/api/fornecedores", authMiddleware, editarFornecedorRoute);
+app.use('/api/fornecedoresmostrar', authMiddleware, mostrarFornecedoresRouter);
+app.use('/api/deletefornecedores', authMiddleware, deleteFornecedorRouter);
+
+app.use('/api/dashboard', authMiddleware, dashboardRoutes);
+app.use('/api/relatorios', authMiddleware, relatoriosRoutes);
+
+//Rotas administrativas
+
+app.use('/api/usuarios', authMiddleware, adminMiddleware, usuariosRouter);
+app.use("/api/usuariosmostrar", authMiddleware, adminMiddleware, mostrarUsuariosRouter);
+app.use("/api/usuarios", authMiddleware, adminMiddleware, editarUsuarioRoute);
+app.use('/api/deleteusuarios', authMiddleware, adminMiddleware, deleteUsuarioRouter);
 
 // Use a porta do ambiente OU 5000
 const PORT = process.env.PORT || 5000;

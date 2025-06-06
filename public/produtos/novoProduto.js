@@ -64,14 +64,16 @@ document.getElementById('salvar').addEventListener('click', function (e) {
     }
   };
 
-
+  const token = localStorage.getItem('token');
   fetch("http://localhost:5000/api/produtos/enviar", {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
     },
     body: JSON.stringify(dados)
   })
+        
   .then(response => response.json())
   .then(data => {
     document.getElementById('mensagem').innerText = 'Salvo com sucesso!';

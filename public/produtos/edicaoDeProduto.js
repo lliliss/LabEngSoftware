@@ -59,13 +59,16 @@ document.getElementById("salvar").addEventListener("click", async function () {
 };
 
   try {
+    const token = localStorage.getItem('token');
     const resposta = await fetch(`http://localhost:5000/api/produtos/editar/${produtoOriginal.id_produto}`, {
       method: "PUT",
       headers: {
+        'Authorization': `Bearer ${token}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify(produtoAtualizado)
     });
+
 
     if (resposta.ok) {
       alert("Produto atualizado com sucesso!");
@@ -97,9 +100,15 @@ document.getElementById("salvar").addEventListener("click", async function () {
 
     if (confirm("Tem certeza que deseja excluir este produto?")) {
       try {
+        const token = localStorage.getItem('token');
         const response = await fetch(`http://localhost:5000/api/deleteprodutos/${idProduto}`, {
-          method: 'DELETE'
+        headers: {
+        'Authorization': `Bearer ${token}`,
+        method: 'DELETE'
+      }
+          //method: 'DELETE'
         });
+
 
         if (response.ok) {
           alert("Produto excluído com sucesso.");

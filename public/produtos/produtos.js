@@ -4,7 +4,13 @@ let listaAtual = [];
 
 async function carregarProdutos() {
   try {
-    const resposta = await fetch("http://localhost:5000/api/produtosmostrar/mostrar");
+    const token = localStorage.getItem('token');
+    const resposta = await fetch('/api/produtosmostrar/mostrar', {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
     if (!resposta.ok) throw new Error("Erro ao carregar produtos");
     const dados = await resposta.json();
     listaAtual = dados;

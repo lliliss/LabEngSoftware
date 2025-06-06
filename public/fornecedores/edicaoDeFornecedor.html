@@ -8,7 +8,22 @@
     <link rel="stylesheet" href="./edicaoDeFornecedor.css">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
-    <script type="module" src="../shared/js/auth.js"></script>
+    <script type="module">
+    import { protectRoute } from '../shared/js/auth.js';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!protectRoute()) return;
+        
+        // Se for página de admin, verifica novamente
+        if (window.location.pathname.includes('admin') && !isAdmin()) {
+        window.location.href = '/dashboard/index.html?error=admin_required';
+        return;
+        }
+        
+        // Restante do seu código...
+        carregarDadosDaPagina();
+    });
+    </script>
 </head>
 <body>
     

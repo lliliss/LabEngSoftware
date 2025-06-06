@@ -67,8 +67,19 @@ export const logout = () => {
 
 // Inicializa sistema de autenticação
 export const initAuth = () => {
-  // Verifica autenticação ao carregar
-  checkAuth();
+  if (!protectRoute()) return;
+
+  // Controle de elementos
+  const user = getCurrentUser();
+  document.querySelectorAll('[data-auth-only]').forEach(el => {
+    el.style.display = 'block';
+  });
+
+  if (isAdmin()) {
+    document.querySelectorAll('[data-admin-only]').forEach(el => {
+      el.style.display = 'block';
+    });
+  }
   
   // Adiciona evento de logout
   const logoutBtn = document.getElementById('logoutBtn');
@@ -86,6 +97,38 @@ export const initAuth = () => {
       el.style.display = isAdmin ? '' : 'none';
     });
   }
+
+  
+};
+
+// shared/js/auth.js (Adições)
+
+// Verifica se o usuário está logado (apenas checa token/user)
+export const isLoggedIn = () => {
+  return !!localStorage.getItem('token') && !!localStorage.getItem('user');
+};
+
+// Verifica se o usuário é admin
+export const isAdmin = () => {
+  const user = getCurrentUser();
+  return user?.tipo === USER_ROLES.ADMIN;
+};
+
+// Proteção de rota com redirecionamento
+export const protectRoute = () => {
+  if (!checkAuth()) return false;
+  
+  // Adicional: Verifica se o token está perto de expirar
+  const token = localStorage.getItem('token');
+  if (token) {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Math.floor(Date.now() / 1000);
+    if (payload.exp - now < 300) { // 5 minutos para expirar
+      alert('Sua sessão está prestes a expirar. Faça login novamente em breve.');
+    }
+  }
+  
+  return true;
 };
 
 // Inicia quando o DOM estiver pronto
