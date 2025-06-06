@@ -1,19 +1,26 @@
 const jwt = require('jsonwebtoken')
 
 function authMiddleware(req, res, next) {
-  const token = req.headers.authorization?.split(' ')[1]
+  console.log('Token recebido:', req.headers.authorization);
+  const token = req.headers.authorization?.split(' ')[1];
 
   if (!token) {
-    return res.status(401).json({ erro: 'Token não fornecido.' })
+    console.log('Nenhum token fornecido');
+    return res.status(401).json({ erro: 'Token não fornecido.' });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET)
-    req.usuario = decoded
-    next()
+    console.log('Verificando token...');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log('Token decodificado:', decoded);
+    req.usuario = decoded;
+    next();
   } catch (error) {
-    return res.status(401).json({ erro: 'Token inválido ou expirado.' })
+    console.error('Erro na verificação do token:', error.message);
+    return res.status(401).json({ 
+      erro: 'Token inválido ou expirado.',
+      detalhes: error.message
+    });
   }
 }
-
 module.exports = authMiddleware

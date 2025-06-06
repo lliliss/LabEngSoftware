@@ -39,7 +39,11 @@ verificarAdmin().then(existeAdmin => {
 
 
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5000', // ou seu domínio
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -55,7 +59,7 @@ app.use('/api/deleteusuarios', deleteUsuarioRouter);
 app.use("/api/fornecedores", editarFornecedorRoute);
 app.use('/api/fornecedoresmostrar', mostrarFornecedoresRouter);
 app.use('/api/deletefornecedores', deleteFornecedorRouter);
-app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/dashboard', authMiddleware, dashboardRoutes);
 
 app.use('/api/relatorios', relatoriosRoutes);
 

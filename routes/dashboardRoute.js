@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { getDashboardData } = require('../db/dashboardQueries');
+const getDashboardData = require('../db/dashboardQueries');
 
-router.get('/dashboard', async (req, res) => {
+router.get('/mostrar', async (req, res) => {
   try {
+    console.log('Recebida requisição para /dashboard');
     const data = await getDashboardData();
+    console.log('Dados retornados:', data);
     res.json(data);
   } catch (error) {
     console.error('Erro no dashboard:', error);

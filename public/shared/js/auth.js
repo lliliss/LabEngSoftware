@@ -1,13 +1,13 @@
 // shared/js/auth.js
 
 // Tipos de usuário
-const USER_ROLES = {
+export const USER_ROLES = {
   ADMIN: 'admin',
   USER: 'funcionario'
 };
 
 // Verifica se está em página protegida
-const isProtectedPage = () => {
+export const isProtectedPage = () => {
   const protectedPages = [
     '/dashboard/index.html',
     '/fornecedores/edicaoDeFornecedor.html',
@@ -25,7 +25,7 @@ const isProtectedPage = () => {
 };
 
 // Verifica se está em página restrita a admin
-const isAdminPage = () => {
+export const isAdminPage = () => {
   const adminPages = [
     '/usuarios/usuarios.html'
   ];
@@ -33,7 +33,7 @@ const isAdminPage = () => {
 };
 
 // Pega dados do usuário logado
-const getCurrentUser = () => {
+export const getCurrentUser = () => {
   const user = localStorage.getItem('user');
   return user ? JSON.parse(user) : null;
 };
