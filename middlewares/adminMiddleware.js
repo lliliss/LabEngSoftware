@@ -10,7 +10,7 @@
 // middlewares/adminMiddleware.js
 const { USER_ROLES } = require('../shared/userRoles');
 
-module.exports = function adminMiddleware(req, res, next) {
+function adminMiddleware(req, res, next) {
   if (req.usuario?.tipo !== USER_ROLES.ADMIN) {
     return res.status(403).json({ 
       error: 'Acesso negado',
@@ -19,3 +19,5 @@ module.exports = function adminMiddleware(req, res, next) {
   }
   next();
 };
+
+module.exports = adminMiddleware;

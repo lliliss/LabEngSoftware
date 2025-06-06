@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
     res.json({
       mensagem: 'Login realizado com sucesso.',
       token,
-      usuario: {
+      user: {
         id: usuario.id_usuario,
         nome: usuario.nome,
         email: usuario.email,
@@ -61,7 +61,7 @@ router.post('/login', async (req, res) => {
 router.get('/verificar', authMiddleware, (req, res) => {
   res.json({ 
     valido: true, 
-    usuario: {
+    user: {
       id: req.usuario.id,
       email: req.usuario.email,
       tipo: req.usuario.tipo

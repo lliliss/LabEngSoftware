@@ -11,13 +11,18 @@ document.getElementById("btn-gerar").addEventListener("click", async () => {
   }
 
   try {
+    const token = localStorage.getItem('token');
     const response = await fetch("http://localhost:5000/api/relatorios/gerar", {
       method: "POST",
       headers: {
+        'Authorization': `Bearer ${token}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({ tipos, dataInicial, dataFinal })
     });
+
+
+    
 
     if (!response.ok) throw new Error("Erro ao gerar relatório.");
 

@@ -18,12 +18,12 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     if (response.ok) {
       // 1. Armazena os dados de autenticação
       localStorage.setItem('token', data.token);
-      localStorage.setItem('usuario', JSON.stringify(data.usuario));
+      localStorage.setItem('user', JSON.stringify(data.user));
       
       // 2. Debug (pode remover depois)
       console.log('Login bem-sucedido:', {
         token: data.token,
-        usuario: data.usuario
+        user: data.user
       });
 
       // 3. Verifica se há URL de redirecionamento
@@ -36,7 +36,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         window.location.href = redirectUrl;
       } else {
         // Redireciona conforme o tipo de usuário
-        const destino = data.usuario.tipo === 'admin' 
+        const destino = data.user.tipo === 'admin' 
           ? '../dashboard/index.html' 
           : '../dashboard/index.html';
         window.location.href = destino;
@@ -58,8 +58,8 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 document.addEventListener('DOMContentLoaded', () => {
   const token = localStorage.getItem('token');
   if (token) {
-    const usuario = JSON.parse(localStorage.getItem('usuario'));
-    const destino = usuario?.tipo === 'admin' 
+    const user = JSON.parse(localStorage.getItem('user'));
+    const destino = user?.tipo === 'admin' 
       ? '../dashboard/index.html' 
       : '../dashboard/index.html';
     window.location.href = destino;

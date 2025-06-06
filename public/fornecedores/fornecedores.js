@@ -4,7 +4,12 @@ let listaAtual = [];
 
 async function carregarFornecedor() {
   try {
-    const resposta = await fetch("http://localhost:5000/api/fornecedoresmostrar/mostrar");
+    const token = localStorage.getItem('token');
+    const resposta = await fetch("http://localhost:5000/api/fornecedoresmostrar/mostrar", {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
     if (!resposta.ok) throw new Error("Erro ao carregar fornecedores");
     const dados = await resposta.json();
     listaAtual = dados;

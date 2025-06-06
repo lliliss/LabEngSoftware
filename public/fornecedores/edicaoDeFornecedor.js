@@ -36,10 +36,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     try {
-        console.log(`${fornecedorOriginal.id_fornecedor}`)
+      const token = localStorage.getItem('token');
       const resposta = await fetch(`http://localhost:5000/api/fornecedores/editar/${fornecedorOriginal.id_fornecedor}`, {
         method: "PUT",
         headers: {
+          'Authorization': `Bearer ${token}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify(fornecedorAtualizado)
@@ -73,8 +74,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (confirm("Tem certeza que deseja excluir este fornecedor?")) {
       try {
+        const token = localStorage.getItem('token');
         const response = await fetch(`http://localhost:5000/api/deletefornecedores/${idFornecedor}`, {
-          method: 'DELETE'
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         });
 
         if (response.ok) {

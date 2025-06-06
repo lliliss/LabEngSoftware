@@ -57,9 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
+        const token = localStorage.getItem('token');
         const resposta = await fetch("http://localhost:5000/api/fornecedores/enviar", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json",
+            'Authorization': `Bearer ${token}`
+           },
           body: JSON.stringify({ nome, cnpj, email })
         });
 

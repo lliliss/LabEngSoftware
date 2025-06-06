@@ -52,9 +52,11 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     try {
+      const token = localStorage.getItem('token');
       const resposta = await fetch(`http://localhost:5000/api/usuarios/editar/${usuarioOriginal.id_usuario}`, {
         method: "PUT",
         headers: {
+          'Authorization': `Bearer ${token}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify(usuarioAtualizado)
@@ -86,7 +88,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (confirm("Tem certeza que deseja excluir este usuario?")) {
       try {
+        const token = localStorage.getItem('token');
         const response = await fetch(`http://localhost:5000/api/deleteusuarios/${idUsuario}`, {
+          'Authorization': `Bearer ${token}`,
           method: 'DELETE'
         });
 

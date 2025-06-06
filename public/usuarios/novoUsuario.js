@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const usuario = { nome, email, cpf, tipoUsuario, senha };
     console.log(localStorage.getItem('token')); // Deve mostrar o token
     try {
-    
+    const token = localStorage.getItem('token');
       const resposta = await fetch('http://localhost:5000/api/usuarios/enviar', {
         method: 'POST',
         headers: { 
