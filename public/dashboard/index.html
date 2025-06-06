@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
+  <script type="module" src="../shared/js/auth.js"></script>
 </head>
 <body>
   <div class="sidebar">
@@ -30,9 +31,12 @@
       <li><a href="../relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
       <li><a href="../fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
       <li><a href="../notificaçoes/notificações.html"><span class="material-symbols-outlined">notifications</span> Notificações</a></li>
-      <li><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
+      
+      <!-- Item de Usuários (somente admin) -->
+      <li class="admin-only" style="display: none;"><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
+      
       <div class="saida">
-        <li class="logout"><a href="../login2/logins.html"><i class="fi fi-rr-sign-in-alt"></i> Sair</a></li>
+        <li class="logout"><a id="logoutBtn"><i class="fi fi-rr-sign-in-alt"></i>Sair</a></li>
       </div>
     </ul>
   </div>
@@ -40,7 +44,8 @@
   <main class="DashboardConteudo">
     <!-- Cards principais -->
     <div class="CardsWrapper">
-      <div class="CardContainer">
+      <!-- Card de Usuários (somente admin) -->
+      <div class="CardContainer admin-only" style="display: none;">
         <div class="CardInfo">
           <i class="fi fi-rr-users"></i>
           <h3 id="totalUsuarios">0</h3>
@@ -64,8 +69,6 @@
         </div>
       </div>
     </div>
-
-
 
     <!-- Seção de dados -->
     <div class="SecaoDados">
@@ -108,9 +111,26 @@
           <p><strong>0</strong> Total de produtos</p>
         </div>
       </div>
-
+    </div>
   </main>
 
+  <script>
+    // Verifica se o usuário é admin ao carregar a página
+    document.addEventListener('DOMContentLoaded', () => {
+      const usuario = JSON.parse(localStorage.getItem('usuario'));
+      
+      if (usuario && usuario.tipo === 'admin') {
+        // Mostra elementos restritos a admin
+        document.querySelectorAll('.admin-only').forEach(el => {
+          el.style.display = 'block';
+        });
+      }
+    });
+  </script>
+  
   <script src="script.js"></script>
 </body>
 </html>
+
+
+
