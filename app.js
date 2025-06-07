@@ -6,6 +6,10 @@ const app = express()
 const produtosRotas = require('./routes/produtosRotas')
 const loginRotas = require('./routes/loginRotas')
 
+const notificacoesRotas = require('./routes/notificacoesRotas')
+
+app.use('/api/notificacoes', notificacoesRotas)
+
 app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
