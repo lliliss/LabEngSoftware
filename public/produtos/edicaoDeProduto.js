@@ -105,9 +105,9 @@ document.getElementById("salvar").addEventListener("click", async function () {
       try {
         const token = localStorage.getItem('token');
         const response = await fetch(`http://localhost:5000/api/deleteprodutos/${idProduto}`, {
+        method: 'DELETE',
         headers: {
-        'Authorization': `Bearer ${token}`,
-        method: 'DELETE'
+        'Authorization': `Bearer ${token}`
       }
           //method: 'DELETE'
         });

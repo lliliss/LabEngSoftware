@@ -86,7 +86,7 @@ document.getElementById('salvar').addEventListener('click', function (e) {
 });
 
 
-const botaoVoltar = document.getElementById("Voltar");
+const botaoVoltar = document.getElementById("voltar");
 if (botaoVoltar) {
   botaoVoltar.addEventListener("click", function () {
     localStorage.removeItem("produtoParaEdicao");
