@@ -39,36 +39,51 @@ function mostrarProdutos(pagina) {
     <td>
         <div class="quantidade-container">
         <button class="subtrairBtn" data-index="${index}" title="Diminuir">➖</button>
-        <input type="number" min="0" class="quantidadeInput" data-index="${index}" value="${produto.quantidade}" />
+        <input 
+            type="number" 
+            min="0" 
+            class="quantidadeInput"
+            data-produto-id="${produto.id_produto}"
+            data-lote-id="${produto.id_lote}"
+            data-original="${produto.quantidade}"
+            value="${produto.quantidade}"
+            />
+
         <button class="adicionarBtn" data-index="${index}" title="Adicionar">➕</button>
         </div>
     </td>
-    <td><button class="botao-editar" onclick="editarProduto('${produto.nome}')">✅</button></td>
+    <td>
+        <button class="botao-editar" onclick="editarProduto(${produto.id_produto}, ${produto.id_lote})">✅</button>
+    </td>
     `;
+
 
 
     tbody.appendChild(tr);
   });
 
-  // Eventos dos botões e inputs
-  document.querySelectorAll(".adicionarBtn").forEach(btn => {
-    btn.addEventListener("click", e => {
-      const idx = parseInt(e.target.dataset.index);
-      listaAtual[(paginaAtual - 1) * itensPorPagina + idx].quantidade++;
-      atualizarTabela();
-    });
+document.querySelectorAll(".adicionarBtn").forEach(btn => {
+  btn.addEventListener("click", e => {
+    const produtoId = e.target.closest('tr').querySelector('.quantidadeInput').dataset.produtoId;
+    const loteId = e.target.closest('tr').querySelector('.quantidadeInput').dataset.loteId;
+    const input = document.querySelector(`input.quantidadeInput[data-produto-id="${produtoId}"][data-lote-id="${loteId}"]`);
+    input.value = parseInt(input.value) + 1;
+    input.dispatchEvent(new Event('change'));
   });
+});
 
-  document.querySelectorAll(".subtrairBtn").forEach(btn => {
-    btn.addEventListener("click", e => {
-      const idx = parseInt(e.target.dataset.index);
-      const produto = listaAtual[(paginaAtual - 1) * itensPorPagina + idx];
-      if (produto.quantidade > 0) {
-        produto.quantidade--;
-        atualizarTabela();
-      }
-    });
+document.querySelectorAll(".subtrairBtn").forEach(btn => {
+  btn.addEventListener("click", e => {
+    const produtoId = e.target.closest('tr').querySelector('.quantidadeInput').dataset.produtoId;
+    const loteId = e.target.closest('tr').querySelector('.quantidadeInput').dataset.loteId;
+    const input = document.querySelector(`input.quantidadeInput[data-produto-id="${produtoId}"][data-lote-id="${loteId}"]`);
+    if (input.value > 0) {
+      input.value = parseInt(input.value) - 1;
+      input.dispatchEvent(new Event('change'));
+    }
   });
+});
+
 
   document.querySelectorAll(".quantidadeInput").forEach(input => {
     input.addEventListener("change", e => {
@@ -148,20 +163,63 @@ function atualizarTabela() {
   mostrarProdutos(paginaAtual);
 }
 
-function editarProduto(nome) {
-  // Busca o produto pelo nome na listaAtual
-  const produto = listaAtual.find(p => p.nome === nome);
-  if (!produto) {
-    alert("Produto não encontrado para edição.");
+function editarProduto(produtoId, loteId) {
+  const input = document.querySelector(`input.quantidadeInput[data-produto-id="${produtoId}"][data-lote-id="${loteId}"]`);
+  const novaQuantidade = parseInt(input.value);
+  const quantidadeOriginal = parseInt(input.dataset.original);
+
+  if (isNaN(novaQuantidade)) {
+    alert('Quantidade inválida!');
+    input.value = quantidadeOriginal;
     return;
   }
 
-  // Salva o produto completo no localStorage
-  localStorage.setItem("produtoParaEdicao", JSON.stringify(produto));
+  if (novaQuantidade === quantidadeOriginal) {
+    alert('A quantidade não foi alterada.');
+    return;
+  }
 
-  // Redireciona para a página de edição (sem query string)
-  window.location.href = "edicaodeproduto.html";
+  const tipo = novaQuantidade > quantidadeOriginal ? 'aumento' : 'diminuicao';
+  const token = localStorage.getItem('token');
+
+  fetch('/api/atualizar-quantidade', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify({
+      produtoId: parseInt(produtoId),
+      loteId: parseInt(loteId),
+      quantidadeAnterior: quantidadeOriginal,
+      quantidadeNova: novaQuantidade,
+      tipo
+    })
+  })
+  .then(async response => {
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Erro na requisição');
+    }
+    return response.json();
+  })
+  .then(data => {
+    if (data.success) {
+      alert(data.message);
+      input.dataset.original = novaQuantidade;
+      carregarProdutos(); // Recarrega os dados
+    } else {
+      throw new Error(data.message);
+    }
+  })
+  .catch(error => {
+    console.error('Erro:', error);
+    alert(error.message || 'Erro ao atualizar quantidade');
+    input.value = quantidadeOriginal; // Reverte o valor
+  });
 }
+
+
 
 document.addEventListener("DOMContentLoaded", carregarProdutos);
 document.getElementById("buscar").addEventListener("click", buscarProdutos);
@@ -170,9 +228,6 @@ document.getElementById("buscarProduto").addEventListener("keypress", e => {
 });
 document.getElementById("buscarProduto").addEventListener("input", function () {
   if (this.value.trim() === "") carregarProdutos();
-});
-document.getElementById("novoProduto").addEventListener("click", () => {
-  window.open("novoProduto.html", "_self");
 });
 document.getElementById("iconUsuario").addEventListener("click", () => {
   window.open("../iconUsuario/iconUsuario,html", "_self");

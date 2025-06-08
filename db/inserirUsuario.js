@@ -8,6 +8,8 @@ async function inserirUsuario(dados) {
     throw new Error("Todos os campos são obrigatórios.");
   }
 
+  console.log('Dados recebidos no backend:', dados);
+
   // Criptografa a senha antes de armazenar
   const senhaHash = await bcrypt.hash(senha, 10);
 

@@ -51,10 +51,13 @@ router.post('/enviar', authMiddleware, async (req, res) => {
         tipo: usuario.tipo_usuario
       }
     });
-  } catch (error) {
-    console.error('Erro ao cadastrar usuário:', error);
-    res.status(400).json({ error: error.message });
-  }
+} catch (error) {
+  console.error('Erro ao cadastrar usuário:', error);
+  res.status(400).json({ 
+    error: error.message,
+    details: error.details || null 
+  });
+}
 });
 
 module.exports = router;

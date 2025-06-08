@@ -30,6 +30,8 @@ const verificarAdmin = require('./db/verificarAdmin');
 
 const relatoriosRoutes = require('./routes/relatoriosRoute');
 
+const atualizarEstoqueRoute = require('./routes/mudarQuantidadeProduto');
+
 
 // Verifica ao iniciar o servidor
 verificarAdmin().then(existeAdmin => {
@@ -64,6 +66,9 @@ app.use('/api/deletefornecedores', authMiddleware, deleteFornecedorRouter);
 
 app.use('/api/dashboard', authMiddleware, dashboardRoutes);
 app.use('/api/relatorios', authMiddleware, relatoriosRoutes);
+
+app.use('/api', authMiddleware, atualizarEstoqueRoute);
+
 
 //Rotas administrativas
 

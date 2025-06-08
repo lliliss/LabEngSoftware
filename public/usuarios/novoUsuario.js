@@ -33,7 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const usuario = { nome, email, cpf, tipoUsuario, senha };
-    console.log(localStorage.getItem('token')); // Deve mostrar o token
+    console.log(localStorage.getItem('token')); 
+    console.log('Token:', token);
+    console.log('Usuário logado:', usuario);
+    console.log('Dados do novo usuário:', usuario);
     try {
     const token = localStorage.getItem('token');
       const resposta = await fetch('http://localhost:5000/api/usuarios/enviar', {
@@ -54,6 +57,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const resultado = await resposta.json();
       console.log('Resultado:', resultado);
+
+      console.log('Dados sendo enviados:', {
+        nome, email, cpf, tipoUsuario, senha
+      });
 
 
       if (resposta.ok) {
