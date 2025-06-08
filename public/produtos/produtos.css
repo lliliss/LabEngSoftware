@@ -166,6 +166,7 @@ table td, table th {
 
 
 
+
 @media screen and (max-width: 768px) {
     .sidebar {
         transform: translateX(-100%);

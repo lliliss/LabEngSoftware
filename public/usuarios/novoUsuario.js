@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const mensagem = document.getElementById('mensagem');
 
   const token = localStorage.getItem('token');
-  const usuario = JSON.parse(localStorage.getItem('usuario'));
+  const usuario = JSON.parse(localStorage.getItem('user'));
   
   if (!token || !usuario) {
     window.location.href = '../login/logins.html';

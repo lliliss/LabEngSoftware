@@ -132,7 +132,7 @@
   import { checkAuth, initAuth  } from '../shared/js/auth.js';
   
   // Verifica se o usuário é admin ao carregar a página
-  const usuario = JSON.parse(localStorage.getItem('usuario'));
+  const usuario = JSON.parse(localStorage.getItem('user'));
   
   if (usuario && usuario.tipo === 'admin') {
     // Mostra elementos restritos a admin

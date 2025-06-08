@@ -11,7 +11,7 @@
 const { USER_ROLES } = require('../shared/userRoles');
 
 function adminMiddleware(req, res, next) {
-  if (req.usuario?.tipo !== USER_ROLES.ADMIN) {
+  if (req.user?.tipo !== USER_ROLES.ADMIN) {
     return res.status(403).json({ 
       error: 'Acesso negado',
       message: 'Esta funcionalidade é restrita a administradores'
