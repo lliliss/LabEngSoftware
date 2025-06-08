@@ -93,3 +93,37 @@ if (botaoVoltar) {
     window.location.href = "produtos.html";
   });
 }
+
+
+// Carregar fornecedores no select
+document.addEventListener('DOMContentLoaded', async () => {
+  const selectFornecedores = document.getElementById('fornecedores');
+  if (!selectFornecedores) return;
+
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch('http://localhost:5000/api/fornecedores', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    const fornecedores = await response.json();
+
+    if (fornecedores.length === 0) {
+      selectFornecedores.innerHTML = '<option value="">Nenhum fornecedor encontrado</option>';
+      return;
+    }
+
+    selectFornecedores.innerHTML = '<option value="">Selecione...</option>';
+    fornecedores.forEach(fornecedor => {
+      const option = document.createElement('option');
+      option.value = fornecedor.id_fornecedor; // ou 'id' se for esse o nome
+      option.textContent = fornecedor.nome;
+      selectFornecedores.appendChild(option);
+    });
+  } catch (erro) {
+    console.error('Erro ao carregar fornecedores:', erro);
+    selectFornecedores.innerHTML = '<option value="">Erro ao carregar fornecedores</option>';
+  }
+});

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const inserirFornecedor = require("../db/inserirFornecedores");
+const pool = require('../db/conexao');
 
 router.post('/enviar', async (req, res) => {
   try {
@@ -10,6 +11,19 @@ router.post('/enviar', async (req, res) => {
     res.status(500).json({ error: 'Erro ao inserir fornecedor' });
   }
 });
+
+
+// GET /api/fornecedores
+router.get('/', async (req, res) => {
+  try {
+    const resultado = await pool.query('SELECT id_fornecedor, nome FROM fornecedores');
+    res.json(resultado.rows);
+  } catch (erro) {
+    console.error('Erro ao buscar fornecedores:', erro);
+    res.status(500).json({ erro: 'Erro interno no servidor' });
+  }
+});
+
 
 
 module.exports = router;
