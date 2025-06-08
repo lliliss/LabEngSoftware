@@ -8,9 +8,12 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Preenche os campos do formulário
+  console.log("Produto recebido:", produto);
+
   document.getElementById("nome").value = produto.nome || "";
   document.getElementById("categoria").value = produto.categoria || "";
   document.getElementById("quantidade").value = produto.quantidade || "";
+
 
   // Converter "31/05/2025" para "2025-05-31"
   if (produto.validade) {
@@ -21,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  document.getElementById("fornecedores").value = produto.fornecedor || "";
+
   document.getElementById("numeroDeSerie").value = produto.serie || "";
 
   // Botão voltar
@@ -124,4 +127,53 @@ document.getElementById("salvar").addEventListener("click", async function () {
       }
     }
   });
+});
+
+
+// Carregar fornecedores no select
+document.addEventListener('DOMContentLoaded', async () => {
+  const selectFornecedores = document.getElementById('fornecedores');
+  if (!selectFornecedores) return;
+
+  try {
+    const token = localStorage.getItem('token');
+    const response = await fetch('http://localhost:5000/api/fornecedores', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+
+    
+
+    const fornecedores = await response.json();
+
+    if (fornecedores.length === 0) {
+      selectFornecedores.innerHTML = '<option value="">Nenhum fornecedor encontrado</option>';
+      return;
+    }
+
+    selectFornecedores.innerHTML = '<option value="">Selecione...</option>';
+    fornecedores.forEach(fornecedor => {
+      const option = document.createElement('option');
+      option.value = fornecedor.id_fornecedor; 
+      option.textContent = fornecedor.nome;
+      selectFornecedores.appendChild(option);
+    });
+
+    const produto = JSON.parse(localStorage.getItem("produtoParaEdicao"));
+
+    for (const option of selectFornecedores.options) {
+      if (option.textContent.trim() === produto.fornecedor.trim()) {
+        selectFornecedores.value = option.value;
+        break;
+      }
+    }
+
+    console.log("Valor do fornecedor no produto:", produto.fornecedor);
+
+  } catch (erro) {
+    console.error('Erro ao carregar fornecedores:', erro);
+    selectFornecedores.innerHTML = '<option value="">Erro ao carregar fornecedores</option>';
+  }
+
 });
