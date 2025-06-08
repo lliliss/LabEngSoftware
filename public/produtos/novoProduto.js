@@ -84,3 +84,12 @@ document.getElementById('salvar').addEventListener('click', function (e) {
     console.error('Erro:', error);
   });
 });
+
+
+const botaoVoltar = document.getElementById("Voltar");
+if (botaoVoltar) {
+  botaoVoltar.addEventListener("click", function () {
+    localStorage.removeItem("produtoParaEdicao");
+    window.location.href = "produtos.html";
+  });
+}

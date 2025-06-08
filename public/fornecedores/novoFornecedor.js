@@ -81,13 +81,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (botaoVoltar) {
+if (botaoVoltar) {
     botaoVoltar.addEventListener("click", () => {
       window.location.href = "../fornecedores/fornecedores.html";
     });
-  }
+}
 
-  function exibirMensagem(texto, cor) {
+function exibirMensagem(texto, cor) {
     const mensagem = document.getElementById("mensagem");
     mensagem.style.display = "block";
     mensagem.style.backgroundColor = cor;
@@ -95,9 +95,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       mensagem.style.display = "none";
     }, 4000);
-  }
+}
 
-  function limparCampos() {
+function limparCampos() {
     document.getElementById("nome").value = "";
     document.getElementById("cnpj").value = "";
     document.getElementById("email").value = "";

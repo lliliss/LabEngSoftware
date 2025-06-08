@@ -34,7 +34,7 @@ const relatoriosRoutes = require('./routes/relatoriosRoute');
 // Verifica ao iniciar o servidor
 verificarAdmin().then(existeAdmin => {
     if (!existeAdmin) {
-        console.log('⚠️  Acesse /cadastro-inicial para criar o primeiro usuário admin');
+        console.log(' Acesse /cadastro-inicial para criar o primeiro usuário admin');
     }
 });
 

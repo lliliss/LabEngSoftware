@@ -136,6 +136,6 @@ document.getElementById("buscarProduto").addEventListener("input", function () {
 document.getElementById("novoProduto").addEventListener("click", () => {
   window.open("novoProduto.html", "_self");
 });
-document.getElementById("usuarioIcon").addEventListener("click", () => {
-  window.open("../usuarioIcon/usuarioIcon.html", "_self");
+document.getElementById("iconUsuario").addEventListener("click", () => {
+  window.open("../iconUsuario/iconUsuario,html", "_self");
 });
