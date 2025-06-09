@@ -159,6 +159,22 @@ function buscarProdutos() {
   }
 }
 
+
+function buscarProdutos() {
+  const termo = document.getElementById("buscarProduto").value.toLowerCase().trim();
+  if (termo === "") {
+    carregarProdutos(); // Recarrega todos os produtos do banco
+  } else {
+    listaAtual = listaAtual.filter(p =>
+      p.nome.toLowerCase().includes(termo) ||
+      p.categoria.toLowerCase().includes(termo) ||
+      p.fornecedor.toLowerCase().includes(termo)
+    );
+    paginaAtual = 1;
+    atualizarTabela();
+  }
+}
+
 function atualizarTabela() {
   mostrarProdutos(paginaAtual);
 }
@@ -216,6 +232,127 @@ function editarProduto(produtoId, loteId) {
     console.error('Erro:', error);
     alert(error.message || 'Erro ao atualizar quantidade');
     input.value = quantidadeOriginal; // Reverte o valor
+  });
+}
+
+// Adicionar modal para novos lotes
+function criarModalNovoLote(produtoId, callback) {
+  const modal = document.createElement('div');
+  modal.className = 'modal-lote';
+  modal.innerHTML = `
+    <div class="modal-conteudo">
+      <h3>Informações do Novo Lote</h3>
+      <label>Data de Validade: <input type="date" id="novaValidade"></label>
+      <label>Número de Série: <input type="text" id="novoNumeroSerie"></label>
+      <button id="confirmarLote">Confirmar</button>
+      <button id="cancelarLote">Cancelar</button>
+    </div>
+  `;
+  
+  document.body.appendChild(modal);
+  
+  document.getElementById('confirmarLote').addEventListener('click', () => {
+    const dataValidade = document.getElementById('novaValidade').value;
+    const numeroSerie = document.getElementById('novoNumeroSerie').value;
+    
+    if (!dataValidade || !numeroSerie) {
+      alert('Todos os campos são obrigatórios!');
+      return;
+    }
+    
+    document.body.removeChild(modal);
+    callback(dataValidade, numeroSerie);
+  });
+  
+  document.getElementById('cancelarLote').addEventListener('click', () => {
+    document.body.removeChild(modal);
+  });
+}
+
+// Modificar a função editarProduto
+function editarProduto(produtoId, loteId) {
+  const input = document.querySelector(`input.quantidadeInput[data-produto-id="${produtoId}"][data-lote-id="${loteId}"]`);
+  const novaQuantidade = parseInt(input.value);
+  const quantidadeOriginal = parseInt(input.dataset.original);
+
+  if (isNaN(novaQuantidade)) {
+    alert('Quantidade inválida!');
+    input.value = quantidadeOriginal;
+    return;
+  }
+
+  if (novaQuantidade === quantidadeOriginal) {
+    alert('A quantidade não foi alterada.');
+    return;
+  }
+
+  const tipo = novaQuantidade > quantidadeOriginal ? 'aumento' : 'diminuicao';
+  const token = localStorage.getItem('token');
+
+  if (tipo === 'aumento') {
+    criarModalNovoLote(produtoId, (dataValidade, numeroSerie) => {
+      enviarAtualizacao(produtoId, loteId, quantidadeOriginal, novaQuantidade, tipo, dataValidade, numeroSerie);
+    });
+  } else {
+    enviarAtualizacao(produtoId, loteId, quantidadeOriginal, novaQuantidade, tipo);
+  }
+}
+
+function enviarAtualizacao(produtoId, loteId, quantidadeOriginal, novaQuantidade, tipo, dataValidade, numeroSerie) {
+  const token = localStorage.getItem('token');
+  const body = {
+    produtoId: parseInt(produtoId),
+    loteId: loteId ? parseInt(loteId) : null,
+    quantidadeAnterior: quantidadeOriginal,
+    quantidadeNova: novaQuantidade,
+    tipo
+  };
+
+  if (dataValidade && numeroSerie) {
+    body.dataValidade = dataValidade;
+    body.numeroSerie = numeroSerie;
+  }
+
+  // Mostrar loading
+  const input = document.querySelector(`input.quantidadeInput[data-produto-id="${produtoId}"][data-lote-id="${loteId}"]`);
+  const originalText = input?.nextElementSibling?.innerText;
+  if (input && input.nextElementSibling) {
+    input.nextElementSibling.innerText = 'Processando...';
+  }
+
+  fetch('/api/atualizar-quantidade', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(body)
+  })
+  .then(async response => {
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || 'Erro na requisição');
+    }
+    return response.json();
+  })
+  .then(data => {
+    if (data.success) {
+      alert(data.message);
+      carregarProdutos(); // Recarrega os dados
+    } else {
+      throw new Error(data.message);
+    }
+  })
+  .catch(error => {
+    console.error('Erro:', error);
+    alert(error.message || 'Erro ao atualizar quantidade');
+    // Reverte o valor no input
+    if (input) {
+      input.value = quantidadeOriginal;
+      if (input.nextElementSibling && originalText) {
+        input.nextElementSibling.innerText = originalText;
+      }
+    }
   });
 }
 
