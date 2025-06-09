@@ -2,9 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const app = express();
-require('dotenv').config()
-
-
+require('dotenv').config();
 
 const fornecedoresRouter = require("./routes/fornecedoresRotas");
 const editarFornecedorRoute = require("./routes/editarFornecedorRoute");
@@ -29,9 +27,10 @@ const adminMiddleware = require('./middlewares/adminMiddleware');
 const verificarAdmin = require('./db/verificarAdmin');
 
 const relatoriosRoutes = require('./routes/relatoriosRoute');
-
 const atualizarEstoqueRoute = require('./routes/mudarQuantidadeProduto');
 
+// Adicione esta linha para importar as rotas de notificações
+const notificacoesRouter = require('./routes/notificacoesRoute');
 
 // Verifica ao iniciar o servidor
 verificarAdmin().then(existeAdmin => {
@@ -39,8 +38,6 @@ verificarAdmin().then(existeAdmin => {
         console.log(' Acesse /cadastro-inicial para criar o primeiro usuário admin');
     }
 });
-
-
 
 app.use(cors({
   origin: 'http://localhost:5000', // ou seu domínio
@@ -50,10 +47,10 @@ app.use(cors({
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Rotas públicas
+// Rotas públicas
 app.use('/api', loginRouter)
 
-//Rotas autenticadas comuns
+// Rotas autenticadas comuns
 app.use('/api/produtos', authMiddleware, produtosRotas);
 app.use('/api/produtosmostrar', authMiddleware, mostrarProdutosRouter);
 app.use('/api/deleteprodutos', authMiddleware, deleteProdutoRouter);
@@ -69,9 +66,9 @@ app.use('/api/relatorios', authMiddleware, relatoriosRoutes);
 
 app.use('/api', authMiddleware, atualizarEstoqueRoute);
 
+app.use('/api/notificacoes', authMiddleware, notificacoesRouter);
 
-//Rotas administrativas
-
+// Rotas administrativas
 app.use('/api/usuarios', authMiddleware, adminMiddleware, usuariosRouter);
 app.use("/api/usuariosmostrar", authMiddleware, adminMiddleware, mostrarUsuariosRouter);
 app.use("/api/usuarios", authMiddleware, adminMiddleware, editarUsuarioRoute);

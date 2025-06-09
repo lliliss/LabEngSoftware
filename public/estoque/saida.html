@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edição de Produtos | PharmaSafe</title>
+    <title>Saída De Produtos | PharmaSafe</title>
+    <link rel="stylesheet" href="./saida.css">
     <link rel="stylesheet" href="../css/barra.css">
-    <link rel="stylesheet" href="./notificacoes.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
 </head>
 <body>
+    <button class="menu" id="menuButton"><i class="fi fi-rr-menu-burger"></i></button>
+
     
     <div class="sidebar">
         <h2 class="logo"><img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe</h2>
@@ -37,12 +40,11 @@
         </ul>
     </div>
     
-    
     <div class="geral">
-        <nav class="navbar"  style="margin-left: 95rem;">
+        <nav class="navbar">
             <button><span class="material-symbols-outlined" id="notificacoesIcon">notifications</span></button>
-            <div id="modalNotificacoes" class="modal-notificacoes" style="display:none; position:absolute; right:10px; top:60px; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:8px; min-width:220px; z-index:1000;">
-  <div style="padding:16px; ">
+                <div id="modalNotificacoes" class="modal-notificacoes" style="display:none; position:absolute; right:10px; top:60px; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.15); border-radius:8px; min-width:220px; z-index:1000;">
+  <div style="padding:16px;">
     <h4 style="margin-top:0;">Notificações</h4>
     <ul id="listaNotificacoes" style="list-style:none; padding:0; margin:0;">
       <li>Exemplo de notificação 1</li>
@@ -53,52 +55,37 @@
 </div>
             <button><span class="material-symbols-outlined"id="usuarioIcon">account_circle</span></button>
         </nav>
-       <div class="main-content">
-    <header class="notificacoes-header">
-        <h1>Notificações</h1>
-      
-    </header>
 
-    <!-- Seção de Estoque Baixo -->
-    <section class="section">
-        <h2>Estoque baixo</h2>
-        <div class="table-container">
-            <table id="tabelaEstoqueBaixo">
-                <thead>
-                    <tr>
-                        <th>Produto</th>
-                        <th>Quantidade</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Dados serão inseridos via JavaScript -->
-                </tbody>
-            </table>
+        <h1>Saída de Produtos</h1>
+
+        <div class="centro">
+            <div class="areaDePesquisa">
+                <input type="text" id="buscarSaida" placeholder="Buscar produto...">
+                <button class="botaoBuscar" id="buscar">Buscar</button>
+            </div>
+
+            <div class="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Data</th>
+                            <th>Hora</th>
+                            <th>Usuário</th>
+                            <th>Quantidade</th>
+                            <th>Estoque</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+            <ul class="pagination" id="pagination">
+            </ul>
         </div>
-    </section>
+    </div>
 
-    <!-- Seção de Vencimento Próximo -->
-    <section class="section">
-        <h2>Produtos com Vencimento Próximo</h2>
-        <div class="table-container">
-            <table id="tabelaVencimentoProximo">
-                <thead>
-                    <tr>
-                        <th>Produto</th>
-                        <th>Data de Vencimento</th>
-                        <th>Quantidade</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Dados serão inseridos via JavaScript -->
-                </tbody>
-            </table>
-        </div>
-    </section>
-</div>
-
- 
+    <script src="saida.js"></script>
     <script src="../js/script.js"></script>
-    <script src="notificacoes.js"></script>
+    <script src="../js/notificacao.js"></script>
 </body>
 </html>
