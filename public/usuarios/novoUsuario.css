@@ -46,8 +46,8 @@ h1 {
     gap: 5px;
     justify-content: center;
     align-items: center;
-    margin-top: 20px; 
-    margin-right: 400px;
+    margin-top: 100px; 
+    margin-right: 320px;
 }
 
 .campo {
@@ -96,6 +96,8 @@ h1 {
     width: 80px;
     transition: all 0.3s ease-in-out;
     font-size: 14px;
+       border-radius: 20px;
+    padding: 20px;
 
 }
 
@@ -106,6 +108,7 @@ h1 {
     width: 100%;
     grid-column: span 2;
     margin-top: 20px;
+
 }
 
 
@@ -114,6 +117,8 @@ h1 {
     background-color: #6C757D;
     color: #fff;
     justify-content:flex-start;
+    border-radius: 15px;
+    padding: 15px;
 }
 
 .botaoSalvar {
@@ -121,6 +126,8 @@ h1 {
     color: #fff;
     justify-content:flex-end;
     margin-left: auto; 
+    border-radius: 15px;
+    padding: 15px;
 }
  
 

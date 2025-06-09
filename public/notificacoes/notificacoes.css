@@ -1,6 +1,6 @@
 /* Define o espaço para a área principal, considerando a largura da sidebar */
 .main-content {
-  margin-left: 250px; /* ajuste se sua sidebar tiver largura diferente */
+  margin-left: 600px; /* ajuste se sua sidebar tiver largura diferente */
   padding: 40px;
   font-family: Arial, sans-serif;
   background-color: #fff;

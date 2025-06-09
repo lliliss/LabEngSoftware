@@ -46,7 +46,8 @@ h1 {
     gap: 5px;
     justify-content: center;
     align-items: center;
-    margin-top: 20px; 
+    margin-top: 40px; 
+    margin-right: 320px;
 }
 
 .campo {

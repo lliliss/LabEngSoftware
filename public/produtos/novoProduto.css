@@ -172,7 +172,7 @@ table td, table th {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 15px;
-    margin-left: 160px;
+    margin-left: 0px;
     margin-top: 80px;
 }
 
