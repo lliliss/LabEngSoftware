@@ -2,8 +2,9 @@
 const express = require('express');
 const router = express.Router();
 const buscarFornecedores = require('../db/mostrarFornecedores');
+const authMiddleware = require('../middlewares/authMiddleware');
 
-router.get('/mostrar', async (req, res) => {
+router.get('/mostrar', authMiddleware, async (req, res) => {
   try {
     const fornecedores = await buscarFornecedores();
     res.json(fornecedores);

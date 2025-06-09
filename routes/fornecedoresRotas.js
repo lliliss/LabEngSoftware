@@ -2,8 +2,9 @@ const express = require("express");
 const router = express.Router();
 const inserirFornecedor = require("../db/inserirFornecedores");
 const pool = require('../db/conexao');
+const authMiddleware = require('../middlewares/authMiddleware');
 
-router.post('/enviar', async (req, res) => {
+router.post('/enviar', authMiddleware, async (req, res) => {
   try {
     const novoFornecedor = await inserirFornecedor(req.body);
     res.status(201).json({ message: 'Fornecedor inserido com sucesso!', id: novoFornecedor.id_fornecedor });

@@ -12,6 +12,22 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("cnpj").value = fornecedor.cnpj || "";
   document.getElementById("email").value = fornecedor.email || "";
 
+    function formatCNPJ(value) {
+    return value
+      .replace(/\D/g, '') // Remove tudo que não é número
+      .replace(/^(\d{2})(\d)/, '$1.$2')
+      .replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3')
+      .replace(/\.(\d{3})(\d)/, '.$1/$2')
+      .replace(/(\d{4})(\d)/, '$1-$2')
+      .slice(0, 18); // Limita a 18 caracteres
+  }
+
+  const input = document.getElementById('cnpj');
+  input.addEventListener('input', function () {
+    this.value = formatCNPJ(this.value);
+  });
+
+
   // Botão voltar
   const botaoVoltar = document.getElementById("Voltar");
   if (botaoVoltar) {

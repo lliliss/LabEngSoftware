@@ -97,6 +97,33 @@ if (botaoVoltar) {
 
 // Carregar fornecedores no select
 document.addEventListener('DOMContentLoaded', async () => {
+
+      // Configuração inicial da data mínima
+    const campoValidade = document.getElementById('validade');
+    const mensagemErro = document.getElementById('erroData');
+    
+    // Obter data atual no formato YYYY-MM-DD
+    const hoje = new Date();
+    const dd = String(hoje.getDate()).padStart(2, '0');
+    const mm = String(hoje.getMonth() + 1).padStart(2, '0');
+    const yyyy = hoje.getFullYear();
+    const dataMinima = `${yyyy}-${mm}-${dd}`;
+    
+    // Definir data mínima no campo
+    campoValidade.setAttribute('min', dataMinima);
+    
+    // Validação em tempo real
+    campoValidade.addEventListener('change', () => {
+        const dataSelecionada = new Date(campoValidade.value);
+        if (dataSelecionada < hoje) {
+            mensagemErro.style.display = 'block';
+            campoValidade.setCustomValidity('Data inválida');
+        } else {
+            mensagemErro.style.display = 'none';
+            campoValidade.setCustomValidity('');
+        }
+    });
+
   const selectFornecedores = document.getElementById('fornecedores');
   if (!selectFornecedores) return;
 
@@ -122,6 +149,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       option.textContent = fornecedor.nome;
       selectFornecedores.appendChild(option);
     });
+
+    
   } catch (erro) {
     console.error('Erro ao carregar fornecedores:', erro);
     selectFornecedores.innerHTML = '<option value="">Erro ao carregar fornecedores</option>';

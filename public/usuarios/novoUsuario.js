@@ -5,7 +5,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const token = localStorage.getItem('token');
   const usuario = JSON.parse(localStorage.getItem('user'));
-  
+
+  // Aplicar máscara de CPF no input #quantidade
+  const cpfInput = document.getElementById('quantidade');
+  cpfInput.addEventListener('input', () => {
+    cpfInput.value = cpfInput.value
+      .replace(/\D/g, '') // Remove tudo que não é número
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})$/, '$1-$2')
+      .slice(0, 14); // Máximo 14 caracteres com pontos e traço
+  });
+
   if (!token || !usuario) {
     window.location.href = '../login/logins.html';
     return;
@@ -38,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Usuário logado:', usuario);
     console.log('Dados do novo usuário:', usuario);
     try {
-    const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token');
       const resposta = await fetch('http://localhost:5000/api/usuarios/enviar', {
         method: 'POST',
         headers: { 
@@ -48,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify(usuario),
       });
 
-      // Adicione este log para debug
       console.log('Resposta:', {
         status: resposta.status,
         statusText: resposta.statusText,
@@ -62,11 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
         nome, email, cpf, tipoUsuario, senha
       });
 
-
       if (resposta.ok) {
         mensagem.textContent = resultado.message || 'Usuário cadastrado com sucesso!';
         mensagem.style.color = 'green';
-        // Limpa o formulário após cadastro bem-sucedido
         document.querySelectorAll('input').forEach(input => input.value = '');
       } else {
         mensagem.textContent = resultado.error || 'Erro ao cadastrar.';

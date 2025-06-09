@@ -2,8 +2,10 @@
 const express = require("express");
 const router = express.Router();
 const deleteUsuarioPorId = require("../db/deleteUsuario"); 
+const authMiddleware = require('../middlewares/authMiddleware');
+const adminMiddleware = require('../middlewares/adminMiddleware');
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authMiddleware, adminMiddleware, async (req, res) => {
   const id = parseInt(req.params.id);
 
   if (isNaN(id)) {

@@ -25,22 +25,25 @@
 </head>
 <body>
     
-    <div class="sidebar">
-        <h2 class="logo"><img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe</h2>
-        <ul>
-            <li><a href="../dashboard/index.html"><span class="material-symbols-outlined">space_dashboard</span>Dashboard</a></li>
-            <li><a href="../produtos/produtos.html"><i class="fi fi-rr-dice-d6"></i> Produtos</a></li>
-            <li><a href="../estoque/estoque.html"><i class="fi fi-rr-box"></i>Estoque</a></li>
-            <li><a href="../relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
-            <li><a href="../fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
-            <li><a href="../notificaçoes/notificações.html"><span class="material-symbols-outlined">notifications</span> Notificações</a></li>
-            <!-- Item de Usuários (somente admin) -->
-            <li class="admin-only" style="display: none;"><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
-            <div class="saida">
-                <li class="logout"><a id="logoutBtn" href="../login/logins.html"><i class="fi fi-rr-sign-in-alt"></i>Sair</a></li>
-            </div>
-        </ul>
-    </div>
+  <div class="sidebar">
+    <h2 class="logo">
+      <img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe </h2>
+    <ul>
+      <li><a href="../dashboard/index.html"><span class="material-symbols-outlined">space_dashboard</span>Dashboard</a></li>
+      <li><a href="../produtos/produtos.html"><i class="fi fi-rr-dice-d6"></i> Produtos</a></li>
+      <li><a href="../estoque/estoque.html"><i class="fi fi-rr-box"></i>Estoque</a></li>
+      <li><a href="../relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
+      <li><a href="../fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
+      <li><a href="../notificacoes/notificacoes.html"><span class="material-symbols-outlined">notifications</span> Notificações</a></li>
+      
+      <!-- Item de Usuários (somente admin) -->
+      <li class="admin-only" style="display: none;"><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
+      
+      <div class="saida">
+        <li class="logout"><a id="logoutBtn" href="../login/logins.html"><i class="fi fi-rr-sign-in-alt"></i>Sair</a></li>
+      </div>
+    </ul>
+  </div>
     
     
     <div class="geral">
@@ -50,18 +53,18 @@
         </nav>
         <h1>Edição de Fornecedores</h1>
             <div class="formulario">
-                <div class="campo">
-                    <label for="nome">Nome:</label>
-                    <input type="text" id="nome">
-                </div>
-                <div class="campo">
-                    <label for="cnpj">CNPJ:</label>
-                    <input type="text" id="cnpj">
-                </div>
-                <div class="campo">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" >
-                </div>
+            <div class="campo">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" maxlength="40" required>
+            </div>
+            <div class="campo">
+                <label for="cnpj">CNPJ:</label>
+                <input type="text" id="cnpj" placeholder="00.000.000/0000-00" maxlength="18" required>
+            </div>
+            <div class="campo">
+                <label for="email">Email:</label>
+                <input type="email" id="email" maxlength="40" required>
+            </div>
             <div class="botoes">
                 <div class="botoesEsquerda">
                     <button class="botaoVoltar" id="Voltar">Voltar</button>

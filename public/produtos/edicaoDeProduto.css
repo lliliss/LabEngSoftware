@@ -190,3 +190,13 @@ h1 {
     90% { opacity: 1; transform: translateY(0); }
     100% { opacity: 0; transform: translateY(-10px); }
 }
+
+.mensagem-erro {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: red;
+}
+
+.campo input[type="date"]:invalid {
+    border-color: red;
+}

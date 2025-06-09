@@ -24,22 +24,25 @@
 </head>
 <body>
     
-   <div class="sidebar">
-        <h2 class="logo"><img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe</h2>
-        <ul>
-            <li><a href="../dashboard/index.html"><span class="material-symbols-outlined">space_dashboard</span>Dashboard</a></li>
-            <li><a href="../produtos/produtos.html"><i class="fi fi-rr-dice-d6"></i> Produtos</a></li>
-            <li><a href="../estoque/estoque.html"><i class="fi fi-rr-box"></i>Estoque</a></li>
-            <li><a href="../relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
-            <li><a href="../fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
-            <li><a href="../notificaçoes/notificações.html"><span class="material-symbols-outlined">notifications</span> Notificações</a></li>
-            <!-- Item de Usuários (somente admin) -->
-            <li class="admin-only" style="display: none;"><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
-            <div class="saida">
-                <li class="logout"><a id="logoutBtn" href="../login/logins.html"><i class="fi fi-rr-sign-in-alt"></i>Sair</a></li>
-            </div>
-        </ul>
-    </div>
+  <div class="sidebar">
+    <h2 class="logo">
+      <img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe </h2>
+    <ul>
+      <li><a href="../dashboard/index.html"><span class="material-symbols-outlined">space_dashboard</span>Dashboard</a></li>
+      <li><a href="../produtos/produtos.html"><i class="fi fi-rr-dice-d6"></i> Produtos</a></li>
+      <li><a href="../estoque/estoque.html"><i class="fi fi-rr-box"></i>Estoque</a></li>
+      <li><a href="../relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
+      <li><a href="../fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
+      <li><a href="../notificacoes/notificacoes.html"><span class="material-symbols-outlined">notifications</span> Notificações</a></li>
+      
+      <!-- Item de Usuários (somente admin) -->
+      <li class="admin-only" style="display: none;"><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
+      
+      <div class="saida">
+        <li class="logout"><a id="logoutBtn" href="../login/logins.html"><i class="fi fi-rr-sign-in-alt"></i>Sair</a></li>
+      </div>
+    </ul>
+  </div>
     
     
     <div class="geral">
@@ -74,12 +77,11 @@
                 </select>
             </div>
             <div class="campo">
-                <label for="quantidade">Quantidade:</label>
-                <input type="number" id="quantidade" min="1" required>
-            </div>
-            <div class="campo">
                 <label for="validade">Validade:</label>
                 <input type="date" id="validade" required>
+                <p id="erroData" class="mensagem-erro" style="color: red; display: none;">
+                    A data de validade não pode ser anterior à data atual!
+                </p>
             </div>
             <div class="campo">
                 <label for="fornecedores">Fornecedores:</label>
@@ -89,8 +91,8 @@
             </div>
 
             <div class="campo">
-                <label for="numeroDeSerie">Número de Série:</label>
-                <input type="text" id="numeroDeSerie" maxlength="20" required>
+                <label for="serie">Número de Série:</label>
+                <input type="text" id="serie" maxlength="20" required>
             </div>
     
             

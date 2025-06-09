@@ -239,21 +239,61 @@ function editarProduto(produtoId, loteId) {
 function criarModalNovoLote(produtoId, callback) {
   const modal = document.createElement('div');
   modal.className = 'modal-lote';
+  
+  // Obter data atual no formato YYYY-MM-DD
+  const hoje = new Date();
+  const dd = String(hoje.getDate()).padStart(2, '0');
+  const mm = String(hoje.getMonth() + 1).padStart(2, '0'); // Janeiro é 0!
+  const yyyy = hoje.getFullYear();
+  const dataMinima = `${yyyy}-${mm}-${dd}`;
+  
   modal.innerHTML = `
     <div class="modal-conteudo">
       <h3>Informações do Novo Lote</h3>
-      <label>Data de Validade: <input type="date" id="novaValidade"></label>
-      <label>Número de Série: <input type="text" id="novoNumeroSerie"></label>
-      <button id="confirmarLote">Confirmar</button>
-      <button id="cancelarLote">Cancelar</button>
+      <label>
+        Data de Validade: 
+        <input type="date" id="novaValidade" min="${dataMinima}" required>
+      </label>
+      <label>
+        Número de Série: 
+        <input type="text" id="novoNumeroSerie" required>
+      </label>
+      <div class="botoes-modal">
+        <button id="confirmarLote">Confirmar</button>
+        <button id="cancelarLote" type="button">Cancelar</button>
+      </div>
+      <p id="erroData" class="mensagem-erro" style="color: red; display: none;">
+        A data de validade não pode ser anterior à data atual!
+      </p>
     </div>
   `;
   
   document.body.appendChild(modal);
   
+  const inputData = document.getElementById('novaValidade');
+  const mensagemErro = document.getElementById('erroData');
+  
+  inputData.addEventListener('change', () => {
+    const dataSelecionada = new Date(inputData.value);
+    if (dataSelecionada < hoje) {
+      mensagemErro.style.display = 'block';
+      inputData.setCustomValidity('Data inválida');
+    } else {
+      mensagemErro.style.display = 'none';
+      inputData.setCustomValidity('');
+    }
+  });
+  
   document.getElementById('confirmarLote').addEventListener('click', () => {
-    const dataValidade = document.getElementById('novaValidade').value;
+    const dataValidade = inputData.value;
     const numeroSerie = document.getElementById('novoNumeroSerie').value;
+    
+    // Validação adicional no clique
+    const dataSelecionada = new Date(dataValidade);
+    if (dataSelecionada < hoje) {
+      mensagemErro.style.display = 'block';
+      return;
+    }
     
     if (!dataValidade || !numeroSerie) {
       alert('Todos os campos são obrigatórios!');

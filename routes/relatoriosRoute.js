@@ -2,8 +2,9 @@ const express = require('express')
 const router = express.Router()
 const PDFDocument = require('pdfkit')
 const pool = require('../db/conexao') // Certifique-se de que este caminho está correto
+const authMiddleware = require('../middlewares/authMiddleware');
 
-router.post('/gerar', async (req, res) => {
+router.post('/gerar', authMiddleware, async (req, res) => {
   const { tipos, dataInicial, dataFinal } = req.body
 
   if (!tipos || !Array.isArray(tipos) || tipos.length === 0 || !dataInicial || !dataFinal) {

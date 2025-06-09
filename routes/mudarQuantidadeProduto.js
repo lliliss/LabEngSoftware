@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../db/conexao'); // Importa o pool diretamente
+const authMiddleware = require('../middlewares/authMiddleware');
 
-router.post('/atualizar-quantidade', async (req, res) => {
+router.post('/atualizar-quantidade', authMiddleware, async (req, res) => {
   const { produtoId, loteId, quantidadeAnterior, quantidadeNova, tipo, dataValidade, numeroSerie } = req.body;
 
   // Validação dos dados

@@ -30,51 +30,68 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Botão salvar
-  document.getElementById("salvar").addEventListener("click", async function () {
-    const usuarioOriginal = JSON.parse(localStorage.getItem("usuarioParaEdicao"));
-    if (!usuarioOriginal) {
-      alert("Nenhum usuario carregado para edição.");
-      return;
-    }
+    document.getElementById("salvar").addEventListener("click", async function () {
+        const usuarioOriginal = JSON.parse(localStorage.getItem("usuarioParaEdicao"));
+        if (!usuarioOriginal) {
+            alert("Nenhum usuario carregado para edição.");
+            return;
+        }
 
-    const tipoMapReverso = {
-      "Funcionário": "funcionario",
-      "Administrador": "admin"
-    };
+        const tipoMapReverso = {
+            "Funcionário": "funcionario",
+            "Administrador": "admin"
+        };
 
-    const selectText = cargoSelect.options[cargoSelect.selectedIndex].text;
-    const tipoUsuarioConvertido = tipoMapReverso[selectText] || cargoSelect.value.trim();
+        const selectText = cargoSelect.options[cargoSelect.selectedIndex].text;
+        const tipoUsuarioConvertido = tipoMapReverso[selectText] || cargoSelect.value.trim();
 
-    const usuarioAtualizado = {
-      nome: document.getElementById("nome").value.trim(),
-      email: document.getElementById("categoria").value.trim(),
-      tipo_usuario: tipoUsuarioConvertido
-    };
+        // Obter valores dos campos de senha
+        const novaSenha = document.getElementById("novaSenha").value.trim();
+        const confirmarNovaSenha = document.getElementById("confirmarNovaSenha").value.trim();
 
-    try {
-      const token = localStorage.getItem('token');
-      const resposta = await fetch(`http://localhost:5000/api/usuarios/editar/${usuarioOriginal.id_usuario}`, {
-        method: "PUT",
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(usuarioAtualizado)
-      });
+        // Validação de senha
+        if (novaSenha || confirmarNovaSenha) {
+            if (novaSenha !== confirmarNovaSenha) {
+                alert("As senhas não coincidem!");
+                return;
+            }
+            if (novaSenha.length < 6) {
+                alert("A senha deve ter pelo menos 6 caracteres!");
+                return;
+            }
+        }
 
-      if (resposta.ok) {
-        alert("Usuário atualizado com sucesso!");
-        localStorage.removeItem("usuarioParaEdicao");
-        window.location.href = "usuarios.html";
-      } else {
-        const erro = await resposta.json();
-        alert("Erro ao atualizar: " + (erro.mensagem || resposta.statusText));
-      }
-    } catch (erro) {
-      console.error("Erro ao enviar atualização:", erro);
-      alert("Erro ao enviar atualização.");
-    }
-  });
+        const usuarioAtualizado = {
+            nome: document.getElementById("nome").value.trim(),
+            email: document.getElementById("categoria").value.trim(),
+            tipo_usuario: tipoUsuarioConvertido,
+            senha: novaSenha || null // Envia null se não houver nova senha
+        };
+
+        try {
+            const token = localStorage.getItem('token');
+            const resposta = await fetch(`http://localhost:5000/api/usuarios/editar/${usuarioOriginal.id_usuario}`, {
+                method: "PUT",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(usuarioAtualizado)
+            });
+
+            if (resposta.ok) {
+                alert("Usuário atualizado com sucesso!");
+                localStorage.removeItem("usuarioParaEdicao");
+                window.location.href = "usuarios.html";
+            } else {
+                const erro = await resposta.json();
+                alert("Erro ao atualizar: " + (erro.mensagem || resposta.statusText));
+            }
+        } catch (erro) {
+            console.error("Erro ao enviar atualização:", erro);
+            alert("Erro ao enviar atualização.");
+        }
+    });
 
   // Botão excluir
   document.getElementById("excluir").addEventListener("click", async function () {

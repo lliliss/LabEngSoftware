@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const getDashboardData = require('../db/dashboardQueries');
+const authMiddleware = require('../middlewares/authMiddleware');
 
-router.get('/mostrar', async (req, res) => {
+router.get('/mostrar', authMiddleware, async (req, res) => {
   try {
     console.log('Recebida requisição para /dashboard');
     const data = await getDashboardData();

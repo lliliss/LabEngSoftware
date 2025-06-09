@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const authMiddleware = require('../middlewares/authMiddleware');
 const inserirUsuario = require('../db/inserirUsuario');
+const adminMiddleware = require('../middlewares/adminMiddleware');
 
 
 // Rota de cadastro inicial (sem autenticação)
@@ -39,7 +40,7 @@ router.post('/cadastro-inicial', async (req, res) => {
   }
 });
 // Proteja a rota com o middleware de autenticação
-router.post('/enviar', authMiddleware, async (req, res) => {
+router.post('/enviar', authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const usuario = await inserirUsuario(req.body);
     res.status(201).json({ 

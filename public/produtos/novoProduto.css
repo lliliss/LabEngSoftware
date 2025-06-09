@@ -327,3 +327,14 @@ table td, table th {
         align-items: center;
     }
 }
+
+
+.mensagem-erro {
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: red;
+}
+
+.campo input[type="date"]:invalid {
+    border-color: red;
+}

@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("nome").value = produto.nome || "";
   document.getElementById("categoria").value = produto.categoria || "";
-  document.getElementById("quantidade").value = produto.quantidade || "";
+  document.getElementById("serie").value = produto.serie || "";
 
 
   // Converter "31/05/2025" para "2025-05-31"
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 
-  document.getElementById("numeroDeSerie").value = produto.serie || "";
+  
 
   // Botão voltar
   const botaoVoltar = document.getElementById("Voltar");
@@ -57,7 +57,7 @@ document.getElementById("salvar").addEventListener("click", async function () {
     id_lote: produto.id_lote,
     quantidade: parseInt(document.getElementById("quantidade").value.trim()),
     dataValidade: document.getElementById("validade").value.trim(),  // formato ISO yyyy-mm-dd
-    numeroSerie: document.getElementById("numeroDeSerie").value.trim()
+    serie: document.getElementById("serie").value.trim()
   }
 };
 
@@ -132,6 +132,34 @@ document.getElementById("salvar").addEventListener("click", async function () {
 
 // Carregar fornecedores no select
 document.addEventListener('DOMContentLoaded', async () => {
+
+
+      // Configuração inicial da data mínima
+    const campoValidade = document.getElementById('validade');
+    const mensagemErro = document.getElementById('erroData');
+    
+    // Obter data atual no formato YYYY-MM-DD
+    const hoje = new Date();
+    const dd = String(hoje.getDate()).padStart(2, '0');
+    const mm = String(hoje.getMonth() + 1).padStart(2, '0');
+    const yyyy = hoje.getFullYear();
+    const dataMinima = `${yyyy}-${mm}-${dd}`;
+    
+    // Definir data mínima no campo
+    campoValidade.setAttribute('min', dataMinima);
+    
+    // Validação em tempo real
+    campoValidade.addEventListener('change', () => {
+        const dataSelecionada = new Date(campoValidade.value);
+        if (dataSelecionada < hoje) {
+            mensagemErro.style.display = 'block';
+            campoValidade.setCustomValidity('Data inválida');
+        } else {
+            mensagemErro.style.display = 'none';
+            campoValidade.setCustomValidity('');
+        }
+    });
+
   const selectFornecedores = document.getElementById('fornecedores');
   if (!selectFornecedores) return;
 

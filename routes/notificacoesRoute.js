@@ -16,7 +16,7 @@ router.get('/estoque-baixo',authMiddleware, async (req, res) => {
   }
 });
 
-router.get('/vencimento-proximo', async (req, res) => {
+router.get('/vencimento-proximo', authMiddleware, async (req, res) => {
   try {
     const produtos = await notificacoesController.getProdutosVencimentoProximo();
     res.json(produtos);

@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const editarFornecedor = require("../db/editarFornecedor");
+const authMiddleware = require('../middlewares/authMiddleware');
 
 // Se só tiver o id_fornecedor na URL, id_lote vem no body:
-router.put("/editar/:id_fornecedor", async (req, res) => {
+router.put("/editar/:id_fornecedor", authMiddleware, async (req, res) => {
   try {
     const id_fornecedor = parseInt(req.params.id_fornecedor);
     const {

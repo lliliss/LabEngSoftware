@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const authMiddleware = require('../middlewares/authMiddleware'); 
 
-router.post('/login', async (req, res) => {
+router.post('/login',  async (req, res) => {
   const { email, senha } = req.body
 
   if (!email || !senha) {
