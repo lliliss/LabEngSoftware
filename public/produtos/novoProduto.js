@@ -40,6 +40,8 @@
 document.getElementById('salvar').addEventListener('click', function (e) {
   e.preventDefault(); // Evita o comportamento padrão do botão
 
+  
+
   const nome = document.getElementById('nome').value;
   const categoria = document.getElementById('categoria').value;
   const fornecedores = document.getElementById('fornecedores').value;
@@ -76,8 +78,25 @@ document.getElementById('salvar').addEventListener('click', function (e) {
         
   .then(response => response.json())
   .then(data => {
-    document.getElementById('mensagem').innerText = 'Salvo com sucesso!';
-    console.log('Resposta do servidor:', data);
+
+
+    document.getElementById('nome').value = '';
+    document.getElementById('categoria').value = '';
+    document.getElementById('fornecedores').value = '';
+    document.getElementById('numeroDeSerie').value = '';
+    document.getElementById('quantidade').value = '';
+    document.getElementById('validade').value = '';
+
+
+    const msg = document.getElementById('mensagem');
+    msg.innerText = 'Salvo com sucesso!';
+    msg.style.display = 'block';
+    setTimeout(() => {
+      msg.style.display = 'none';
+      msg.innerText = '';
+    }, 3000);
+
+
   })
   .catch(error => {
     document.getElementById('mensagem').innerText = 'Erro ao salvar!';
