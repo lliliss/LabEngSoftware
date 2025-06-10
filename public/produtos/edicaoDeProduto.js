@@ -55,7 +55,7 @@ document.getElementById("salvar").addEventListener("click", async function () {
   fornecedores: document.getElementById("fornecedores").value.trim(),
   lote: {
     id_lote: produto.id_lote,
-    quantidade: parseInt(document.getElementById("quantidade").value.trim()),
+    quantidade: parseInt(produto.quantidade),
     dataValidade: document.getElementById("validade").value.trim(),  // formato ISO yyyy-mm-dd
     serie: document.getElementById("serie").value.trim()
   }
