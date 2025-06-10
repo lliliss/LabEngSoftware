@@ -53,6 +53,18 @@
     font-size: 19px; 
 }
 
+.sidebar button {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+    text-decoration: none;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    margin-top: 4px;
+    justify-items: center;
+}
+
   
 .submenu {
     display: none;
@@ -86,4 +98,22 @@
 .iconEntrada, .iconSaida {
     filter: brightness(0) invert(1);
   
+}
+
+.admin-only {
+  display: none;
+}
+
+
+.alert {
+  padding: 15px 20px;
+  margin: 10px 0;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
 }

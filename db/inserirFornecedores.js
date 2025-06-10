@@ -1,49 +1,18 @@
-require('dotenv').config();
+const pool = require('./conexao');
 
-const client = require('./conexao');
+async function inserirFornecedor(dados) {
+  const { nome, cnpj, email } = dados;
 
-const fornecedoresFake = [
-  {
-    nome: "Farmacêutica Vida",
-    cnpj: "12.345.678/0001-90",
-    email: "contato@farmaceuticavida.com"
-  },
-  {
-    nome: "BioLab",
-    cnpj: "98.765.432/0001-12",
-    email: "suporte@biolab.com.br"
-  },
-  {
-    nome: "SaúdePlus",
-    cnpj: "11.222.333/0001-44",
-    email: "saudeplus@contato.com"
+  if (!nome || !cnpj || !email) {
+    throw new Error("Campos obrigatórios faltando.");
   }
-];
 
-async function inserirFornecedoresFake() {
-  try {
-    await client.connect();
-    console.log("Conectado ao banco de dados.");
+  const resultado = await pool.query(
+    "INSERT INTO fornecedores (nome, cnpj, email, created_at) VALUES ($1, $2, $3, now()) RETURNING *",
+    [nome, cnpj, email]
+  );
 
-    for (const fornecedor of fornecedoresFake) {
-      const { nome, cnpj, email } = fornecedor;
-
-      const res = await client.query(
-        `INSERT INTO fornecedores (nome, cnpj, email)
-         VALUES ($1, $2, $3)
-         RETURNING id_fornecedor`,
-        [nome, cnpj, email]
-      );
-
-      console.log(`Fornecedor inserido: ${nome} (ID: ${res.rows[0].id_fornecedor})`);
-    }
-  } catch (err) {
-    console.error("Erro ao inserir fornecedores:", err);
-  } finally {
-    await client.end();
-    console.log("Conexão encerrada.");
-  }
+  return resultado.rows[0];
 }
 
-// Executar ao rodar o script
-inserirFornecedoresFake();
+module.exports = inserirFornecedor;

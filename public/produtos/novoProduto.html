@@ -8,32 +8,40 @@
     <link rel="stylesheet" href="./novoProduto.css">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
+    <script type="module">
+    import { protectRoute } from '../shared/js/auth.js';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        if (!protectRoute()) return;
+        
+        // Se for página de admin, verifica novamente
+        if (window.location.pathname.includes('admin') && !isAdmin()) {
+        window.location.href = '/dashboard/index.html?error=admin_required';
+        return;
+        }
+    });
+    </script>
 </head>
 <body>
-    <div class="sidebar">
-        <h2 class="logo"><img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe</h2>
-        <ul>
-            <li><a href="../dashboard/index.html"><span class="material-symbols-outlined">space_dashboard</span>Dashboard</a></li>
-            <li><a href="../produtos/produtos.html"><i class="fi fi-rr-dice-d6"></i> Produtos</a></li>
-            <li class="estoque">
-                <a href="#" id="estoque">
-                  <i class="fi fi-rr-box"></i>Estoque
-                  <i class="fi fi-rr-angle-down" id="abrirOpcoes"></i>
-                </a>
-                <ul class="submenu" id="submenuEstoque">
-                    <li><a href="../estoque/entrada.html"><img src="../imgs/pacote (1).png" alt="" class="iconEntrada"> Entrada de Produto</a></li>
-                    <li><a href="../estoque/saida.html"><img src="../imgs/carrinho (1).png" alt="" class="iconSaida"> Saída de Produto</a></li>
-                </ul>
-              </li>
-            <li><a href="../relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
-            <li><a href="../fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
-            <li><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
-            <div class="saida">
-                <li class="logout"><a href="../login2/logins.html"><i class="fi fi-rr-sign-in-alt"></i> Sair</a></li>
-            </div>
-            
-        </ul>
-    </div>
+  <div class="sidebar">
+    <h2 class="logo">
+      <img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe </h2>
+    <ul>
+      <li><a href="../dashboard/index.html"><span class="material-symbols-outlined">space_dashboard</span>Dashboard</a></li>
+      <li><a href="../produtos/produtos.html"><i class="fi fi-rr-dice-d6"></i> Produtos</a></li>
+      <li><a href="../estoque/estoque.html"><i class="fi fi-rr-box"></i>Estoque</a></li>
+      <li><a href="../relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
+      <li><a href="../fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
+      <li><a href="../notificacoes/notificacoes.html"><span class="material-symbols-outlined">notifications</span> Notificações</a></li>
+      
+      <!-- Item de Usuários (somente admin) -->
+      <li class="admin-only" style="display: none;"><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
+      
+      <div class="saida">
+        <li class="logout"><a id="logoutBtn" href="../login/logins.html"><i class="fi fi-rr-sign-in-alt"></i>Sair</a></li>
+      </div>
+    </ul>
+  </div>
     <div class="geral">
         <nav class="navbar">
             <button><span class="material-symbols-outlined" id="notificacoesIcon">notifications</span></button>
@@ -53,27 +61,39 @@
         <div class="formulario">
             <div class="campo">
                 <label for="nome">Nome:</label>
-                <input type="text" id="nome">
+                <input type="text" id="nome" maxlength="20" required>
             </div>
             <div class="campo">
                 <label for="categoria">Categoria:</label>
-                <input type="text" id="categoria">
+                <select id="categoria" required>
+                    <option value="">Selecione...</option>
+                    <option value="medicamento">Medicamento</option>
+                    <option value="higiene">Higiene pessoal</option>
+                    <option value="cosmetico">Cosmético</option>
+                    <option value="curativo">Curativo</option>
+                </select>
             </div>
             <div class="campo">
                 <label for="quantidade">Quantidade:</label>
-                <input type="number" id="quantidade" min="0">
+                <input type="number" id="quantidade" min="1" required>
             </div>
             <div class="campo">
                 <label for="validade">Validade:</label>
-                <input type="date" id="validade">
+                <input type="date" id="validade" required>
+                <p id="erroData" class="mensagem-erro" style="color: red; display: none;">
+                    A data de validade não pode ser anterior à data atual!
+                </p>
             </div>
             <div class="campo">
                 <label for="fornecedores">Fornecedores:</label>
-                <input type="text" id="fornecedores">
+                <select id="fornecedores" required>
+                    <option value="">Carregando...</option>
+                </select>
             </div>
+
             <div class="campo">
                 <label for="numeroDeSerie">Número de Série:</label>
-                <input type="text" id="numeroDeSerie">
+                <input type="text" id="numeroDeSerie" maxlength="20" required>
             </div>
     
             
@@ -84,6 +104,21 @@
             </div>
         </div>
     </div>    
+
+    <script type="module">
+    import { checkAuth, initAuth } from '../shared/js/auth.js';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const usuario = JSON.parse(localStorage.getItem('user'));
+        
+        // Verifica se é admin e mostra os elementos
+        if (usuario?.tipo === 'admin') {
+        document.querySelectorAll('.admin-only').forEach(el => {
+            el.style.display = 'block'; // ou 'flex', dependendo do layout
+        });
+        }
+    });
+    </script>
     <script src="novoProduto.js"></script>
     <script src="../js/script.js"></script>
     <script src="../js/notificacao.js"></script>

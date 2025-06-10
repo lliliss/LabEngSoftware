@@ -1,7 +1,7 @@
 const client = require('./db/conexao');
 const inserirProdutos = require('./db/inserirProduto');
 const inserirFornecedores = require('./db/inserirFornecedore');
-const inserirFUsuario = require('./db/inserirUsuario');
+const inserirUsuario = require('./db/inserirUsuario');
 
 async function main() {
   await client.connect();

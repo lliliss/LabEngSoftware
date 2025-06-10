@@ -56,9 +56,12 @@ input {
   width: 400px;
   border-radius: 6px;
   font-size: 14px;
-  justify-content: center;
-  display: flex;
-  align-items: center;
+  box-sizing: border-box;
+}
+input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+  outline: none; /* remove o contorno padrão do navegador */
 }
   
 button {

@@ -1,55 +1,96 @@
-const estoque = document.getElementById('estoque');
-const submenuEstoque = document.getElementById('submenuEstoque');
-const abrirOpcoes = document.getElementById('abrirOpcoes');
+// script.js atualizado
+/*document.addEventListener('DOMContentLoaded', function() {
+  // Verificar autenticação primeiro
+  if (!checkAuth()) return;
 
-estoque.addEventListener('click', function (e) {
-  e.preventDefault();
-  submenuEstoque.classList.toggle('ativo');
-
-  if (submenuEstoque.classList.contains('ativo')) {
-    abrirOpcoes.classList.remove('fi-rr-angle-down');
-    abrirOpcoes.classList.add('fi-rr-angle-up');
-  } else {
-    abrirOpcoes.classList.remove('fi-rr-angle-up');
-    abrirOpcoes.classList.add('fi-rr-angle-down');
-  }
+  // Carregar dashboard após garantir que os elementos existem
+  setTimeout(() => carregarDashboard(), 100);
 });
-
 
 async function carregarDashboard() {
   try {
-    const response = await fetch('/api/dashboard');
-    const data = await response.json();
-
+    console.log('Iniciando carregamento do dashboard...');
+    const token = localStorage.getItem('token');
     
-    document.querySelector('.CardInfo:nth-child(1) h3').textContent = data.totalUsuarios;
-    document.getElementById('totalEstoque').textContent = data.totalEstoque;
-    document.getElementById('totalFornecedores').textContent = data.totalFornecedores;
+    const response = await fetch('/api/dashboard', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
 
-  const entradaBox = document.querySelector('.SecaoDados .DadoBox:nth-child(1)');
-  entradaBox.querySelector('.header span').textContent = 'Últimos 7 dias';
-  entradaBox.querySelector('.ladoDireito p:nth-child(1) strong').textContent = data.entradasRecentes;
-  entradaBox.querySelector('.ladoDireito p:nth-child(2) strong').textContent = data.fornecedoresRecentes;
+    if (!response.ok) {
+      throw new Error(`Erro HTTP! status: ${response.status}`);
+    }
 
-  const fornecedorBox = document.querySelector('.SecaoDados .DadoBox:nth-child(2)');
-  fornecedorBox.querySelector('.header span').textContent = 'Últimos 7 dias';
-  fornecedorBox.querySelector('.ladoDireito p:nth-child(1)').innerHTML = `<strong>${data.totalFornecedores}</strong> Total de fornecedores`;
-  const p2Fornecedor = fornecedorBox.querySelector('.ladoDireito p:nth-child(2)');
-  if (p2Fornecedor) p2Fornecedor.remove();
+    const data = await response.json();
+    console.log('Dados recebidos:', data);
 
-  const produtosBox = document.querySelector('.SecaoDados .DadoBox:nth-child(3)');
+    // Verificar se os elementos existem antes de tentar acessá-los
+    const elementos = {
+      totalUsuarios: document.querySelector('.CardInfo:nth-child(1) h3'),
+      totalEstoque: document.getElementById('totalEstoque'),
+      totalFornecedores: document.getElementById('totalFornecedores'),
+      entradaBox: document.querySelector('.SecaoDados .DadoBox:nth-child(1)'),
+      fornecedorBox: document.querySelector('.SecaoDados .DadoBox:nth-child(2)'),
+      produtosBox: document.querySelector('.SecaoDados .DadoBox:nth-child(3)')
+    };
 
-  const spanProdutos = produtosBox.querySelector('.header span');
-  if (spanProdutos) spanProdutos.remove();
+    // Verificar elementos faltantes
+    for (const [key, element] of Object.entries(elementos)) {
+      if (!element) {
+        console.error(`Elemento não encontrado: ${key}`);
+      }
+    }
 
-  produtosBox.querySelector('.ladoDireito p:nth-child(1) strong').textContent = data.totalProdutos;
+    // Atualizar valores apenas se os elementos existirem
+    if (elementos.totalUsuarios) elementos.totalUsuarios.textContent = data.totalUsuarios || '0';
+    if (elementos.totalEstoque) elementos.totalEstoque.textContent = data.totalEstoque || '0';
+    if (elementos.totalFornecedores) elementos.totalFornecedores.textContent = data.totalFornecedores || '0';
 
-  const p2Produtos = produtosBox.querySelector('.ladoDireito p:nth-child(2)');
-  if (p2Produtos) p2Produtos.remove();
+    if (elementos.entradaBox) {
+      elementos.entradaBox.querySelector('.header span').textContent = 'Últimos 7 dias';
+      elementos.entradaBox.querySelector('.ladoDireito p:nth-child(1) strong').textContent = data.entradasRecentes || '0';
+      elementos.entradaBox.querySelector('.ladoDireito p:nth-child(2) strong').textContent = data.fornecedoresRecentes || '0';
+    }
+
+    if (elementos.fornecedorBox) {
+      elementos.fornecedorBox.querySelector('.header span').textContent = 'Últimos 7 dias';
+      const fornecedorText = elementos.fornecedorBox.querySelector('.ladoDireito p:nth-child(1)');
+      if (fornecedorText) fornecedorText.innerHTML = `<strong>${data.totalFornecedores || '0'}</strong> Total de fornecedores`;
+    }
+
+    if (elementos.produtosBox) {
+      const spanProdutos = elementos.produtosBox.querySelector('.header span');
+      if (spanProdutos) spanProdutos.remove();
+      
+      const produtoText = elementos.produtosBox.querySelector('.ladoDireito p:nth-child(1) strong');
+      if (produtoText) produtoText.textContent = data.totalProdutos || '0';
+    }
 
   } catch (err) {
-    console.error('Erro ao carregar dashboard:', err);
+    console.error('Erro detalhado:', err);
+    alert('Erro ao carregar dashboard. Verifique o console para detalhes.');
   }
 }
 
-window.addEventListener('DOMContentLoaded', carregarDashboard);
+// Adicione esta função no script.js
+function verificarDadosRecebidos(data) {
+  const requiredFields = [
+    'totalUsuarios', 'totalProdutos', 'totalFornecedores',
+    'entradasRecentes', 'fornecedoresRecentes', 'totalEstoque'
+  ];
+  
+  const missingFields = requiredFields.filter(field => data[field] === undefined);
+  
+  if (missingFields.length > 0) {
+    console.error('Campos faltando na resposta:', missingFields);
+    return false;
+  }
+  
+  return true;
+}
+
+// Modifique a função carregarDashboard para usar a verificação
+if (!verificarDadosRecebidos(data)) {
+  throw new Error('Resposta da API incompleta');
+}*/

@@ -1,89 +1,140 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  body {
-    color: #333;
-  }
-  
-  .DashboardConteudo {
-    margin-left: 250px;
-    padding: 30px;
-    min-height: 100vh;
-  }
-  
-  .CardsSuperiores {
-    display: flex;
-    gap: 100px;
-    flex-wrap: wrap;
-    margin-bottom: 160px;
-    justify-content: center;
-  }
-  
-  .CardInfo {
-    width: 266px;
-    height: 136px;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    display: flex;
+
+
+/* Conteúdo principal */
+main.DashboardConteudo {
+  margin-left: 240px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Cards principais */
+.CardsWrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 40px;
+}
+
+.CardContainer {
+  background: #fff;
+  padding: 20px 30px;
+  border-left: 6px solid #42A5F5;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  flex: 1 1 300px;
+  max-width: 350px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.CardContainer:hover {
+  transform: scale(1.02);
+}
+
+.CardInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.CardInfo i {
+  font-size: 30px;
+  color: #42A5F5;
+}
+
+.CardInfo h3 {
+  font-size: 22px;
+}
+
+.CardInfo p {
+  font-size: 14px;
+  color: #777;
+}
+
+/* Seção de dados */
+.SecaoDados {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.DadoBox {
+  background: #fff;
+  border-left: 6px solid #42A5F5;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.ladoEsquerdo .header h3 {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.ladoEsquerdo .header span {
+  font-size: 13px;
+  color: #999;
+}
+
+.ladoDireito p {
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: justify;
+}
+
+.ladoDireito strong {
+  color: #42A5F5;
+}
+
+/* Notificações */
+#notificacoes {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+  list-style: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    gap: 50px;
-    border: 1px solid #c0c0c0;
-    font-size: 18px;
-  }
-  
-  .CardInfo span.material-symbols-outlined {
-    font-size: 28px;
-    color: #387CDF;
-  }
-  
-  .CardInfo p {
-    font-size: 14px;
-    color: #666;
-  }
-  
-  .CardInfo h3 {
-    font-size: 20px;
-    color: #000;
-  }
-  
-  .SecaoDados {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 35px;
-  }
-  
-  .DadoBox {
-    background-color: #fff;
-    border: 1px solid #c0c0c0;
-    border-radius: 4px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-  
-  .DadoBoxTopo {
-    display: flex;
     justify-content: space-between;
+  }
+
+  .sidebar ul {
+    display: flex;
+    gap: 10px;
+  }
+
+  main.DashboardConteudo {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .CardsWrapper,
+  .SecaoDados {
+    flex-direction: column;
     align-items: center;
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 15px;
   }
-  
-  .DadoBox p {
-    font-size: 14px;
-    color: #333;
-    margin: 6px 0;
+
+  .CardContainer {
+    max-width: 90%;
   }
-  
-  .DadoBox p strong {
-    font-size: 18px;
-    color: #000;
+
+  .DadoBox {
+    max-width: 90%;
   }
+}

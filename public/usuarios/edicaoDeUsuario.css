@@ -46,7 +46,9 @@ h1 {
     gap: 5px;
     justify-content: center;
     align-items: center;
-    margin-top: 20px; 
+     margin-top: 90px; 
+     margin-right: 200px;
+
 }
 
 .campo {
@@ -67,7 +69,6 @@ h1 {
 
 .campo input {
     width: 80%;
-    max-width: 350px;
     padding: 5px;
     font-size: 14px;
     text-align: flex-start;
@@ -86,6 +87,16 @@ h1 {
     width: 80px;
     transition: all 0.3s ease-in-out;
     font-size: 14px;
+}
+
+.campo select {
+  width: 80%;
+  padding: 5px;
+  background-color: #E3EBF3;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border 0.3s;
 }
 
 .botoes {

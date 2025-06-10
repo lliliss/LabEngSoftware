@@ -1,8 +1,10 @@
+// produtosRoute.js
 const express = require('express');
 const router = express.Router();
 const buscarProdutos = require('../db/mostrarProdutos');
+const authMiddleware = require('../middlewares/authMiddleware');
 
-router.get('/mostrar', async (req, res) => {
+router.get('/mostrar', authMiddleware, async (req, res) => {
   try {
     const produtos = await buscarProdutos();
     res.json(produtos);

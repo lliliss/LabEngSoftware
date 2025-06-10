@@ -46,8 +46,8 @@ h1 {
     gap: 5px;
     justify-content: center;
     align-items: center;
-    margin-top: 20px; 
-    margin-right: 400px;
+     margin-top: 90px; 
+     margin-right: 200px;
 }
 
 .campo {
@@ -68,7 +68,6 @@ h1 {
 
 .campo input {
     width: 80%;
-    max-width: 350px;
     padding: 5px;
     font-size: 14px;
     text-align: flex-start;
@@ -79,6 +78,16 @@ h1 {
 
 }
 
+.campo select {
+  width: 80%;
+  padding: 5px;
+  background-color: #E3EBF3;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border 0.3s;
+}
+
 .formulario button {
     padding: 10px 20px;
     border: none;
@@ -87,21 +96,29 @@ h1 {
     width: 80px;
     transition: all 0.3s ease-in-out;
     font-size: 14px;
+       border-radius: 20px;
+    padding: 20px;
 
 }
 
 .botoes {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
     align-items: center;
     width: 100%;
-    grid-column: span 2; 
+    grid-column: span 2;
     margin-top: 20px;
+
 }
+
+
+
 .botaoVoltar {
     background-color: #6C757D;
     color: #fff;
     justify-content:flex-start;
+    border-radius: 15px;
+    padding: 15px;
 }
 
 .botaoSalvar {
@@ -109,6 +126,8 @@ h1 {
     color: #fff;
     justify-content:flex-end;
     margin-left: auto; 
+    border-radius: 15px;
+    padding: 15px;
 }
  
 

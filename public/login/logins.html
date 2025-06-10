@@ -8,27 +8,31 @@
 </head>
 <body>
   <div class="container">
-    
     <div class="login-box">
-        <h1 class="logo"><img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe</h1>
+      <h1 class="logo"><img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe</h1>
       <h2>Entre no PharmaSafe</h2>
-      <p> E Gerencie sua farmácia.</p>
-      <form>
-        <label for="usuario">Usuário:</label>
-        <input type="text" id="usuario" name="usuario" required placeholder="Digite seu usuário" />
-
-
-        <label for="senha" id="nSenha">Senha:</label>
-        <input type="password" id="senha" name="senha" required placeholder="Digite sua senha" />
-
+      <p>E Gerencie sua farmácia.</p>
+      <form id="loginForm">
+        
+        <div class="email">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required placeholder="Digite seu email"/>
+        </div>
+      
+        <div class="password">
+          <label for="senha">Senha:</label>
+          <input type="password" id="senha" name="senha" required placeholder="********"/>
+        </div>
+        
         <button type="submit">Entrar</button>
-        <a href="../esqueciASenha/eqsSenha.html" class="link">Esqueci a Senha</a>
       </form>
+      <div id="mensagemErro" style="color: red; margin-top: 15px;"></div>
     </div>
 
     <div class="image-box">
       <img src="../imgs/na_january_39.png" alt="Ilustração" />
     </div>
   </div>
+  <script src="logins.js"></script>
 </body>
 </html>

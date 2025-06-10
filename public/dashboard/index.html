@@ -8,31 +8,40 @@
   <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&display=block">
+  <script type="module">
+    import { protectRoute } from '../shared/js/auth.js';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!protectRoute()) return;
+      
+      // Se for página de admin, verifica novamente
+      if (window.location.pathname.includes('admin') && !isAdmin()) {
+        window.location.href = '/dashboard/index.html?error=admin_required';
+        return;
+      }
+      
+    });
+  </script>
 </head>
 <body>
+  <ul id="notificacoes" class="notificacoes-lista"></ul>
+
   <div class="sidebar">
     <h2 class="logo">
-      <img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe
-    </h2>
+      <img class="iconComprimido" src="../imgs/comprimido (5).png" alt="icon"> PharmaSafe </h2>
     <ul>
       <li><a href="index.html"><span class="material-symbols-outlined">space_dashboard</span>Dashboard</a></li>
       <li><a href="../produtos/produtos.html"><i class="fi fi-rr-dice-d6"></i> Produtos</a></li>
-      <li class="estoque">
-        <a href="#" id="estoque">
-          <i class="fi fi-rr-box"></i>Estoque
-          <i class="fi fi-rr-angle-down" id="abrirOpcoes"></i>
-        </a>
-        <ul class="submenu" id="submenuEstoque">
-          <li><a href="../estoque/entrada.html"><img src="../imgs/pacote (1).png" alt="" class="iconEntrada"> Entrada de Produto</a></li>
-          <li><a href="../estoque/saida.html"><img src="../imgs/carrinho (1).png" alt="" class="iconSaida"> Saída de Produto</a></li>
-        </ul>
-      </li>
+      <li><a href="../estoque/estoque.html"><i class="fi fi-rr-box"></i>Estoque</a></li>
       <li><a href="../relatorios/relatorios.html"><i class="fi fi-rr-files-medical"></i>Relatórios</a></li>
       <li><a href="../fornecedores/fornecedores.html"><i class="fi fi-rr-truck-side"></i>Fornecedores</a></li>
-      <li><a href="../notificaçoes/notificações.html"><span class="material-symbols-outlined">notifications</span> Notificações</a></li>
-      <li><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
+      <li><a href="../notificacoes/notificacoes.html"><span class="material-symbols-outlined">notifications</span> Notificações</a></li>
+      
+      <!-- Item de Usuários (somente admin) -->
+      <li class="admin-only" style="display: none;"><a href="../usuarios/usuarios.html"><i class="fi fi-rr-users-alt"></i> Usuários</a></li>
+      
       <div class="saida">
-        <li class="logout"><a href="../login2/logins.html"><i class="fi fi-rr-sign-in-alt"></i> Sair</a></li>
+        <li class="logout"><a id="logoutBtn" href="../login/logins.html"><i class="fi fi-rr-sign-in-alt"></i>Sair</a></li>
       </div>
     </ul>
   </div>
@@ -40,7 +49,8 @@
   <main class="DashboardConteudo">
     <!-- Cards principais -->
     <div class="CardsWrapper">
-      <div class="CardContainer">
+      <!-- Card de Usuários (somente admin) -->
+      <div class="CardContainer admin-only" style="display: none;">
         <div class="CardInfo">
           <i class="fi fi-rr-users"></i>
           <h3 id="totalUsuarios">0</h3>
@@ -64,8 +74,6 @@
         </div>
       </div>
     </div>
-
-
 
     <!-- Seção de dados -->
     <div class="SecaoDados">
@@ -108,9 +116,117 @@
           <p><strong>0</strong> Total de produtos</p>
         </div>
       </div>
-
+    </div>
   </main>
 
-  <script src="script.js"></script>
+
+  <script type="module">
+  // Importa funções necessárias do auth.js
+  import { checkAuth, initAuth  } from '../shared/js/auth.js';
+  
+  // Verifica se o usuário é admin ao carregar a página
+  const usuario = JSON.parse(localStorage.getItem('user'));
+  
+  if (usuario && usuario.tipo === 'admin') {
+    // Mostra elementos restritos a admin
+    document.querySelectorAll('.admin-only').forEach(el => {
+      el.style.display = 'block';
+    });
+  }
+
+  // Configuração do menu de estoque
+  const estoque = document.getElementById('estoque');
+  const submenuEstoque = document.getElementById('submenuEstoque');
+  const abrirOpcoes = document.getElementById('abrirOpcoes');
+
+  if (estoque && submenuEstoque && abrirOpcoes) {
+    estoque.addEventListener('click', function(e) {
+      e.preventDefault();
+      submenuEstoque.classList.toggle('ativo');
+      
+      if (submenuEstoque.classList.contains('ativo')) {
+        abrirOpcoes.classList.remove('fi-rr-angle-down');
+        abrirOpcoes.classList.add('fi-rr-angle-up');
+      } else {
+        abrirOpcoes.classList.remove('fi-rr-angle-up');
+        abrirOpcoes.classList.add('fi-rr-angle-down');
+      }
+    });
+  }
+
+  // Função para carregar dashboard
+  async function carregarDashboard() {
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error('Token não encontrado');
+      
+      const response = await fetch('http://localhost:5000/api/dashboard/mostrar', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) throw new Error('Erro na requisição');
+      
+      const data = await response.json();
+      console.log('Dados recebidos:', data);
+
+      // Atualiza os cards principais
+      const updateValue = (id, value) => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = value || '0';
+      };
+
+      updateValue('totalUsuarios', data.totalUsuarios);
+      updateValue('totalFornecedores', data.totalFornecedores);
+      updateValue('totalEstoque', data.totalEstoque);
+
+      // Atualiza as seções de dados
+      const sections = [
+        {
+          selector: '.SecaoDados .DadoBox:nth-child(1)',
+          updates: {
+            '.ladoDireito p:nth-child(1) strong': data.entradasRecentes,
+            '.ladoDireito p:nth-child(2) strong': data.fornecedoresRecentes
+          }
+        },
+        {
+          selector: '.SecaoDados .DadoBox:nth-child(2)',
+          updates: {
+            '.ladoDireito p:nth-child(1) strong': data.totalFornecedores
+          }
+        },
+        {
+          selector: '.SecaoDados .DadoBox:nth-child(3)',
+          updates: {
+            '.ladoDireito p:nth-child(1) strong': data.totalProdutos
+          }
+        }
+      ];
+
+      sections.forEach(section => {
+        const container = document.querySelector(section.selector);
+        if (container) {
+          Object.entries(section.updates).forEach(([selector, value]) => {
+            const element = container.querySelector(selector);
+            if (element) element.textContent = value || '0';
+          });
+        }
+      });
+
+    } catch (error) {
+      console.error('Erro ao carregar dashboard:', error);
+      alert('Erro ao carregar dados. Verifique o console.');
+    }
+  }
+
+  // Inicia a aplicação
+  if (checkAuth()) {
+    carregarDashboard();
+  }
+</script>
 </body>
 </html>
+
+
+
