@@ -84,8 +84,9 @@ table {
     background-color: white;
     color: #161515;
     margin-top: 100px; 
-    width: 1250px;
+    width: 1000px;    
     table-layout: fixed;
+     word-wrap: break-word;
 }
 
 table td, table th {
