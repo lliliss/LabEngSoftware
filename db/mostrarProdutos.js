@@ -11,7 +11,7 @@ async function buscarProdutos() {
         e.quantidade, 
         l.data_validade AS validade, 
         f.nome AS fornecedor,
-        l.numero_serie AS serie,
+        l.numero_serie,
         l.id_lote
       FROM produtos p
       JOIN lotes l ON p.id_produto = l.produto_id

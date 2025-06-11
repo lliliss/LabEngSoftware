@@ -36,7 +36,7 @@ function mostrarProdutos(pagina) {
     <td>${produto.categoria}</td>
     <td>${produto.validade}</td>
     <td>${produto.fornecedor}</td>
-    <td>${produto.serie}</td>
+    <td>${produto.numero_serie}</td>
     <td>
         <div class="quantidade-container">
         <button class="subtrairBtn" data-index="${index}" title="Diminuir">➖</button>

@@ -37,7 +37,7 @@ function mostrarProdutos(pagina) {
       <td>${produto.quantidade}</td>
       <td>${produto.validade}</td>
       <td>${produto.fornecedor}</td>
-      <td>${produto.serie}</td>
+      <td>${produto.numero_serie}</td>
       <td><button class="botao-editar" onclick="editarProduto('${produto.nome}')">✏️</button></td>
     `;
     tbody.appendChild(tr);

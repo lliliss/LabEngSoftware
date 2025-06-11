@@ -9,7 +9,7 @@ async function editarProduto(dados) {
     fornecedor,
     validade,
     quantidade,
-    serie
+    numero_serie
   } = dados;
   // Atualiza produtos
   const queryProdutos = `
@@ -26,7 +26,7 @@ async function editarProduto(dados) {
       SET data_validade = $1, quantidade = $2, numero_serie = $3
       WHERE id_lote = $4
     `;
-    await pool.query(queryLotes, [validade, quantidade, serie, id_lote]);
+    await pool.query(queryLotes, [validade, quantidade, numero_serie, id_lote]);
   } else {
     console.warn("ID do lote não foi informado. Não foi possível atualizar a tabela lotes.");
   }

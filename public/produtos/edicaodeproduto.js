@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.getElementById("nome").value = produto.nome || "";
   document.getElementById("categoria").value = produto.categoria || "";
-  document.getElementById("serie").value = produto.serie || "";
+  document.getElementById("numero_serie").value = produto.numero_serie || "";
 
 
   // Converter "31/05/2025" para "2025-05-31"
@@ -59,7 +59,7 @@ document.getElementById("salvar").addEventListener("click", async function () {
     id_lote: produto.id_lote,
     quantidade: parseInt(produto.quantidade),
     dataValidade: document.getElementById("validade").value.trim(),  // formato ISO yyyy-mm-dd
-    serie: document.getElementById("serie").value.trim()
+    numero_serie: document.getElementById("numero_serie").value.trim()
   }
 };
 

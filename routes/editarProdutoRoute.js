@@ -11,7 +11,7 @@ router.put("/editar/:id_produto", authMiddleware, async (req, res) => {
       nome,
       categoria,
       fornecedores,
-      lote: { quantidade, dataValidade, numeroSerie, id_lote }
+      lote: { quantidade, dataValidade, numero_serie, id_lote }
     } = req.body;
 
     await editarProduto({
@@ -22,7 +22,7 @@ router.put("/editar/:id_produto", authMiddleware, async (req, res) => {
       fornecedor: fornecedores,
       validade: dataValidade,
       quantidade,
-      serie: numeroSerie
+      numero_serie: numero_serie
     });
 
     res.status(200).json({ mensagem: "Produto atualizado com sucesso!" });
