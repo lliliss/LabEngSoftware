@@ -131,7 +131,7 @@ document.getElementById("buscarFornecedor").addEventListener("input", function (
   if (this.value.trim() === "") carregarFornecedor();
 });
 document.getElementById("novoFornecedor").addEventListener("click", () => {
-  window.open("novoFornecedor.html", "_self");
+  window.open("novofornecedor.html", "_self");
 });
 document.getElementById("usuarioIcon").addEventListener("click", () => {
   window.open("../usuarioIcon/usuarioIcon.html", "_self");

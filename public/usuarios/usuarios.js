@@ -134,7 +134,7 @@ document.getElementById("buscarUsuario").addEventListener("input", function () {
   if (this.value.trim() === "") carregarUsuarios();
 });
 document.getElementById("novoUsuario").addEventListener("click", () => {
-  window.open("novoUsuario.html", "_self");
+  window.open("novousuario.html", "_self");
 });
 document.getElementById("usuarioIcon").addEventListener("click", () => {
   window.open("../usuarioIcon/usuarioIcon.html", "_self");
