@@ -63,14 +63,8 @@ document.getElementById("salvar").addEventListener("click", async function () {
   }
 };
 
-  console.log("Produto original:", produtoOriginal);
-  console.log("ID do produto:", produtoOriginal?.id_produto);
-
 
   try {
-
-    console.log('URL que será chamada:', `https://labengsoftware.onrender.com/api/produtos/editar/${produtoOriginal.id_produto}`);
-    console.log('Produto original:', produtoOriginal);
 
     const token = localStorage.getItem('token');
     const resposta = await fetch(`https://labengsoftware.onrender.com/api/produtos/editar/${produtoOriginal.id_produto}`, {
@@ -115,7 +109,7 @@ document.getElementById("salvar").addEventListener("click", async function () {
     if (confirm("Tem certeza que deseja excluir este produto?")) {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:5000/api/deleteprodutos/${idProduto}`, {
+        const response = await fetch(`https://labengsoftware.onrender.com/api/deleteprodutos/${idProduto}`, {
         method: 'DELETE',
         headers: {
         'Authorization': `Bearer ${token}`
@@ -176,7 +170,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     const token = localStorage.getItem('token');
-    const response = await fetch('http://localhost:5000/api/fornecedores', {
+    const response = await fetch('https://labengsoftware.onrender.com/api/fornecedores', {
       headers: {
         'Authorization': `Bearer ${token}`
       }

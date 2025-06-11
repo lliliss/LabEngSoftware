@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (confirm("Tem certeza que deseja excluir este usuario?")) {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:5000/api/deleteusuarios/${idUsuario}`, {
+        const response = await fetch(`https://labengsoftware.onrender.com/api/deleteusuarios/${idUsuario}`, {
           'Authorization': `Bearer ${token}`,
           method: 'DELETE'
         });
