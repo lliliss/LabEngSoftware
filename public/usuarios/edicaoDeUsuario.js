@@ -70,12 +70,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
             const token = localStorage.getItem('token');
-            const resposta = await fetch(`http://localhost:5000/api/usuarios/editar/${usuarioOriginal.id_usuario}`, {
+            const resposta = await fetch(`https://labengsoftware.onrender.com/api/usuarios/editar/${usuarioOriginal.id_usuario}`, {
                 method: "PUT",
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     "Content-Type": "application/json"
                 },
+                credentials: "include",
                 body: JSON.stringify(usuarioAtualizado)
             });
 

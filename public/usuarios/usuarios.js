@@ -6,10 +6,11 @@ let listaAtual = [];
 async function carregarUsuarios() {
   try {
     const token = localStorage.getItem('token');
-    const resposta = await fetch("http://localhost:5000/api/usuariosmostrar/mostrar", {
+    const resposta = await fetch("https://labengsoftware.onrender.com/api/usuariosmostrar/mostrar", {
       headers: {
         'Authorization': `Bearer ${token}`,
-      }
+      },
+      credentials:"include",
     });
     if (!resposta.ok) throw new Error("Erro ao carregar usuários");
     const dados = await resposta.json();

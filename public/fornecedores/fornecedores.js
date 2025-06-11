@@ -5,10 +5,11 @@ let listaAtual = [];
 async function carregarFornecedor() {
   try {
     const token = localStorage.getItem('token');
-    const resposta = await fetch("http://localhost:5000/api/fornecedoresmostrar/mostrar", {
+    const resposta = await fetch("https://labengsoftware.onrender.com/api/fornecedoresmostrar/mostrar", {
       headers: {
         'Authorization': `Bearer ${token}`
-      }
+      },
+      credentials: "include",
     });
     if (!resposta.ok) throw new Error("Erro ao carregar fornecedores");
     const dados = await resposta.json();

@@ -50,12 +50,13 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Dados do novo usuário:', usuario);
     try {
       const token = localStorage.getItem('token');
-      const resposta = await fetch('http://localhost:5000/api/usuarios/enviar', {
+      const resposta = await fetch('https://labengsoftware.onrender.com/api/usuarios/enviar', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
+        credentials: "include",
         body: JSON.stringify(usuario),
       });
 

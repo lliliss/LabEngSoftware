@@ -8,10 +8,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
 
         // Carrega produtos com estoque baixo
-        const responseEstoque = await fetch('http://localhost:5000/api/notificacoes/estoque-baixo', {
+        const responseEstoque = await fetch('https://labengsoftware.onrender.com/api/notificacoes/estoque-baixo', {
             headers: {
                 'Authorization': `Bearer ${token}`
-            }
+            },
+            credentials: "include",
         });
         
         if (!responseEstoque.ok) {
@@ -37,10 +38,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
         
         // Carrega produtos com vencimento próximo
-        const responseVencimento = await fetch('http://localhost:5000/api/notificacoes/vencimento-proximo', {
+        const responseVencimento = await fetch('https://labengsoftware.onrender.com/api/notificacoes/vencimento-proximo', {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
+            ,credentials:"include",
         });
         
         if (!responseVencimento.ok) {

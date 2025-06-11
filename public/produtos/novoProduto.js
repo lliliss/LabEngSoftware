@@ -28,12 +28,13 @@ document.getElementById('salvar').addEventListener('click', function (e) {
   };
 
   const token = localStorage.getItem('token');
-  fetch("http://localhost:5000/api/produtos/enviar", {
+  fetch("https://labengsoftware.onrender.com/api/produtos/enviar", {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
     },
+    credentials:"include",
     body: JSON.stringify(dados)
   })
         
@@ -109,10 +110,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     const token = localStorage.getItem('token');
-    const response = await fetch('http://localhost:5000/api/fornecedores', {
+    const response = await fetch('https://labengsoftware.onrender.com/api/fornecedores', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
+      , credentials: "include",
     });
 
     const fornecedores = await response.json();

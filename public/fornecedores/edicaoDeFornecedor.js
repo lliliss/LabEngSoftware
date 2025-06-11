@@ -53,12 +53,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
       const token = localStorage.getItem('token');
-      const resposta = await fetch(`http://localhost:5000/api/fornecedores/editar/${fornecedorOriginal.id_fornecedor}`, {
+      const resposta = await fetch(`https://labengsoftware.onrender.com/api/fornecedores/editar/${fornecedorOriginal.id_fornecedor}`, {
         method: "PUT",
         headers: {
           'Authorization': `Bearer ${token}`,
           "Content-Type": "application/json"
         },
+        credentials: 'include',
         body: JSON.stringify(fornecedorAtualizado)
       });
 
@@ -91,11 +92,12 @@ document.addEventListener("DOMContentLoaded", function () {
     if (confirm("Tem certeza que deseja excluir este fornecedor?")) {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:5000/api/deletefornecedores/${idFornecedor}`, {
+        const response = await fetch(`https://labengsoftware.onrender.com/api/deletefornecedores/${idFornecedor}`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Bearer ${token}`
-          }
+          },
+          credentials: "include",
         });
 
         if (response.ok) {

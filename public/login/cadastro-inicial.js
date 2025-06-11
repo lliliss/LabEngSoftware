@@ -22,9 +22,10 @@ document.getElementById('cadastroInicialForm').addEventListener('submit', async 
     }
 
     try {
-        const response = await fetch('http://localhost:5000/api/usuarios/cadastro-inicial', {
+        const response = await fetch('https://labengsoftware.onrender.com/api/usuarios/cadastro-inicial', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
+            credentials: "include",
             body: JSON.stringify({ nome, email, cpf, senha })
         });
 

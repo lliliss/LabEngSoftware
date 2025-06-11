@@ -10,6 +10,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     const response = await fetch('https://labengsoftware.onrender.com/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials:"include",
       body: JSON.stringify({ email, senha })
     });
 

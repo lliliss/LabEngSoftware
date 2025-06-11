@@ -12,12 +12,13 @@ document.getElementById("btn-gerar").addEventListener("click", async () => {
 
   try {
     const token = localStorage.getItem('token');
-    const response = await fetch("http://localhost:5000/api/relatorios/gerar", {
+    const response = await fetch("https://labengsoftware.onrender.com/api/relatorios/gerar", {
       method: "POST",
       headers: {
         'Authorization': `Bearer ${token}`,
         "Content-Type": "application/json"
       },
+      credentials: "include",
       body: JSON.stringify({ tipos, dataInicial, dataFinal })
     });
 

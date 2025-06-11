@@ -5,11 +5,12 @@ let listaAtual = [];
 async function carregarProdutos() {
   try {
     const token = localStorage.getItem('token');
-    const resposta = await fetch('/api/produtosmostrar/mostrar', {
+    const resposta = await fetch('https://labengsoftware.onrender.com/api/produtosmostrar/mostrar', {
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
-      }
+      },
+      credentials : 'include'
     });
     if (!resposta.ok) throw new Error("Erro ao carregar produtos");
     const dados = await resposta.json();
