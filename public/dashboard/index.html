@@ -160,10 +160,11 @@
       const token = localStorage.getItem('token');
       if (!token) throw new Error('Token não encontrado');
       
-      const response = await fetch('http://localhost:5000/api/dashboard/mostrar', {
+      const response = await fetch('https://labengsoftware.onrender.com/api/dashboard/mostrar', {
         headers: {
           'Authorization': `Bearer ${token}`
-        }
+        },
+        credentials: 'include'
       });
 
       if (!response.ok) throw new Error('Erro na requisição');

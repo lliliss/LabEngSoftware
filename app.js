@@ -53,7 +53,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Rotas públicas
 app.use('/api', loginRouter)
-
+  
 // Rotas autenticadas comuns
 app.use('/api/produtos', authMiddleware, produtosRotas);
 app.use('/api/produtosmostrar', authMiddleware, mostrarProdutosRouter);
