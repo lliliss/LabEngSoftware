@@ -40,10 +40,14 @@ verificarAdmin().then(existeAdmin => {
 });
 
 app.use(cors({
-  origin: ['http://localhost:5000', "https://pharmasafe.vercel.app/login/logins.html"], // ou seu domínio
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: ['https://pharmasafe.vercel.app', 'http://localhost:5000'], 
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
+
+app.options('*', cors());
+
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
