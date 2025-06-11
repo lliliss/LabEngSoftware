@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         const token = localStorage.getItem('token');
-        const resposta = await fetch("http://localhost:5000/api/fornecedores/enviar", {
+        const resposta = await fetch("https://labengsoftware.onrender.com/api/fornecedores/enviar", {
           method: "POST",
           headers: { "Content-Type": "application/json",
             'Authorization': `Bearer ${token}`
