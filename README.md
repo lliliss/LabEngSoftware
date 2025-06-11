@@ -14,7 +14,6 @@ O **PharmaSafe** é uma aplicação web desenvolvida para facilitar o controle e
 - **PostgreSQL**: banco de dados relacional
 - **bcrypt**: hash seguro de senhas
 - **jsonwebtoken (JWT)**: autenticação por token
-- **nodemailer**: envio de e-mails (recuperação de senha)
 - **pdfkit**: geração de relatórios em PDF
 - **dotenv**: gerenciamento de variáveis de ambiente
 
