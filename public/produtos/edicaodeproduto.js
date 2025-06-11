@@ -62,6 +62,10 @@ document.getElementById("salvar").addEventListener("click", async function () {
 };
 
   try {
+
+    console.log('URL que será chamada:', `https://labengsoftware.onrender.com/api/produtos/editar/${produtoOriginal.id_produto}`);
+    console.log('Produto original:', produtoOriginal);
+
     const token = localStorage.getItem('token');
     const resposta = await fetch(`https://labengsoftware.onrender.com/api/produtos/editar/${produtoOriginal.id_produto}`, {
       method: "PUT",
@@ -71,7 +75,7 @@ document.getElementById("salvar").addEventListener("click", async function () {
       },
       credentials: "include",
       body: JSON.stringify(produtoAtualizado)
-    });
+    }); 
 
 
     if (resposta.ok) {
