@@ -135,7 +135,7 @@ document.getElementById("buscarProduto").addEventListener("input", function () {
   if (this.value.trim() === "") carregarProdutos();
 });
 document.getElementById("novoProduto").addEventListener("click", () => {
-  window.open("novoProduto.html", "_self");
+  window.open("novoproduto.html", "_self");
 });
 document.getElementById("iconUsuario").addEventListener("click", () => {
   window.open("../iconUsuario/iconUsuario,html", "_self");
