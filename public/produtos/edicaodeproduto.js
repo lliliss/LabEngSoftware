@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // Preenche os campos do formulário
   console.log("Produto recebido:", produto);
 
+  
+
   document.getElementById("nome").value = produto.nome || "";
   document.getElementById("categoria").value = produto.categoria || "";
   document.getElementById("serie").value = produto.serie || "";
@@ -60,6 +62,10 @@ document.getElementById("salvar").addEventListener("click", async function () {
     serie: document.getElementById("serie").value.trim()
   }
 };
+
+  console.log("Produto original:", produtoOriginal);
+  console.log("ID do produto:", produtoOriginal?.id_produto);
+
 
   try {
 
